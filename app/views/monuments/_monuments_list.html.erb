@@ -1,0 +1,9 @@
+<%= paginate monuments %>
+<dl>
+	<% monuments.each do | monument | %>
+		<dt><%= monument.id%></dt>
+		<dd>
+			<%= link_to_monument monument %>
+		</dd>
+	<% end %>
+</dl>

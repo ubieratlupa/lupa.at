@@ -1,0 +1,62 @@
+.monument {
+	width: 810px;
+	margin: 0px auto;
+	padding: 1px 0;
+}
+
+.monument h1 {
+	margin-left: 130px;
+}
+
+.monument p {
+	margin-left: 130px;
+	width: 550px;
+}
+
+.monument .photos img {
+	margin-right: 10px;
+	padding: 2px;
+/*	border: 0.5px solid #aaa;*/
+	box-shadow: 0px 1px 4px rgba(0,0,0,0.3);
+}
+
+.monument .photos {
+	margin-left: 130px;
+}
+
+dl {
+}
+
+dt {
+	color: #aaa;
+	float: left;
+	clear: both;
+	width: 122px;
+	font-size: 13px;
+	line-height: 21px;
+	text-align: right;
+	padding-top: 0px;
+	margin-bottom: 10px;
+}
+
+dd a {
+	color: inherit !important;
+	text-decoration: none;
+}
+
+dd a:hover {
+	text-decoration: underline;
+}
+
+dd {
+	float: left;
+	margin: 0 0 17px 8px;
+/*	margin-left: 130px;*/
+	font-size: 14px;
+	line-height: 21px;
+	width: 400px;
+}
+
+.deemph {
+	color: #999;
+}

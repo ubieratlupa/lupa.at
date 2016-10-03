@@ -1,0 +1,86 @@
+<div class="monument">
+	<h1><%= @monument.title %></h1>
+	<div class="photos">
+		<% @photos.each do | photo | %>
+			<a href="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>"><img src="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>" height=175></a>
+		<% end %>
+	</div>
+	<dl>
+		<dt>Nr</dt>
+		<dd><%= @monument.id %></dd>
+		<dt>Typ</dt>
+		<dd>
+			<%= @monument.object_type %>
+			<% if @monument.monument_type %>
+				–
+				<%= @monument.monument_type %>
+			<% end  %>
+		</dd>
+		<% if @monument.comment %>
+			<dt>Kommentar</dt>
+			<dd>
+				<%= @monument.comment %>
+			</dd>
+		<% end %>
+		
+		<dt>Fundort</dt>
+		<dd>
+			<%= @monument.finding_place.try(:name) %> <%= @monument.finding_place_comment %><br>
+			<span class="deemph"><%= @monument.finding_place.try(:parent).try(:full_name) %></span>
+		</dd>
+		<% if @monument.finding_comment %>
+			<dt>Fundumstände</dt>
+			<dd>
+				<%= @monument.finding_comment %>
+			</dd>
+		<% end  %>
+		<% if @monument.ancient_finding_place %>
+			<dt>Antiker Fundort</dt>
+			<dd>
+				<%= @monument.ancient_finding_place.full_name %>
+			</dd>
+		<% end  %>
+		<dt>Verwahrort</dt>
+		<dd>
+			<%= @monument.conservation_place.name %><br>
+			<span class="deemph"><%= @monument.conservation_place.parent.full_name %></span>
+		</dd>
+		<% if @monument.conservation_comment %>
+			<dt>Verwahrumstände</dt>
+			<dd>
+				<%= @monument.conservation_comment %>
+			</dd>
+		<% end  %>
+		<% if @monument.museum %>
+			<dt>Museum</dt>
+			<dd>
+				<%= link_to @monument.museum.name + " " + @monument.museum.place.name, @monument.museum %>
+			</dd>
+		<% end  %>
+		<% if @monument.museum_inventory_number %>
+			<dt>Inventarnummer</dt>
+			<dd>
+				<%= @monument.museum_inventory_number %>
+			</dd>
+		<% end  %>
+		<% if @monument.conservation_state %>
+			<dt>Erhaltung</dt>
+			<dd>
+				<%= @monument.conservation_state %>
+			</dd>
+		<% end  %>
+		<% if @monument.iconography %>
+			<dt>Ikonographie</dt>
+			<dd>
+				<%= @monument.iconography %>
+			</dd>
+		<% end  %>
+		<% if @monument.catalog_text %>
+			<dt>Katalogtext</dt>
+			<dd>
+				<%= @monument.catalog_text %>
+			</dd>
+		<% end %>
+		
+	</dl>
+</div>

@@ -1,0 +1,79 @@
+
+body {
+	font-family: Helvetica, sans-serif;
+	font-weight: 100;
+	margin: 77px 0 0 0;
+	padding: 0;
+}
+  	
+a {
+	color: #266eaf;
+}
+
+a:visited {
+	color: #6b43b7;
+}
+	
+#lupa-title {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 25px;
+	font-weight: 800;
+	background: #fff;
+	color: #000;
+/*	border-bottom: 1px solid #7f7f7f;*/
+	position: absolute;
+	left: 0; right: 0; top: 0; 
+	height: 40px;
+}
+#lupa-title h1 {
+	font-weight: normal;
+	margin: 0;
+	font-size: 24px;
+	position: absolute;
+	left:8px;
+	bottom: 4px;
+	z-index: 2;
+}
+#lupa-title h2 {
+	font-family: Helvetica, sans-serif;
+	font-weight: 100;
+	margin: 0 auto;
+	font-size: 16px;
+	color: #4e4e4e;
+	position: absolute;
+	right: 10px;
+	bottom: 7px;
+	z-index: 1;
+	text-align: right;
+	max-width: 75%;
+}
+
+#lupa-menu {
+	font-family: Helvetica;
+	font-weight: 100;
+	font-size: 15px;
+	position: absolute;
+	top: 41px;
+	left: 0;
+	right:0;
+	height: 35px;
+/*	border-bottom: 1px solid #7f7f7f;*/
+	text-align: center;
+	background: #eee;
+}
+#lupa-menu a {
+	display: inline-block;
+	text-decoration: none;
+	color: #666;
+	height: 19px;
+	padding: 8px 10px;
+	vertical-align: center;
+}
+#lupa-menu a:hover {
+	text-decoration: underline;
+}
+#lupa-menu a:active {
+}
+#lupa-menu a.active {
+	text-decoration: underline;
+}
