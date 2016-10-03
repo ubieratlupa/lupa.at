@@ -24,4 +24,4 @@ test:
 
 production:
   <<: *default
-  database: lupa-production
+  database: lupa_production
