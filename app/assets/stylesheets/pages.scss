@@ -1,7 +1,11 @@
 .page {
-	width: 550px;
+	max-width: 550px;
 	margin: 0px auto;
-	padding: 40px 0;
+	padding: 40px 10px;
+}
+
+.page img {
+	max-width: 100%;
 }
 
 #content p {

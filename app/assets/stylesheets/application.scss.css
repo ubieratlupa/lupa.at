@@ -1,9 +1,11 @@
-
 body {
 	font-family: Helvetica, sans-serif;
 	font-weight: 100;
-	margin: 77px 0 0 0;
+	margin: 0;
 	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
   	
 a {
@@ -20,43 +22,55 @@ a:visited {
 	font-weight: 800;
 	background: #fff;
 	color: #000;
+	display: flex;
+	align-items: flex-end;
+	flex-wrap: wrap;
 /*	border-bottom: 1px solid #7f7f7f;*/
-	position: absolute;
-	left: 0; right: 0; top: 0; 
-	height: 40px;
+/*	position: absolute;*/
+/*	left: 0; right: 0; top: 0;*/
+/*	height: 40px;*/
 }
 #lupa-title h1 {
 	font-weight: normal;
-	margin: 0;
+	margin: 4px 6px 2px;
 	font-size: 24px;
-	position: absolute;
-	left:8px;
-	bottom: 4px;
-	z-index: 2;
+	float: left;
+/*	left:8px;*/
+/*	bottom: 4px;*/
+/*	z-index: 2;*/
 }
 #lupa-title h2 {
 	font-family: Helvetica, sans-serif;
 	font-weight: 100;
-	margin: 0 auto;
+	margin: 4px 6px 5px;
 	font-size: 16px;
 	color: #4e4e4e;
-	position: absolute;
-	right: 10px;
-	bottom: 7px;
-	z-index: 1;
+	float: right;
+	flex-grow: 1;
+/*	position: absolute;*/
+/*	right: 10px;*/
+/*	bottom: 7px;*/
+/*	z-index: 1;*/
 	text-align: right;
-	max-width: 75%;
+/*	max-width: 85%;*/
+}
+
+@media all and (max-width: 500px) {
+	#lupa-title h2 {
+		display: none;
+	}
 }
 
 #lupa-menu {
 	font-family: Helvetica;
 	font-weight: 100;
 	font-size: 15px;
-	position: absolute;
-	top: 41px;
-	left: 0;
-	right:0;
-	height: 35px;
+	clear: both;
+/*	position: absolute;*/
+/*	top: 41px;*/
+/*	left: 0;*/
+/*	right:0;*/
+/*	height: 35px;*/
 /*	border-bottom: 1px solid #7f7f7f;*/
 	text-align: center;
 	background: #eee;
@@ -76,4 +90,10 @@ a:visited {
 }
 #lupa-menu a.active {
 	text-decoration: underline;
+}
+
+#content {
+	clear: both;
+	flex-grow: 1;
+	position: relative;
 }
