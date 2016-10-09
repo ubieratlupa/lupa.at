@@ -2,6 +2,7 @@ require 'mina/rails'
 require 'mina/git'
 # require 'mina/rbenv'  # for rbenv support. (https://rbenv.org)
 require 'mina/rvm'    # for rvm support. (https://rvm.io)
+#require 'mina/puma'
 
 # Basic settings:
 #   domain       - The hostname to SSH to.
@@ -9,10 +10,10 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
 #   repository   - Git repo to clone from. (needed by mina/git)
 #   branch       - Branch name to deploy. (needed by mina/git)
 
-set :domain, 'linode'
-set :deploy_to, '/var/www/sites/lupa.at'
+set :domain, 'lupa'
+set :deploy_to, '/var/www/lupa.at'
 set :repository, 'git@bitbucket.org:jabakobob/lupa-at.git'
-set :branch, 'deploy'
+set :branch, 'master'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
