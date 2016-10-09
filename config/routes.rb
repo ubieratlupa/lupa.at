@@ -14,6 +14,7 @@ Rails.application.routes.draw do
   # get 'museums/:id' => 'museums#show'
 
   resources :museums
+  resources :places
 
   get ':id' => 'monuments#show'
   

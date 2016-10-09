@@ -7,4 +7,6 @@ class Monument < ActiveRecord::Base
   has_many :photos
   
   default_scope { order(:id) }
+  scope :found_in, ->(place) { where(finding_place: place) }
+  scope :conserved_in, ->(place) { where(conservation_place: place) }
 end
