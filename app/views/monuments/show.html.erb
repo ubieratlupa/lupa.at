@@ -25,7 +25,7 @@
 		
 		<dt>Fundort</dt>
 		<dd>
-			<%= @monument.finding_place.try(:name) %> <%= @monument.finding_place_comment %><br>
+			<%= link_to_finding_place @monument.finding_place %> <%= @monument.finding_place_comment %><br>
 			<span class="deemph"><%= @monument.finding_place.try(:parent).try(:full_name) %></span>
 		</dd>
 		<% if @monument.finding_comment %>

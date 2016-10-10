@@ -1,4 +1,7 @@
 <ol class="breadcrumb">
+	<% if root %>
+		<li><%= root %></li>
+	<% end %>
 	<% place.hierarchy.each do | place | %>
 		<li><%= link_to place.name, place %></li>
 	<% end %>

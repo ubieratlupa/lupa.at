@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   root 'places#map_finding_places'
 
   get 'about' => 'pages#about'
+  
+  get 'finding_places/:id' => 'places#show_finding'
 
   # get 'museums/:id' => 'museums#show'
 

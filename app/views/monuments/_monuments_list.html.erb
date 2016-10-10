@@ -1,7 +1,7 @@
 <%= paginate monuments if monuments.respond_to? :total_pages %>
 <dl>
 	<% monuments.each do | monument | %>
-		<dt>lupa.at/<%= monument.id%></dt>
+		<dt><%= monument.id%></dt>
 		<dd>
 			<%= link_to_monument monument %>
 		</dd>
