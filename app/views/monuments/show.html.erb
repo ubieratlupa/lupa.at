@@ -1,10 +1,42 @@
 <div class="monument page">
 	<h2><%= @monument.title %></h2>
-	<div class="photos">
-		<% @photos.each do | photo | %>
-			<a href="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>"><img src="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>" height=175></a>
-		<% end %>
-	</div>
+	<% if @photos.count > 0 %>
+		<div class="photos">
+			<%
+			captions = []
+			photo_numbers = []
+			@photos.each_with_index do | photo, photo_index |
+				caption = photo.caption
+				caption_index = captions.index caption
+				if caption_index
+					photo_numbers[caption_index].push photo_index+1
+				else
+					captions.push caption
+					photo_numbers.push [photo_index+1]
+				end
+			end
+			%>
+			<% @photos.each_with_index do | photo, idx | %>
+				<a href="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>">
+					<% if captions.count > 1 %>
+						<span><%= idx + 1 %></span>
+					<% end %>
+					<img src="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>" height=175>
+				</a>
+			<% end %>
+			<div class='caption'>
+				<%= @photos.count == 1 ? 'Foto: ' : 'Fotos: ' %>
+				<% captions.each_with_index do | caption, index | %>
+					<span>
+						<% if captions.count > 1 %>
+							<%= raw photo_numbers[index].map{|a| '<span>'+h(a)+'</span>'}.join(' ')%>
+						<% end %>
+						<%= caption %>
+					</span>
+				<% end %>
+			</div>
+		</div>
+	<% end %>
 	<dl>
 		<dt>Nr</dt>
 		<dd><%= @monument.id %></dd>
