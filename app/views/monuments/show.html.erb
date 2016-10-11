@@ -1,5 +1,5 @@
-<div class="monument">
-	<h1><%= @monument.title %></h1>
+<div class="monument page">
+	<h2><%= @monument.title %></h2>
 	<div class="photos">
 		<% @photos.each do | photo | %>
 			<a href="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>"><img src="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>" height=175></a>
@@ -25,8 +25,8 @@
 		
 		<dt>Fundort</dt>
 		<dd>
-			<%= link_to_finding_place @monument.finding_place %> <%= @monument.finding_place_comment %><br>
-			<span class="deemph"><%= @monument.finding_place.try(:parent).try(:full_name) %></span>
+			<%= link_to_finding_place @monument.finding_place %> <%= @monument.finding_place_comment %>
+			<span class="deemph">(<%= @monument.finding_place.try(:parent).try(:full_name) %>)</span>
 		</dd>
 		<% if @monument.finding_comment %>
 			<dt>Fundumstände</dt>
@@ -42,8 +42,8 @@
 		<% end  %>
 		<dt>Verwahrort</dt>
 		<dd>
-			<%= @monument.conservation_place.name %><br>
-			<span class="deemph"><%= @monument.conservation_place.parent.full_name %></span>
+			<%= @monument.conservation_place.name %>
+			<span class="deemph">(<%= @monument.conservation_place.parent.full_name %>)</span>
 		</dd>
 		<% if @monument.conservation_comment %>
 			<dt>Verwahrumstände</dt>
