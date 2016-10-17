@@ -12,6 +12,7 @@
 }
 
 .monument .photos {
+	margin-bottom: 20px;
 }
 
 .photos a {
@@ -52,6 +53,13 @@
 }
 
 dl {
+	margin: 0;
+}
+
+dl.third {
+	display: inline-block;
+	width: 30%;
+	vertical-align: top;
 }
 
 dt {
@@ -60,10 +68,11 @@ dt {
 	line-height: 16px;
 	padding-top: 0px;
 	margin-bottom: 0px;
+	font-weight: 100;
 }
 
 dd {
-	margin: 0 0 11px;
+	margin: 0 0 7px;
 /*	margin-left: 130px;*/
 	font-size: 14px;
 	line-height: 19px;
@@ -80,4 +89,13 @@ dd a:hover {
 
 .deemph {
 	color: #999;
+}
+
+dd .measurement + .measurement {
+	margin-left: 1em;
+}
+
+hr {
+	border: 0px solid #eee;
+	border-bottom: 1px solid #ddd;
 }

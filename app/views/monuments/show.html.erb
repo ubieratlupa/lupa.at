@@ -1,5 +1,5 @@
 <div class="monument page">
-	<h2><%= @monument.title %></h2>
+	<h2><%= @monument.id %> <%= @monument.title %></h2>
 	<% if @photos.count > 0 %>
 		<div class="photos">
 			<%
@@ -37,24 +37,39 @@
 			</div>
 		</div>
 	<% end %>
-	<dl>
+	<dl class='third'>
 		<dt>Nr</dt>
 		<dd><%= @monument.id %></dd>
-		<dt>Typ</dt>
+	</dl>
+	<dl class='third'>
+		<dt>Objekt-Typ</dt>
 		<dd>
 			<%= @monument.object_type %>
-			<% if @monument.monument_type %>
-				–
-				<%= @monument.monument_type %>
-			<% end  %>
 		</dd>
+	</dl>
+	<% if @monument.monument_type %>
+		<dl class='third'>
+			<dt>Denkmal-Typ</dt>
+			<dd>
+				<%= @monument.monument_type %>
+			</dd>
+		</dl>
+	<% end %>
+	<dl>
 		<% if @monument.comment %>
 			<dt>Kommentar</dt>
 			<dd>
 				<%= @monument.comment %>
 			</dd>
 		<% end %>
+		<% if @monument.related_monument_ids %>
+			<dt>Teil von</dt>
+			<dd>
+				<%= @monument.related_monument_ids %>
+			</dd>
+		<% end %>
 		
+		<hr>
 		<dt>Fundort</dt>
 		<dd>
 			<%= link_to_finding_place @monument.finding_place %> <%= @monument.finding_place_comment %>
@@ -72,21 +87,23 @@
 				<%= @monument.ancient_finding_place.full_name %>
 			</dd>
 		<% end  %>
+		
+		<hr>
 		<dt>Verwahrort</dt>
 		<dd>
-			<%= @monument.conservation_place.name %>
-			<span class="deemph">(<%= @monument.conservation_place.parent.full_name %>)</span>
+			<%= @monument.conservation_place.try(:name) %>
+			<span class="deemph">(<%= @monument.conservation_place.try(:parent).try(:full_name) %>)</span>
 		</dd>
-		<% if @monument.conservation_comment %>
-			<dt>Verwahrumstände</dt>
-			<dd>
-				<%= @monument.conservation_comment %>
-			</dd>
-		<% end  %>
 		<% if @monument.museum %>
 			<dt>Museum</dt>
 			<dd>
 				<%= link_to @monument.museum.name + " " + @monument.museum.place.name, @monument.museum %>
+			</dd>
+		<% end  %>
+		<% if @monument.conservation_comment %>
+			<dt>Verwahrumstände</dt>
+			<dd>
+				<%= @monument.conservation_comment %>
 			</dd>
 		<% end  %>
 		<% if @monument.museum_inventory_number %>
@@ -95,18 +112,158 @@
 				<%= @monument.museum_inventory_number %>
 			</dd>
 		<% end  %>
+		
+		<hr>
 		<% if @monument.conservation_state %>
 			<dt>Erhaltung</dt>
 			<dd>
 				<%= @monument.conservation_state %>
 			</dd>
 		<% end  %>
+		<% if @monument.width ||  @monument.height || @monument.depth %>
+			<dt>Maße</dt>
+			<dd>
+				<% if @monument.width %>
+					<span class='measurement'>
+						Breite: <%= @monument.width %>
+					</span>
+				<% end %>
+				<% if @monument.height %>
+					<span class='measurement'>
+						Höhe: <%= @monument.height %>
+					</span>
+				<% end %>
+				<% if @monument.depth %>
+					<span class='measurement'>
+						Tiefe: <%= @monument.depth %>
+					</span>
+				<% end %>
+			</dd>
+		<% end  %>
+		<% if @monument.material || @monument.material_local_name %>
+			<dt>Material</dt>
+			<dd>
+				<%= @monument.material %>
+				<% if @monument.material_local_name %>
+					<span class="deemph">(<%= @monument.material_local_name %>)</span>
+				<% end %>
+			</dd>
+		<% end %>
+		
+		<hr>
 		<% if @monument.iconography %>
 			<dt>Ikonographie</dt>
 			<dd>
-				<%= @monument.iconography %>
+				<%= nl2br @monument.iconography %>
 			</dd>
 		<% end  %>
+						
+		<% if @monument.inscription %>
+			<dt>Inschrift</dt>
+			<dd>
+				<%= nl2br @monument.inscription %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_variants %>
+			<dt>Varianten</dt>
+			<dd>
+				<%= nl2br @monument.inscription_variants %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_translation %>
+			<dt>Übersetzung</dt>
+			<dd>
+				<%= nl2br @monument.inscription_translation %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_type %>
+			<dt>Inschrift-Typ</dt>
+			<dd>
+				<%= @monument.inscription_type %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_function %>
+			<dt>Funktion</dt>
+			<dd>
+				<%= @monument.inscription_function %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_name_donor %>
+			<dt>Errichter</dt>
+			<dd>
+				<%= @monument.inscription_name_donor %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_comment %>
+			<dt>Kommentar</dt>
+			<dd>
+				<%= nl2br @monument.inscription_comment %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_letter_size %>
+			<dt>Buchstabenhöhe</dt>
+			<dd>
+				<%= @monument.inscription_letter_size %>
+			</dd>
+		<% end  %>
+		<% if @monument.inscription_paleography %>
+			<dt>Paleographie</dt>
+			<dd>
+				<%= @monument.inscription_paleography %>
+			</dd>
+		<% end  %>
+		
+		<hr>
+		<h3>Datierung</h3>
+		<% if @monument.dating_phase %>
+			<dt>Phase</dt>
+			<dd>
+				<%= @monument.dating_phase %>
+			</dd>
+		<% end  %>
+		<% if @monument.dating_from || @monument.dating_to %>
+			<dt>Jahr</dt>
+			<dd>
+				<% if @monument.dating_from == @monument.dating_to %>
+					<%= @monument.dating_from %>
+					<%= 'n. Chr.' if @monument.dating_from > 0 %>
+					<%= 'v. Chr.' if @monument.dating_from < 0 %>
+				<% else %>
+					<% if @monument.dating_from %>
+						<%= @monument.dating_from %>
+						<%= 'n. Chr.' if @monument.dating_from > 0 %>
+						<%= 'v. Chr.' if @monument.dating_from < 0 %>
+					<% end %>
+					 -
+					<%= @monument.dating_to %>
+					<%= 'n. Chr.' if @monument.dating_to > 0 %>
+					<%= 'v. Chr.' if @monument.dating_to < 0 %>
+				<% end %>
+			</dd>
+		<% end  %>
+		<% if @monument.dating_comment %>
+			<dt>Begründung</dt>
+			<dd>
+				<%= @monument.dating_comment %>
+			</dd>
+		<% end  %>
+		
+		
+		<hr>
+		
+		<% if @monument.literature %>
+			<dt>Literatur</dt>
+			<dd>
+				<%= nl2br @monument.literature %>
+			</dd>
+		<% end %>
+		<% if @monument.literature_online %>
+			<dt>Online Literatur</dt>
+			<dd>
+				<%= nl2br @monument.literature_online %>
+			</dd>
+		<% end %>
+		
 		<% if @monument.catalog_text %>
 			<dt>Katalogtext</dt>
 			<dd>
