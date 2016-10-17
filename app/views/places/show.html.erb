@@ -1,9 +1,16 @@
 <div class="place page">
-	<%= render partial: 'places/breadcrumb', locals: { place: @place } %>
+	<ol class="breadcrumb">
+		<% @place.hierarchy.each do | place | %>
+			<li><%= link_to place.name, place %></li>
+		<% end %>
+	</ol>
 	<h1><%= @place.name %></h1>
-	<p><%= @monuments_found.count %> Steindenkmäler gefunden in <%= @place.name %></p>
-	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_found } %>
-	
-	<p><%= @monuments_conserved.count %> Steindenkmäler verwahrt in <%= @place.name %></p>
-	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_conserved } %>
+	<div class="section">
+		<h3><%= @monuments_found.count %> Steindenkmäler gefunden in <%= @place.name %></h3>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_found } %>
+	</div>
+	<div class="section">
+		<h3><%= @monuments_conserved.count %> Steindenkmäler verwahrt in <%= @place.name %></h3>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_conserved } %>
+	</div>
 </div>

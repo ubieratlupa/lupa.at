@@ -11,8 +11,6 @@ Rails.application.routes.draw do
 
   get 'about' => 'pages#about'
   
-  get 'finding_places/:id' => 'places#show_finding'
-
   # get 'museums/:id' => 'museums#show'
 
   resources :museums

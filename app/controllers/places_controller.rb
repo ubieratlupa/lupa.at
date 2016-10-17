@@ -16,11 +16,6 @@ class PlacesController < ApplicationController
     @monuments_conserved = Monument.conserved_in(@place)
   end
 
-  def show_finding
-    @place = Place.find(params[:id])
-    @monuments_found = Monument.found_in(@place)
-  end
-
   def map_finding_places
     @places = Place
     			.all()

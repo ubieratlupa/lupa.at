@@ -1,6 +1,11 @@
 <div class="place page">
 	<h1><%= @place.name %></h1>
-	<%= render partial: 'places/breadcrumb', locals: { root: 'Fundorte', place: @place } %>
+	<ol class="breadcrumb">
+		<li>Fundorte</li>
+		<% @place.hierarchy.each do | place | %>
+			<li><%= link_to_finding_place place %></li>
+		<% end %>
+	</ol>
 	<p><%= @monuments_found.count %> Steindenkmäler gefunden in <%= @place.name %></p>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_found } %>
 </div>

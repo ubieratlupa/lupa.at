@@ -82,11 +82,22 @@
 	<div class="section">
 		<h3>Fundort</h3>
 		<dl>
-			<dt>Fundort</dt>
-			<dd>
-				<%= link_to_finding_place @monument.finding_place %> <%= @monument.finding_place_comment %>
-				<span class="deemph">(<%= @monument.finding_place.try(:parent).try(:full_name) %>)</span>
-			</dd>
+			<% if @monument.finding_place || @monument.finding_place_comment %>
+				<dt>Fundort</dt>
+				<dd>
+					<%= link_to_place @monument.finding_place %> <%= @monument.finding_place_comment %>
+					<% 
+					if @monument.finding_place && @monument.finding_place.parent
+						concat "<span class=deemph>(".html_safe
+						@monument.finding_place.parent.hierarchy.reverse.each_with_index do | place, idx |
+							concat ", " if idx > 0
+							concat link_to_place place
+						end
+						concat ")</span>".html_safe
+					end
+					%>
+				</dd>
+			<% end %>
 			<% if @monument.finding_comment %>
 				<dt>Fundumstände</dt>
 				<dd>
@@ -94,7 +105,7 @@
 				</dd>
 			<% end  %>
 			<% if @monument.ancient_finding_place %>
-				<dt>Antiker Fundort</dt>
+				<dt>Antiker Fundort / Provinz</dt>
 				<dd>
 					<%= @monument.ancient_finding_place.full_name %>
 				</dd>
@@ -106,11 +117,22 @@
 	<div class="section">
 		<h3>Verwahrort</h3>
 		<dl>
-			<dt>Verwahrort</dt>
-			<dd>
-				<%= @monument.conservation_place.try(:name) %>
-				<span class="deemph">(<%= @monument.conservation_place.try(:parent).try(:full_name) %>)</span>
-			</dd>
+			<% if @monument.conservation_place || @monument.conservation_place_comment %>
+				<dt>Verwahrort</dt>
+				<dd>
+					<%= link_to_place @monument.conservation_place %> <%= @monument.conservation_place_comment %>
+					<% 
+					if @monument.conservation_place && @monument.conservation_place.parent
+						concat "<span class=deemph>(".html_safe
+						@monument.conservation_place.parent.hierarchy.reverse.each_with_index do | place, idx |
+							concat ", " if idx > 0
+							concat link_to_place place
+						end
+						concat ")</span>".html_safe
+					end
+					%>
+				</dd>
+			<% end %>
 			<% if @monument.museum %>
 				<dt>Museum</dt>
 				<dd>
