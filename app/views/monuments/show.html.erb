@@ -22,11 +22,11 @@
 			end
 			%>
 			<% @photos.each_with_index do | photo, idx | %>
-				<a href="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>">
+				<a href="http://lupa.at/img/<%= photo.filename %>">
 					<% if captions.count > 1 %>
 						<span><%= idx + 1 %></span>
 					<% end %>
-					<img src="http://www.ubi-erat-lupa.org/img/monuments/<%= photo.filename %>">
+					<img src="http://lupa.at/img/<%= photo.filename %>">
 				</a>
 			<% end %>
 			<div class='caption'>
