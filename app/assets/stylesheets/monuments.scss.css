@@ -1,23 +1,40 @@
-.monument {
+@media all and (min-width: 800px) {
+	.monument {
+		position: relative;
+		left: -120px;
+	}
+	.monument .photos {
+		position: absolute;
+		top: 40px;
+		left: 585px;
+		width: 240px;
+	}
+	.monument .photos a {
+		margin: 0 0 10px;
+		display: block;
+	}
+	.monument .photos img {
+		max-width: 230px;
+		max-height: 100vh;
+	}
 }
-
-.monument h1 {
-}
-
-.monument p {
-}
-
-.monument .photos img {
-	margin-right: 10px;
-}
-
-.monument .photos {
-	margin-bottom: 20px;
+@media all and (max-width: 799px) {
+	.monument .photos a {
+		margin: 0 5px 5px 0;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.monument .photos {
+		margin-bottom: 20px;
+	}
+	.monument .photos img {
+		max-height: 200px;
+		max-width: 220px;
+	}
 }
 
 .photos a {
 	position: relative;
-	display: inline-block;
 }
 
 .photos a img {
@@ -30,7 +47,7 @@
 	left: 0;
 	bottom: 0;
 	padding: 1px 3px;
-	background: white;
+	background: #eee;
 	text-decoration: none;
 	color: #000;
 	font-size: 10px;
@@ -98,4 +115,15 @@ dd .measurement + .measurement {
 hr {
 	border: 0px solid #eee;
 	border-bottom: 1px solid #ddd;
+}
+
+.monument .section h3 {
+	font-family: inherit;
+	font-weight: inherit;
+	font-size: 13px;
+	padding: 3px 5px;
+	margin: 15px -5px 8px;
+	color: #fff;
+	background-color: #aaa;
+	border-radius: 2px;
 }
