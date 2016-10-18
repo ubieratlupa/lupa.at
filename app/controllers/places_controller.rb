@@ -12,8 +12,9 @@ class PlacesController < ApplicationController
 
   def show
     @place = Place.find(params[:id])
-    @monuments_found = Monument.found_in(@place)
-    @monuments_conserved = Monument.conserved_in(@place)
+    @monuments_found = Monument.found_in(@place).page(1).per(6)
+    @monuments_conserved = Monument.conserved_in(@place).page(1).per(6)
+    @children = @place.children
   end
 
   def map_finding_places

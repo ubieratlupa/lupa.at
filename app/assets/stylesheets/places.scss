@@ -37,3 +37,24 @@
 .place h1 {
 	margin-bottom: 0;
 }
+
+.placename-list {
+	margin: 0;
+	padding: 0;
+}
+
+.placename-list li {
+	display: inline;
+	margin: 0;
+	padding: 0;
+}
+
+.placename-list li a {
+	color: inherit;
+	font-size: 14px;
+}
+
+.placename-list li + li::before {
+	content: " · ";
+	color: #999;
+}

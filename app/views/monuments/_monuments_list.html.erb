@@ -1,10 +1,19 @@
-<%= paginate monuments if monuments.respond_to? :total_pages %>
-<dl>
-	<% monuments.each do | monument | %>
-		<dt><%= monument.id%></dt>
-		<dd>
-			<%= link_to_monument monument %>
-		</dd>
+<!-- <%= paginate monuments if monuments.respond_to? :total_pages %> -->
+<% monuments.each do | monument | %>
+<div class="monument-card-wrapper">
+<a class="monument-card" href="<%= monument_short_path monument %>">
+	<% if photo = monument.photos.take %>
+		<div class=photo><img src="//lupa.at/img/<%= photo.filename %>"></div>
 	<% end %>
-</dl>
+	<p class="id">
+		<%= monument.id%>
+		<%= monument.title %>
+	</p>
+	<p class="detail">
+		<%= monument.object_type %>
+		<%= " / " + monument.monument_type if monument.monument_type %>
+	</p>
+</a>
+</div>
+<% end %>
 <div style='clear:both;'></div>

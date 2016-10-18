@@ -1,6 +1,6 @@
 module MonumentHelper
   def monument_short_path(monument)
-    { controller: "monuments", action: "show", id: monument }
+    url_for controller: "monuments", action: "show", id: monument
   end
   
   def link_to_monument(monument) 

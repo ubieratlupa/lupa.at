@@ -1,16 +1,26 @@
 <div class="place page">
+	<h1><%= @place.name %> <%= ' (' + @place.place_type + ')' if @place.place_type %></h1>
 	<ol class="breadcrumb">
 		<% @place.hierarchy.each do | place | %>
 			<li><%= link_to place.name, place %></li>
 		<% end %>
 	</ol>
-	<h1><%= @place.name %></h1>
 	<div class="section">
-		<h3><%= @monuments_found.count %> Steindenkmäler gefunden in <%= @place.name %></h3>
+		<h3><%= @monuments_found.total_count %> Steindenkmäler gefunden in <%= @place.name %></h3>
 		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_found } %>
 	</div>
 	<div class="section">
-		<h3><%= @monuments_conserved.count %> Steindenkmäler verwahrt in <%= @place.name %></h3>
+		<h3><%= @monuments_conserved.total_count %> Steindenkmäler verwahrt in <%= @place.name %></h3>
 		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_conserved } %>
 	</div>
+	<% if @children %>
+		<div class="section">
+			<h3>Weitere Orte in <%= @place.name %></h3>
+			<ul class='placename-list'>
+				<% @children.each do | child_place | %>
+					<li><%= link_to child_place.name, child_place %></li>
+				<% end %>
+			</ul>
+		</div>
+	<% end %>
 </div>
