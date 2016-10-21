@@ -1,0 +1,15 @@
+<div class="place page">
+	<h1><%= @place.name %> (Verwahrort)</h1>
+	<ol class="breadcrumb">
+		<% @place.hierarchy.each do | place | %>
+			<li><%= link_to place.name, place %></li>
+		<% end %>
+		<li>Fundort</li>
+	</ol>
+	<div class="section">
+		<h3><%= @monuments_conserved.total_count %> Steindenkmäler verwahrt in <%= @place.name %></h3>
+		<%= paginate @monuments_conserved if @monuments_conserved.current_page > 1 %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_conserved } %>
+		<%= paginate @monuments_conserved %>
+	</div>
+</div>

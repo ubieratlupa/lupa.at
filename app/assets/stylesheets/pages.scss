@@ -1,19 +1,19 @@
-.page {
+div.page {
 	max-width: 550px;
 	margin: 0px auto;
 	padding: 15px 10px 40px;
 }
 
-.page img {
+div.page img {
 	max-width: 100%;
 }
 
-.page > p {
+div.page > p {
 	font-size: 14px;
 	line-height: 22px;
 }
 
-.page h1, .page h2 {
+div.page h1, div.page h2 {
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-weight: normal;
 	color: #666;

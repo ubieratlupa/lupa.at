@@ -11,4 +11,12 @@ module MonumentHelper
     link_to place.name, place if place
   end
   
+  def link_to_finding_place(place)
+    link to place.name, {controller: "places", action: "show_finding", id: place} if place
+  end
+  
+  def link_to_conservation_place(place)
+    link to place.name, {controller: "places", action: "show_conservation", id: place} if place
+  end
+  
 end

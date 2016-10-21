@@ -58,3 +58,28 @@
 	content: " · ";
 	color: #999;
 }
+
+.show-more, .pagination {
+	text-align: center;
+}
+
+.show-more a, .pagination a {
+	display: inline-block;
+	margin: 8px auto 8px;
+	cursor: pointer;
+	padding: 5px 8px 4px;
+	border-radius: 4px;
+	font-size: 12px;
+	color: #666;
+	background: #f9f9f9;
+	text-decoration: none;
+	border: 1px solid #ccc;
+	box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.1);
+}
+
+.pagination .current {
+	font-size: 14px;
+	margin: 7px auto;
+	padding: 5px 8px 4px;
+}
+

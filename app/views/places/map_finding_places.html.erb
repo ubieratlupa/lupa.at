@@ -23,7 +23,7 @@
 });
 
 	<% @places.each do |place| %>
-		L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerIcon, title: "<%= place.name %>", url: "<%= place_path place %>"}).on('click',clickMarker).addTo(map);
+		L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_finding", id: place %>"}).on('click',clickMarker).addTo(map);
 	<% end %>
 		
 	function clickMarker(evt) { window.location = evt.target.options.url }
