@@ -88,6 +88,10 @@ dt {
 	font-weight: 100;
 }
 
+.monument dd p {
+	margin: 0;
+}
+
 dd {
 	margin: 0 0 7px;
 /*	margin-left: 130px;*/

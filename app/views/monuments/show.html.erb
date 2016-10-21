@@ -329,4 +329,74 @@
 			<% end %>
 		</dl>
 	</div>
+	
+	<div class="section">
+		<h3>Bearbeitung des Datensatzes</h3>
+		<dl>
+			<% if @monument.archaeology_author %>
+				<dt>Archäologie</dt>
+				<dd>
+					<p>
+						<%= @monument.archaeology_author.first_name %>
+						<%= @monument.archaeology_author.last_name %>
+					</p>
+					<% if @monument.archaeology_author.email %>
+						<p>
+							<%= link_to @monument.archaeology_author.email, "mailto:#{@monument.archaeology_author.email}" %>
+						</p>
+					<% end %>
+					<p>
+						<%= @monument.archaeology_author.institution %>
+					</p>
+				</dd>
+			<% end %>
+			<% if @monument.epigraphy_author %>
+				<dt>Epigraphik</dt>
+				<dd>
+					<p>
+						<%= @monument.epigraphy_author.first_name %>
+						<%= @monument.epigraphy_author.last_name %>
+					</p>
+					<% if @monument.epigraphy_author.email %>
+						<p>
+							<%= link_to @monument.epigraphy_author.email, "mailto:#{@monument.archaeology_author.email}" %>
+						</p>
+					<% end %>
+					<p>
+						<%= @monument.epigraphy_author.institution %>
+					</p>
+				</dd>
+			<% end %>
+			<% if @monument.architecture_author %>
+				<dt>Architektur</dt>
+				<dd>
+					<p>
+						<%= @monument.architecture_author.first_name %>
+						<%= @monument.architecture_author.last_name %>
+					</p>
+					<% if @monument.architecture_author.email %>
+						<p>
+							<%= link_to @monument.architecture_author.email, "mailto:#{@monument.archaeology_author.email}" %>
+						</p>
+					<% end %>
+					<p>
+						<%= @monument.architecture_author.institution %>
+					</p>
+				</dd>
+			<% end %>
+			<% if @monument.created %>
+				<dt>Datensatz erstellt</dt>
+				<dd>
+					<%= @monument.created %>
+				</dd>
+			<% end %>
+			<% if @monument.modified %>
+				<dt>Letzte Änderung</dt>
+				<dd>
+					<%= @monument.modified %>
+				</dd>
+			<% end %>
+		</dl>
+	</div>
+	
 </div>
