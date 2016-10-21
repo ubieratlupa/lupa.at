@@ -8,6 +8,10 @@
 	}
 }
 
+.monument-cards {
+	margin: 0 -5px;
+}
+
 .monument-card-wrapper {
 	padding: 5px;
 }
