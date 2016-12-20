@@ -3,13 +3,21 @@ class Photo < ActiveRecord::Base
   belongs_to :author, optional: true
   
   def caption
-    caption = ''
-    if self.author
-      caption += self.author.first_name + ' ' + self.author.last_name + ' '
+    copyrights = []
+    if self.copyright
+      copyrights.append self.copyright.copyright
     end
-    caption += self.copyright.try(:copyright) || ''
-    caption += ' '
-    caption += self.copyright_detail || ''
-    caption
+    if self.copyright_detail
+      copyrights.append self.copyright_detail
+    end
+
+    captions = []
+    if copyrights
+      captions.append copyrights.join(' ')
+    end
+    if self.author
+      captions.append "Fotograf: #{self.author.first_name} #{self.author.last_name}"
+    end
+    captions.join(', ')
   end
 end
