@@ -57,9 +57,19 @@
 .photos .caption {
 	font-size: 11px;
 	color: #666;
+	margin-bottom: 25px;
+}
+.photos .caption h4 {
+	font-weight: inherit;
+	margin: 0 0.4em 0 0;
+	float: left;
+	font-size: inherit;
+}
+.photos .caption p {
+	margin: 0.4em 0 0;
 }
 
-.photos .caption span span {
+.photos .caption p span {
 	border: 1px solid #666;
 	color: #666;
 	padding: 0px 2px;

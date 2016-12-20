@@ -30,14 +30,14 @@
 				</a>
 			<% end %>
 			<div class='caption'>
-				<%= @photos.count == 1 ? 'Foto: ' : 'Fotos: ' %>
+				<h4><%= @photos.count == 1 ? 'Foto: ' : 'Fotos: ' %></h4>
 				<% captions.each_with_index do | caption, index | %>
-					<span>
+					<p>
 						<% if captions.count > 1 %>
 							<%= raw photo_numbers[index].map{|a| '<span>'+h(a)+'</span>'}.join(' ')%>
 						<% end %>
 						<%= caption %>
-					</span>
+					</p>
 				<% end %>
 			</div>
 		</div>
