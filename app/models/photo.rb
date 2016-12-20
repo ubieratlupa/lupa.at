@@ -18,6 +18,9 @@ class Photo < ActiveRecord::Base
     if self.author
       captions.append "Fotograf: #{self.author.first_name} #{self.author.last_name}"
     end
+    if self.year
+      captions.append self.year
+    end
     captions.join(', ')
   end
 end
