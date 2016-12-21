@@ -22,7 +22,7 @@
 			end
 			%>
 			<% @photos.each_with_index do | photo, idx | %>
-				<a href="http://lupa.at/img/<%= photo.filename %>">
+				<a href="http://lupa.at/img/<%= photo.filename %>" class="photo">
 					<% if captions.count > 1 %>
 						<span><%= idx + 1 %></span>
 					<% end %>
@@ -39,6 +39,13 @@
 						<%= caption %>
 					</p>
 				<% end %>
+				<p>
+					Diese Bilder sind urheberrechtlich geschützt und dürfen nicht ohne Zustimmung
+					des Rechteinhabers verwendet werden.
+					Bitte kontaktieren Sie uns wenn Sie eines dieser Bilder verwenden wollen.
+					Beachten Sie auch die Seite über 
+					<%= link_to "Bildrechte und Bildbestellungen", controller: "pages", action: "show", id: "photos" %>.
+				</p>
 			</div>
 		</div>
 	<% end %>

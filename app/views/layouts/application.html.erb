@@ -17,7 +17,7 @@
 		<a href="/"<% if current_page?(:controller => 'places', :action => 'map_finding_places') %> class="active"<% end %>>
 			KARTE
 		</a>
-		<a href="/about"<% if current_page?(:controller => 'pages', :action => 'about') %> class="active"<% end %>>
+		<a href="<%= url_for controller: "pages", action: "show", id: "lupa" %>"<% if current_page?(controller: "pages", action: "show") %> class="active"<% end %>>
 			ÜBER LUPA
 		</a>
 	</div>

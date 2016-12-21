@@ -1,3 +1,46 @@
+@media all and (min-width: 800px) {
+
+	div.page-menu {
+		position: absolute;
+		left: 0px;
+		right: 590px;
+		top: 82px;
+		text-align: right;
+	}
+	div.page-menu a {
+		margin: 0 50% 8px 0;
+		padding-right: 9px;
+	}
+	div.page-menu a.current {
+		border-right: red solid 5px;
+		padding-right: 4px;
+	}
+}
+
+@media all and (max-width: 799px) {
+
+	div.page-menu {
+		max-width: 550px;
+		margin: 0px auto;
+		padding: 40px 10px 0px;
+	}
+	div.page-menu a {
+		margin: 0 0 8px 0;
+		padding-left: 9px;
+	}
+	div.page-menu a.current {
+		border-left: red solid 5px;
+		padding-left: 4px;
+	}
+}
+
+div.page-menu a {
+	display: block;
+	font-size: 14px;
+	color: #000;
+}
+
+
 div.page {
 	max-width: 550px;
 	margin: 0px auto;

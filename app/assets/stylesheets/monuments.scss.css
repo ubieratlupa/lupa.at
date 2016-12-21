@@ -9,7 +9,7 @@
 		left: 585px;
 		width: 240px;
 	}
-	.monument .photos a {
+	.monument .photos a.photo {
 		margin: 0 0 10px;
 		display: block;
 	}
@@ -19,7 +19,7 @@
 	}
 }
 @media all and (max-width: 799px) {
-	.monument .photos a {
+	.monument .photos a.photo {
 		margin: 0 5px 5px 0;
 		display: inline-block;
 		vertical-align: top;
@@ -33,16 +33,16 @@
 	}
 }
 
-.photos a {
+.photos a.photo {
 	position: relative;
 }
 
-.photos a img {
+.photos a.photo img {
 	border: none;
 	display: block;
 }
 
-.photos a span {
+.photos a.photo span {
 	position: absolute;
 	left: 0;
 	bottom: 0;
