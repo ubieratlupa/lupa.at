@@ -1,0 +1,47 @@
+<%= form_tag({controller: :queries, action: :create}, class:"query-form") do %>
+	<h4>Suchabfrage</h4>
+	
+	<%= label_tag(:id_range, "Nr") %>
+	<%= text_field(:query, :id_ranges) %>
+
+	<div class="flex-break"></div>
+
+	<%= label_tag(:keywords, "Titel und Beschreibung") %>
+	<%= text_field(:query, :keywords) %>
+	
+	<div class="flex-break"></div>
+
+	<%= label_tag(:inscription, "Inschrift") %>
+	<%= text_field(:query, :inscription) %>
+
+	<div class="flex-break"></div>
+	
+	<!-- <%= label_tag(:finding_place, "Fundort") %>
+	<%= text_field(:query, :finding_place) %>
+	<div class="flex-break"></div>
+
+	<%= label_tag(:conservation_place, "Verwahrort") %>
+	<%= text_field(:query, :conservation_place) %>
+	<div class="flex-break"></div> -->
+	
+	<%= label_tag(:museum, "Museum") %>
+	<%= text_field(:query, :museum) %>
+
+	<div class="flex-break"></div>
+
+	<%= label_tag(:literature, "Literatur") %>
+	<%= text_field(:query, :literature) %>
+
+	<% if @monuments %>
+		<div class="flex-break"></div>
+		<p class="query-hits"><%= @monuments.total_count %> Treffer</p>
+	<% end %>
+
+	<div class="flex-break"></div>
+
+	<% if @monuments %>
+		<p class="query-link">Link zu diesem Suchergebnis: <%= request.protocol + request.host_with_port + url_for(@query)  %></p>
+	<% end %>
+
+	<%= submit_tag "Neue Abfrage" %>
+<% end %>

@@ -1,0 +1,76 @@
+.query-form {
+	display: block;
+	border: 3px solid #eee;
+	border-radius: 6px;
+	padding: 10px 20px 10px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-end;
+	align-items: flex-end;
+	margin: 0 0 10px;
+}
+
+.query-form h4 {
+	font-family: inherit;
+	font-weight: normal;
+	font-size: 16px;
+	width: 100%;
+	text-align: center;
+	color: #aaa;
+	margin: 0;
+}
+
+.query-form label {
+	flex-grow: 0;
+	display: block;
+	margin: 0 0 10px 0;
+	font-size: 13px;
+	text-align: right;
+	border-bottom: 3px solid #eee;
+	padding: 0 0 2px 0px;
+	color: #aaa;
+}
+
+.query-form input[type=text] {
+	display: block;
+	flex-grow: 1;
+	margin: 0 0 10px 0;
+	border: none;
+	border-bottom: 3px solid #eee;
+	font-size: 16px;
+	padding: 0 0 1px 5px;
+	outline: none;
+	font-family: inherit;
+}
+
+.flex-break {
+	width: 100%;
+}
+
+
+.query-form input[type=submit] {
+	margin: 10px 0 0 auto;
+	display: block;
+    padding:5px 15px; 
+    background:#08c; 
+    border: none;
+	color: #fff;
+    cursor:pointer;
+    -webkit-border-radius: 3px;
+    border-radius: 3px; 
+	font-family: inherit;
+	font-size: 13px;
+}
+
+.query-link {
+	font-size: 11px;
+	color: #aaa;
+	margin: 0;
+}
+
+.query-hits {
+	text-align: center;
+	width: 100%;
+	font-size: 1.5em;
+	margin: 0.5em 0;
+}

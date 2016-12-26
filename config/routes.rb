@@ -7,8 +7,10 @@ Rails.application.routes.draw do
     }
   end
 
-  root 'places#map_finding_places'
-
+  root 'monuments#index'
+  
+  get 'map' => 'places#map_finding_places'
+  
   get 'about', to: 'pages#show', defaults: { id: 'lupa' }
   get 'about/:id', to: 'pages#show', as: :page
   
@@ -16,6 +18,8 @@ Rails.application.routes.draw do
 
   resources :museums
   resources :places
+  resources :queries
+
 
   get 'places/:id/finding' => 'places#show_finding'
   get 'places/:id/conservation' => 'places#show_conservation'
