@@ -62,9 +62,13 @@
 .photos .caption h4 {
 	font-weight: inherit;
 	margin: 0 0.4em 0 0;
-	float: left;
 	font-size: inherit;
 }
+
+.photos .caption h4 + p {
+	margin: 0 0 0;
+}
+
 .photos .caption p {
 	margin: 0.4em 0 0;
 }

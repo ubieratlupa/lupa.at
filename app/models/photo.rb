@@ -11,16 +11,23 @@ class Photo < ActiveRecord::Base
       copyrights.append self.copyright_detail
     end
 
-    captions = []
+    lines = []
     if copyrights
-      captions.append copyrights.join(' ')
+      lines.append copyrights.join(' ')
     end
+    
+    photography = []
     if self.author
-      captions.append "Fotograf: #{self.author.first_name} #{self.author.last_name}"
+      photography.append "#{self.author.first_name} #{self.author.last_name}"
     end
     if self.year
-      captions.append self.year
+      photography.append self.year
     end
-    captions.join(', ')
+    
+    if photography
+      lines.append "Fotografie: " + photography.join(', ')
+    end
+      
+    lines.join("\n")
   end
 end
