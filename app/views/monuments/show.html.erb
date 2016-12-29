@@ -36,7 +36,7 @@
 						<% if captions.count > 1 %>
 							<%= raw photo_numbers[index].map{|a| '<span>'+h(a)+'</span>'}.join(' ')%>
 						<% end %>
-						<%= caption %>
+						<%= nl2br caption %>
 					</p>
 				<% end %>
 				<p>
@@ -163,7 +163,7 @@
 		
 		
 	<div class="section">
-		<h3>Objektbeschreibung</h3>
+		<h3>Objekt</h3>
 		<dl>
 			<% if @monument.conservation_state %>
 				<dt>Erhaltung</dt>
@@ -264,53 +264,54 @@
 		</dl>
 	</div>
 		
-		
-	<div class="section">
-		<h3>Datierung</h3>
-		<dl>
-			<% if @monument.dating_phase %>
-				<dt>Phase</dt>
-				<dd>
-					<%= @monument.dating_phase %>
-				</dd>
-			<% end  %>
-			<% if @monument.dating_from || @monument.dating_to %>
-				<dt>Jahr</dt>
-				<dd>
-					<% if @monument.dating_from == @monument.dating_to %>
-						<%= @monument.dating_from %>
-						<%= 'n. Chr.' if @monument.dating_from > 0 %>
-						<%= 'v. Chr.' if @monument.dating_from < 0 %>
-					<% elsif @monument.dating_from && @monument.dating_to %>
-						<%= @monument.dating_from %>
-						<%= 'n. Chr.' if @monument.dating_from > 0 %>
-						<%= 'v. Chr.' if @monument.dating_from < 0 %>
-						-
-						<%= @monument.dating_to %>
-						<%= 'n. Chr.' if @monument.dating_to > 0 %>
-						<%= 'v. Chr.' if @monument.dating_to < 0 %>
-					<% elsif @monument.dating_from %>
-						nach 
-						<%= @monument.dating_from %>
-						<%= 'n. Chr.' if @monument.dating_from > 0 %>
-						<%= 'v. Chr.' if @monument.dating_from < 0 %>
-					<% elsif @monument.dating_to %>
-						vor
-						<%= @monument.dating_to %>
-						<%= 'n. Chr.' if @monument.dating_to > 0 %>
-						<%= 'v. Chr.' if @monument.dating_to < 0 %>
-					<% end %>
-				</dd>
-			<% end  %>
-			<% if @monument.dating_comment %>
-				<dt>Begründung</dt>
-				<dd>
-					<%= @monument.dating_comment %>
-				</dd>
-			<% end  %>
-		</dl>
-	</div>
-		
+	<% if @monument.dating_phase || @monument.dating_from || @monument.dating_to || @monument.dating_comment %>
+		<div class="section">
+			<h3>Datierung</h3>
+			<dl>
+				<% if @monument.dating_phase %>
+					<dt>Phase</dt>
+					<dd>
+						<%= @monument.dating_phase %>
+					</dd>
+				<% end  %>
+				<% if @monument.dating_from || @monument.dating_to %>
+					<dt>Jahr</dt>
+					<dd>
+						<% if @monument.dating_from == @monument.dating_to %>
+							<%= @monument.dating_from %>
+							<%= 'n. Chr.' if @monument.dating_from > 0 %>
+							<%= 'v. Chr.' if @monument.dating_from < 0 %>
+						<% elsif @monument.dating_from && @monument.dating_to %>
+							<%= @monument.dating_from %>
+							<%= 'n. Chr.' if @monument.dating_from > 0 %>
+							<%= 'v. Chr.' if @monument.dating_from < 0 %>
+							-
+							<%= @monument.dating_to %>
+							<%= 'n. Chr.' if @monument.dating_to > 0 %>
+							<%= 'v. Chr.' if @monument.dating_to < 0 %>
+						<% elsif @monument.dating_from %>
+							nach 
+							<%= @monument.dating_from %>
+							<%= 'n. Chr.' if @monument.dating_from > 0 %>
+							<%= 'v. Chr.' if @monument.dating_from < 0 %>
+						<% elsif @monument.dating_to %>
+							vor
+							<%= @monument.dating_to %>
+							<%= 'n. Chr.' if @monument.dating_to > 0 %>
+							<%= 'v. Chr.' if @monument.dating_to < 0 %>
+						<% end %>
+					</dd>
+				<% end  %>
+				<% if @monument.dating_comment %>
+					<dt>Begründung</dt>
+					<dd>
+						<%= @monument.dating_comment %>
+					</dd>
+				<% end  %>
+			</dl>
+		</div>
+	<% end %>
+	
 	<div class="section">
 		<h3>Referenzen</h3>
 		<dl>
