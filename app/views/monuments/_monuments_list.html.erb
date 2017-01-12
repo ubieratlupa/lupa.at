@@ -2,7 +2,7 @@
 	<% monuments.each do | monument | %>
 		<div class="monument-card-wrapper">
 			<a class="monument-card" href="<%= monument_short_path monument %>">
-				<% if photo = monument.photos.take %>
+				<% if photo = monument.photos.order(:ord).take %>
 					<div class=photo><img src="//lupa.at/img/<%= photo.filename %>"></div>
 				<% end %>
 				<p class="id">
