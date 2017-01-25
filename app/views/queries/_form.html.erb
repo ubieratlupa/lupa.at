@@ -40,7 +40,10 @@
 	<div class="flex-break"></div>
 
 	<% if @monuments %>
-		<p class="query-link">Link zu diesem Suchergebnis: <%= request.protocol + request.host_with_port + url_for(@query)  %></p>
+		<p class="query-link">
+			Link zu diesem Suchergebnis: <%= request.protocol + request.host_with_port + url_for(@query)  %><br>
+			<%= link_to "QR Codes anzeigen", action: :qr %>
+		</p>
 	<% end %>
 
 	<%= submit_tag "Neue Abfrage" %>

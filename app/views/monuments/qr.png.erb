@@ -1,0 +1,1 @@
+<%= raw RQRCode::QRCode.new(canonical_url_for_monument(@monument), size: 3).as_png(border_modules: 2,module_px_size: 10) %>

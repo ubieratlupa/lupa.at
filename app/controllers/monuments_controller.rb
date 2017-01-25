@@ -5,6 +5,12 @@ class MonumentsController < ApplicationController
     @photos = @monument.photos.order(:ord)
     @title = @monument.title
   end
+  
+  def qr
+    @monument = Monument.find(params[:id])
+    @title = @monument.title
+    render layout: "print"
+  end
 
   def index
     @query = Query.find(1)

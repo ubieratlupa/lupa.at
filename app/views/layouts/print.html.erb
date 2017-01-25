@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title || 'Ubi Erat Lupa' %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <meta name="viewport" content="width=600, initial-scale=1">
+</head>
+<body>
+	<div id=content>
+		<%= yield %>
+	</div>
+</body>
+</html>

@@ -1,0 +1,6 @@
+<div class="qr">
+	<h1><%= monument.title %></h1>
+	<img src="<%= url_for :controller => 'monuments', :action => 'qr', :format => 'png' %>" width=165 height=165>
+	<div class="url"><%= canonical_url_for_monument(monument) %></div>
+</div>
+

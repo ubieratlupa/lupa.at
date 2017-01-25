@@ -329,7 +329,11 @@
 			<% end %>
 			<dt>Zitat</dt>
 			<dd>
-				F. und O. Harl, Ubi Erat Lupa, http://lupa.at/<%= @monument.id %>
+				F. und O. Harl, Ubi Erat Lupa, <%= canonical_url_for_monument @monument %><br>
+			</dd>
+			<dt>QR Code</dt>
+			<dd>
+				<%= link_to "QR Code für dieses Denkmal anzeigen", action: :qr %>
 			</dd>
 			<% if @monument.catalog_text %>
 				<dt>Katalogtext</dt>

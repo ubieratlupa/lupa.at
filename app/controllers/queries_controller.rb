@@ -4,6 +4,12 @@ class QueriesController < ApplicationController
     @query = Query.find(params[:id])
     @monuments = @query.matches.order(:id).page(params[:page]).per(50)
   end
+  
+  def qr
+    @query = Query.find(params[:id])
+    @monuments = @query.matches.order(:id)
+    render layout: "print"
+  end
 
   def create
     p = params.require(:query).permit(Query.allowed_search_parameters)

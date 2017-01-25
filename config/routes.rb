@@ -18,7 +18,9 @@ Rails.application.routes.draw do
 
   resources :museums
   resources :places
-  resources :queries
+  resources :queries do
+    get 'qr', :on => :member
+  end
 
 
   get 'places/:id/finding' => 'places#show_finding'
@@ -26,6 +28,8 @@ Rails.application.routes.draw do
 
   get ':id' => 'monuments#show'
   
-  resources :monuments
+  resources :monuments do
+    get 'qr', :on => :member
+  end
   
 end
