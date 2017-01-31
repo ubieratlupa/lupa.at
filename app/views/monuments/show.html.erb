@@ -373,7 +373,7 @@
 					</p>
 					<% if @monument.epigraphy_author.email %>
 						<p>
-							<%= link_to @monument.epigraphy_author.email, "mailto:#{@monument.archaeology_author.email}" %>
+							<%= link_to @monument.epigraphy_author.email, "mailto:#{@monument.epigraphy_author.email}" %>
 						</p>
 					<% end %>
 					<p>
@@ -390,7 +390,7 @@
 					</p>
 					<% if @monument.architecture_author.email %>
 						<p>
-							<%= link_to @monument.architecture_author.email, "mailto:#{@monument.archaeology_author.email}" %>
+							<%= link_to @monument.architecture_author.email, "mailto:#{@monument.architecture_author.email}" %>
 						</p>
 					<% end %>
 					<p>
