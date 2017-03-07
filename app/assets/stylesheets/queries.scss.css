@@ -10,8 +10,7 @@
 
 .query-summary p {
 	margin: 0.5em 0;
-	font-size: 12px;
-	text-align: center;
+	font-size: 14px;
 }
 
 .query-summary strong {
@@ -24,7 +23,22 @@
 
 .query-summary .show-more {
 	text-align: right;
+	float: right;
+	margin: 0;
 }
+
+.query-summary .show-more a {
+	margin: 3px -8px 0 0;
+}
+
+.query-summary p.query-hits {
+	text-align: center;
+	clear: both;
+	font-size: 18px;
+	margin: 18px 0 6px;
+}
+
+
 
 .query-form {
 	display: block;
@@ -96,8 +110,3 @@
 	margin: 0;
 }
 
-.query-summary p.query-hits {
-	float: left;
-	font-size: 1.5em;
-	margin: 7px 0 0;
-}

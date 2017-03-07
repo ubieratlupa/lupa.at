@@ -1,4 +1,8 @@
 <div class="query-summary">
+	<div class="show-more change-query-results">
+		<%= link_to "Suche ändern", controller: "queries", action: "edit", id: @query %>
+	</div>
+
 	<% if @query.id_ranges %>
 		<p><strong>Nr:</strong> <%= @query.id_ranges %></p>
 	<% end %>
@@ -28,7 +32,6 @@
 	<% end %>
 		
 	<% if @monuments %>
-		<div class="flex-break"></div>
 		<p class="query-hits"><%= String(@monuments.total_count) + ' ' + (@monuments.total_count==1 ? 'Denkmal' : 'Denkmäler') %></p>
 	<% end %>
 
@@ -41,7 +44,4 @@
 		</p>
 	<% end %> -->
 
-	<div class="show-more">
-		<%= link_to "Abfrage ändern", controller: "queries", action: "edit", id: @query %>
-	</div>
 </div>
