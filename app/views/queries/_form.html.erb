@@ -32,19 +32,7 @@
 	<%= label_tag(:literature, "Literatur") %>
 	<%= text_field(:query, :literature) %>
 
-	<% if @monuments %>
-		<div class="flex-break"></div>
-		<p class="query-hits"><%= @monuments.total_count %> Treffer</p>
-	<% end %>
-
 	<div class="flex-break"></div>
 
-	<% if @monuments %>
-		<p class="query-link">
-			Link zu diesem Suchergebnis: <%= request.protocol + request.host_with_port + url_for(@query)  %><br>
-			<%= link_to "QR Codes anzeigen", action: :qr %>
-		</p>
-	<% end %>
-
-	<%= submit_tag "Neue Abfrage" %>
+	<%= submit_tag "Suchen" %>
 <% end %>

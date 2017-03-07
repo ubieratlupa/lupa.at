@@ -5,7 +5,10 @@
 		Wir vernetzen Museen und Universitäten, erleichtern das Auffinden von Publikationen,
 		und machen auch wiederverwertete Objekte sichtbar.
 	</p>
-	<div class="show-more show-all"><%= link_to "Alle Denkmäler anzeigen", @query %></div>
+	<div class="show-more show-all">
+		<%= link_to "Alle Denkmäler anzeigen", @query %>
+		<!-- <%= link_to "Denkmäler suchen", controller: "queries", action: "edit", id: @query %> -->
+	</div>
 	
 	<%= render partial: 'queries/form', locals: { query: @query } %>
 	<h2>Neuzugänge <%= l @new_monuments.first.created, format: "%B %Y" %></h2>

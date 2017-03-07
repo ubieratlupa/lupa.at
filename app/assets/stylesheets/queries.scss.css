@@ -1,3 +1,31 @@
+.query-summary {
+	display: block;
+	border-radius: 6px;
+	padding: 10px 20px 10px;
+	justify-content: flex-end;
+	align-items: flex-end;
+	margin: 0 0 10px;
+	background: #f6f6f6;
+}
+
+.query-summary p {
+	margin: 0.5em 0;
+	font-size: 12px;
+	text-align: center;
+}
+
+.query-summary strong {
+	font-weight: normal;
+	color: rgba(0,0,0,0.4);
+}
+
+.query-summary {
+}
+
+.query-summary .show-more {
+	text-align: right;
+}
+
 .query-form {
 	display: block;
 	border: 3px solid #eee;
@@ -68,9 +96,8 @@
 	margin: 0;
 }
 
-.query-hits {
-	text-align: center;
-	width: 100%;
+.query-summary p.query-hits {
+	float: left;
 	font-size: 1.5em;
-	margin: 0.5em 0;
+	margin: 7px 0 0;
 }
