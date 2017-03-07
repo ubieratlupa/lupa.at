@@ -30,6 +30,7 @@ Rails.application.routes.draw do
   
   resources :monuments do
     get 'qr', :on => :member
+    get 'recent', :on => :collection
   end
   
 end

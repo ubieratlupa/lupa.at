@@ -1,0 +1,6 @@
+<div class="page">
+	<h1>Neuzugänge <%= l @new_monuments.first.created, format: "%B %Y" %></h1>
+	<%= paginate @new_monuments %>
+	<%= render partial: 'monuments/monuments_list', locals: { monuments: @new_monuments } %>
+	<%= paginate @new_monuments %>
+</div>
