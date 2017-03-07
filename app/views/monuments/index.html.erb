@@ -1,9 +1,7 @@
 <div class="page">
-	<h1>Bilddatenbank Ubi Erat Lupa</h1>
+	<h1><%= @index_page.title %></h1>
 	<p>
-		Ubi Erat Lupa ist eine Datenbank zu antiken Steindenkmälern für Wissenschaft und Lehre.
-		Wir vernetzen Museen und Universitäten, erleichtern das Auffinden von Publikationen,
-		und machen auch wiederverwertete Objekte sichtbar.
+		<%= nl2br @index_page.text %>
 	</p>
 	<div class="show-more show-all">
 		<%= link_to "Alle Denkmäler anzeigen", @query %>

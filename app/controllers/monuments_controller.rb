@@ -17,6 +17,7 @@ class MonumentsController < ApplicationController
     @new_monuments = Monument.where("date_trunc('month',created) = (select date_trunc('month',max(created)) from monuments where visible)")
     @new_monuments = @new_monuments.order("exists (select * from photos where monument_id = monuments.id) desc, id desc")
     @new_monuments = @new_monuments.page().per(6)
+    @index_page = Page.find('index')
   end
   
   def recent

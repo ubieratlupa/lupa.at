@@ -1,7 +1,7 @@
 class PagesController < ApplicationController
   
   def show
-    @other_pages = Page.order(:ord)
+    @other_pages = Page.where('category = ?', 'about').order(:ord)
     @current_page = Page.find(params[:id])
     @title = @current_page.title
     @text = @current_page.text
