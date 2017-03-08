@@ -1,7 +1,7 @@
 <div class="page">
-	<h1><%= @index_page.title %></h1>
+	<h1><%= @index_page.display_title %></h1>
 	<p>
-		<%= nl2br @index_page.text %>
+		<%= nl2br @index_page.display_text %>
 	</p>
 	<div class="show-more show-all">
 		<%= link_to "Alle Denkmäler anzeigen", @query %>
