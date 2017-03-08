@@ -1,4 +1,4 @@
-<div class="page">
+<div class="page two-column">
 	<h1>Neuzugänge <%= l @new_monuments.first.created, format: "%B %Y" %></h1>
 	<%= paginate @new_monuments %>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @new_monuments } %>

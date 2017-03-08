@@ -9,10 +9,54 @@
 					<%= monument.id%>
 					<%= monument.title %>
 				</p>
-				<p class="detail">
-					<%= monument.object_type %>
-					<%= " / " + monument.monument_type if monument.monument_type %>
-				</p>
+				<% if !@query %>
+					<p class="detail">
+						<%= monument.object_type %>
+						<%= " / " + monument.monument_type if monument.monument_type %>
+					</p>
+				<% end %>
+				<% if @query && @query.finding_place && monument.finding_place %>
+					<p class="detail">
+						Fundort:
+						<% 
+						monument.finding_place.hierarchy.reverse.each_with_index do | place, idx |
+							concat ", " if idx > 0
+							concat place.name
+						end
+						%>
+					</p>
+				<% end %>
+				<% if @query && @query.conservation_place && monument.conservation_place %>
+					<p class="detail">
+						Verwahrort:
+						<% 
+						monument.conservation_place.hierarchy.reverse.each_with_index do | place, idx |
+							concat ", " if idx > 0
+							concat place.name
+						end
+						%>
+					</p>
+				<% end %>
+				<% if @query && @query.museum && monument.museum %>
+					<p class="detail">
+						Museum: <%= monument.museum.name + " " + monument.museum.place.name %>
+					</p>
+				<% end %>
+				<% if @query && iconography_excerpt = @query.iconography_excerpt(monument) %>
+					<p class="detail">
+						Ikonografie: <%= iconography_excerpt %>
+					</p>
+				<% end %>
+				<% if @query && @query.inscription && monument.inscription %>
+					<p class="detail">
+						Inschrift: <%= @query.inscription_excerpt(monument) %>
+					</p>
+				<% end %>
+				<% if @query && literature_excerpt = @query.literature_excerpt(monument) %>
+					<p class="detail">
+						Literatur: <%= literature_excerpt %>
+					</p>
+				<% end %>
 			</a>
 		</div>
 	<% end %>

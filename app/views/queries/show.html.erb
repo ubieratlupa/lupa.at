@@ -1,4 +1,4 @@
-<div class="page">
+<div class="page<%= " two-column" if @query.id == 1 %>">
 	<%= render partial: 'queries/summary', locals: { query: @query, monuments: @monuments } %>
 	<%= paginate @monuments %>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>

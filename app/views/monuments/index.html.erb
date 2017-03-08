@@ -10,7 +10,9 @@
 	
 	<%= render partial: 'queries/form', locals: { query: @query } %>
 	<h2>Neuzugänge <%= l @new_monuments.first.created, format: "%B %Y" %></h2>
-	<%= render partial: 'monuments/monuments_list', locals: { monuments: @new_monuments } %>
+	<div class="two-column">
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @new_monuments } %>
+	</div>
 	<% if @new_monuments.total_count > @new_monuments.count %>
 		<div class="show-more"><%= link_to "Alle #{@new_monuments.total_count} Neuzugänge anzeigen", action: "recent" %></div>
 	<% end %>

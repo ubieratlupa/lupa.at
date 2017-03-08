@@ -11,7 +11,7 @@ class Query < ActiveRecord::Base
     
     if inscription
       for term in inscription.split(/\s+/)
-        matches = matches.where("regexp_replace(regexp_replace(inscription,'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\1', 'g') ILIKE :term OR inscription ILIKE :term", {term: "%#{term}%"})
+        matches = matches.where("regexp_replace(regexp_replace(inscription,'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\\1', 'g') ILIKE :term OR inscription ILIKE :term", {term: "%#{term}%"})
       end
     end
     
@@ -59,4 +59,115 @@ class Query < ActiveRecord::Base
   def self.allowed_search_parameters
     return :keywords, :inscription, :id_ranges, :museum, :finding_place, :conservation_place, :literature
   end
+  
+  def inscription_excerpt(monument)
+    return nil unless inscription
+    original = monument.inscription
+    downcase = original.downcase
+    offsets = []
+    inscription.downcase.split(/\s+/).each_with_index do |term, i|
+      regex = ""
+      term.split("").each_with_index do |c ,i|
+        regex += "(\\<|(=[^\\>]+)?\\>|[\\]\\[()?!{}/\\s-])*" if i > 0
+        regex += Regexp.escape(c)
+      end
+      i = 0
+      while match = downcase.match(regex, i)
+        offsets.push(match.offset(0))
+        i = match.end(0)
+      end
+    end 
+    return nil unless offsets.count > 0
+    offsets.sort! { |a, b| a[0] - b[0] }
+    offsets.each_with_index { |m, i| puts "#{i}: #{m}" }
+    i = 0
+    while i < offsets.count - 1
+      if offsets[i][1]>offsets[i+1][0]
+        offsets[i,2] = [[offsets[i][0], [offsets[i][1],offsets[i+1][1]].max]]
+      else
+        i += 1
+      end
+    end
+    offsets.each_with_index { |m, i| puts "#{i}: #{m}" }
+    limit = 150
+    len = (limit - inscription.length) / (offsets.count * 2)
+    len = 8 unless len > 8
+    extract = "".html_safe
+    x = 0
+    for i in 0 ... offsets.count
+      a = offsets[i][0] - len
+      a = x unless a > x
+      extract += ERB::Util.html_escape("…") if a > x
+      b = offsets[i][1] + len
+      b = original.length unless b < original.length
+      b = offsets[i+1][0] if i+1 < offsets.count && b > offsets[i+1][0]
+      extract += ERB::Util.html_escape(original[a...offsets[i][0]])
+      extract += "<b>".html_safe
+      extract += ERB::Util.html_escape(original[offsets[i][0]...offsets[i][1]])
+      extract += "</b>".html_safe 
+      extract += ERB::Util.html_escape(original[offsets[i][1]...b])
+      x = b
+      break if extract.length > limit
+    end
+    extract += ERB::Util.html_escape("…") if x < original.length
+    extract
+  end
+  
+  def literature_excerpt(monument)
+    simple_excerpt(monument.literature, literature)
+  end
+  
+  def iconography_excerpt(monument)
+    simple_excerpt(monument.iconography, keywords)
+  end
+  
+  def simple_excerpt(original, search)
+    return nil unless search
+    return nil unless original
+    downcase = original.downcase
+    offsets = []
+    search.downcase.split(/\s+/).each_with_index do |term, i|
+      regex = Regexp.escape(term)
+      i = 0
+      while match = downcase.match(regex, i)
+        offsets.push(match.offset(0))
+        i = match.end(0)
+      end
+    end 
+    return nil unless offsets.count > 0
+    offsets.sort! { |a, b| a[0] - b[0] }
+    offsets.each_with_index { |m, i| puts "#{i}: #{m}" }
+    i = 0
+    while i < offsets.count - 1
+      if offsets[i][1]>offsets[i+1][0]
+        offsets[i,2] = [[offsets[i][0], [offsets[i][1],offsets[i+1][1]].max]]
+      else
+        i += 1
+      end
+    end
+    offsets.each_with_index { |m, i| puts "#{i}: #{m}" }
+    limit = 150
+    len = (limit - search.length) / (offsets.count * 2)
+    len = 8 unless len > 8
+    extract = "".html_safe
+    x = 0
+    for i in 0 ... offsets.count
+      a = offsets[i][0] - len
+      a = x unless a > x
+      extract += ERB::Util.html_escape("…") if a > x
+      b = offsets[i][1] + len
+      b = original.length unless b < original.length
+      b = offsets[i+1][0] if i+1 < offsets.count && b > offsets[i+1][0]
+      extract += ERB::Util.html_escape(original[a...offsets[i][0]])
+      extract += "<b>".html_safe
+      extract += ERB::Util.html_escape(original[offsets[i][0]...offsets[i][1]])
+      extract += "</b>".html_safe 
+      extract += ERB::Util.html_escape(original[offsets[i][1]...b])
+      x = b
+      break if extract.length > limit
+    end
+    extract += ERB::Util.html_escape("…") if x < original.length
+    extract
+  end
+  
 end

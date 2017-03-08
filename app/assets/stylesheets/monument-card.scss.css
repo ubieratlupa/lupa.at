@@ -1,5 +1,5 @@
 @media all and (min-width: 500px) {
-	.monument-card-wrapper {
+	.two-column .monument-card-wrapper {
 		float: left;
 		width: 50%;
 /*		margin: 0 0 10px;*/
@@ -46,8 +46,14 @@ a.monument-card {
 }
 
 .monument-card-wrapper .monument-card p.detail {
-	opacity: 0.4;
+	color: rgba(0,0,0,0.5);
 }
+
+.monument-card-wrapper .monument-card p.detail b {
+	color: rgba(200,0,0,0.7);
+	font-weight: normal;
+}
+
 
 .monument-card a {
 	font-size: 12px;
