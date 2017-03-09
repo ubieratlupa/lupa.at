@@ -9,7 +9,7 @@
 					<%= monument.id%>
 					<%= monument.title %>
 				</p>
-				<% if !@query %>
+				<% if !@query || @query.id == 1 %>
 					<p class="detail">
 						<%= monument.object_type %>
 						<%= " / " + monument.monument_type if monument.monument_type %>
