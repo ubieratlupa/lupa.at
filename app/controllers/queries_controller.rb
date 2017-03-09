@@ -21,7 +21,15 @@ class QueriesController < ApplicationController
     if p[:id_ranges] && p[:id_ranges].match(/^\s*\d+\s*$/) && Monument.exists?(p[:id_ranges])
       redirect_to controller: "monuments", action: "show", id: Monument.find(p[:id_ranges])
     else
-      @query = Query.create(p)
+      begin
+        @query = Query.create(p)
+      rescue ActiveRecord::RecordNotUnique
+        # this could be a random collison, because we pick record ids randomly
+        # it's extremely unlikely (1e-4) if we have a million records
+        # lets just try once more. probability of two consecutive failures is 1e-8
+        # that should be small enough
+        @query = Query.create(p)
+      end
       redirect_to @query
     end
   end
