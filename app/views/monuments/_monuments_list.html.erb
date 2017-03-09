@@ -26,6 +26,12 @@
 						%>
 					</p>
 				<% end %>
+				<% if @query && @query.ancient_finding_place && monument.ancient_finding_place %>
+					<p class="detail">
+						Antiker Fundort / Provinz:
+						<%= monument.ancient_finding_place.full_name %>
+					</p>
+				<% end %>
 				<% if @query && @query.conservation_place && monument.conservation_place %>
 					<p class="detail">
 						Verwahrort:

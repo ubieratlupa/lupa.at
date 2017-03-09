@@ -19,6 +19,10 @@
 		<p><strong>Fundort:</strong> <%= @query.finding_place %></p>
 	<% end %>
 	
+	<% if @query.ancient_finding_place %>
+		<p><strong>Antiker Fundort / Provinz:</strong> <%= @query.ancient_finding_place %></p>
+	<% end %>
+	
 	<% if @query.conservation_place %>
 		<p><strong>Verwahrort:</strong> <%= @query.conservation_place %></p>
 	<% end %>

@@ -53,11 +53,16 @@ class Query < ActiveRecord::Base
       matches = matches.where("finding_place_id in (with recursive place_ids as (select id from vocabulary.places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", finding_place)
     end
     
+    if ancient_finding_place
+      matches = matches.where("ancient_finding_place_id in (with recursive ancient_place_ids as (select id from vocabulary.ancient_places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_ancient_places.id from vocabulary.ancient_places child_ancient_places join ancient_place_ids on ancient_place_ids.id = child_ancient_places.parent_id ) select * from ancient_place_ids)", ancient_finding_place)
+    end
+    
+    
     return matches
   end
   
   def self.allowed_search_parameters
-    return :keywords, :inscription, :id_ranges, :museum, :finding_place, :conservation_place, :literature
+    return :keywords, :inscription, :id_ranges, :museum, :finding_place, :conservation_place, :literature, :ancient_finding_place
   end
   
   def inscription_excerpt(monument)
