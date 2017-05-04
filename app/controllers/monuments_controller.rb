@@ -2,7 +2,7 @@ class MonumentsController < ApplicationController
 
   def show
     @monument = Monument.find(params[:id])
-    @photos = @monument.photos.order(:ord)
+    @photos = @monument.photos.order(:ord, :id)
     @title = @monument.title
   end
   
@@ -28,7 +28,7 @@ class MonumentsController < ApplicationController
   
   def photos
     @monument = Monument.find(params[:id])
-    @photos = @monument.photos.page(params[:page]).per(1)
+    @photos = @monument.photos.order(:ord, :id).page(params[:page]).per(1)
     @photo = @photos.first
   end
   
