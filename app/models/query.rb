@@ -57,12 +57,23 @@ class Query < ActiveRecord::Base
       matches = matches.where("ancient_finding_place_id in (with recursive ancient_place_ids as (select id from vocabulary.ancient_places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_ancient_places.id from vocabulary.ancient_places child_ancient_places join ancient_place_ids on ancient_place_ids.id = child_ancient_places.parent_id ) select * from ancient_place_ids)", ancient_finding_place)
     end
     
+    if photo
+      for term in photo.split(/\s+/)
+        matches = matches.where("id in (select distinct monument_id from photos left join vocabulary.copyrights on copyrights.id = copyright_id left join vocabulary.authors on authors.id = author_id where concat_ws(' ',copyright, copyright_detail, authors.first_name, authors.last_name, authors.institution) ilike ?)", "%#{term}%")
+      end
+    end
+    
+    if dating
+      for term in dating.split(/\s+/)
+        matches = matches.where("concat_ws(' ',dating_phase, dating_comment) ILIKE ?", "%#{term}%")
+      end
+    end
     
     return matches
   end
   
   def self.allowed_search_parameters
-    return :keywords, :inscription, :id_ranges, :museum, :finding_place, :conservation_place, :literature, :ancient_finding_place
+    return :keywords, :inscription, :id_ranges, :museum, :finding_place, :conservation_place, :literature, :ancient_finding_place, :photo, :dating
   end
   
   def inscription_excerpt(monument)

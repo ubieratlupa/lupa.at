@@ -69,6 +69,11 @@
 						Inschrift: <%= @query.inscription_excerpt(monument) %>
 					</p>
 				<% end %>
+				<% if @query && @query.dating %>
+					<p class="detail">
+						Datierung: <%= monument.dating_phase %>
+					</p>
+				<% end %>
 				<% if @query && literature_excerpt = @query.literature_excerpt(monument) %>
 					<p class="detail">
 						Literatur: <%= literature_excerpt %>
