@@ -15,16 +15,27 @@
 						<%= " / " + monument.monument_type if monument.monument_type %>
 					</p>
 				<% end %>
-				<% if @query && @query.finding_place && monument.finding_place %>
-					<p class="detail">
-						Fundort:
-						<% 
-						monument.finding_place.hierarchy.reverse.each_with_index do | place, idx |
-							concat ", " if idx > 0
-							concat place.name
-						end
-						%>
-					</p>
+				<% if monument.finding_place %>
+					<% if @query && @query.finding_place %>
+						<p class="detail">
+							Fundort:
+							<% 
+							monument.finding_place.hierarchy.reverse.each_with_index do | place, idx |
+								concat ", " if idx > 0
+								concat place.name
+							end
+							%>
+						</p>
+					<% else %>
+						<p class="detail">
+							Fundort:
+							<% 
+							places = monument.finding_place.hierarchy
+							concat places.last.name
+							concat ", " + places.first.name if places.count > 1
+							%>
+						</p>
+					<% end %>
 				<% end %>
 				<% if @query && @query.ancient_finding_place && monument.ancient_finding_place %>
 					<p class="detail">
