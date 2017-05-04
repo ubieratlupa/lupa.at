@@ -9,7 +9,7 @@ Rails.application.routes.draw do
 
   root 'monuments#index'
   
-  get 'map' => 'places#map_finding_places'
+  get 'map' => 'places#map'
   
   get 'about', to: 'pages#show', defaults: { id: 'lupa' }
   get 'about/:id', to: 'pages#show', as: :page
@@ -25,6 +25,7 @@ Rails.application.routes.draw do
 
   get 'places/:id/finding' => 'places#show_finding'
   get 'places/:id/conservation' => 'places#show_conservation'
+  get 'places/:id/museums' => 'places#show_museums'
 
   get ':id' => 'monuments#show'
   

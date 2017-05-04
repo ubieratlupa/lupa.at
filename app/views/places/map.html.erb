@@ -1,0 +1,112 @@
+<script src='https://api.mapbox.com/mapbox.js/v3.1.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.1.0/mapbox.css' rel='stylesheet' />
+<style>
+</style>
+<div id='map'>
+	<div id='legend'>
+		<span id="legend-finding" onclick="showFinding()"><img src="<%= asset_path "marker.png" %>">Fundorte</span>
+		<span id="legend-conservation" onclick="showConservation()"><img src="<%= asset_path "marker-blue.png" %>">Verwahrorte</span>
+		<span id="legend-museums" onclick="showMuseums()"><img src="<%= asset_path "marker-museum.png" %>">Museen</span>
+	</div>
+</div>
+
+<script>
+	L.mapbox.accessToken = 'pk.eyJ1IjoiamFiYWtvYm9iIiwiYSI6ImNpZ200bTA5ZTAwZDd3OWt0anFqM2wwaGMifQ.Og5ScP-C8AV3I7JHDR0zHQ';
+	var map = L.mapbox.map('map').setView([47, 13.975], 7)
+	L.mapbox.styleLayer('mapbox://styles/jabakobob/citeaxn1u00ac2hrzfnjg8398').addTo(map);
+	
+	
+	var markerIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker@2x.png" %>',
+	    iconSize: [9, 9],
+	});
+	
+	var markerBlueIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker-blue.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker-blue@2x.png" %>',
+	    iconSize: [9, 9],
+	});
+
+	var markerMuseumIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker-museum.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker-museum@2x.png" %>',
+	    iconSize: [13, 13],
+	});
+	
+	var visibleMarkers = []
+	var scheduledMarkers = []
+		
+	function showMarkers() {
+		var mid = L.latLng(48.2, 16.4)
+		if (!map.getBounds().contains(mid)) {
+			mid = map.getCenter()
+		}
+		scheduledMarkers.sort(function(a,b){
+			return b.getLatLng().distanceTo(mid) - a.getLatLng().distanceTo(mid)
+		})
+		showMarkers2()
+	}
+	
+	var showMarkerTimeout
+	function showMarkers2() {
+		var i = 0;
+		for (i = 0; i<100; i++) {
+			var marker = scheduledMarkers.pop();
+			if (!marker) break;
+			marker.on('click',clickMarker).addTo(map);
+			visibleMarkers.push(marker)
+		}
+		if (scheduledMarkers.length) {
+			showMarkerTimeout = setTimeout(showMarkers2, 5);
+		}
+	}
+	
+	function showFinding() {
+		removeMarkers();
+		<% @places.each do |place| %>
+			scheduledMarkers.push(L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_finding", id: place %>"}))
+		<% end %>
+		showMarkers();
+		document.getElementById("legend-finding").className = "active"
+		document.getElementById("legend-conservation").className = ""
+		document.getElementById("legend-museums").className = ""
+	}
+	
+	
+	function showConservation() {
+		removeMarkers();
+		<% @conservation_places.each do |place| %>
+			scheduledMarkers.push(L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerBlueIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_conservation", id: place %>"}));
+		<% end %>
+		showMarkers();
+		document.getElementById("legend-finding").className = ""
+		document.getElementById("legend-conservation").className = "active"
+		document.getElementById("legend-museums").className = ""
+	}
+	
+	function removeMarkers() {
+		clearTimeout(showMarkerTimeout)
+		var marker
+		while (marker = visibleMarkers.pop()) {
+			map.removeLayer(marker)
+		}
+		scheduledMarkers = []
+	}
+	
+	function showMuseums() {
+		removeMarkers();
+		<% @museum_places.each do |place| %>
+			scheduledMarkers.push(L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerMuseumIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_museums", id: place %>"}));
+		<% end %>
+		showMarkers();
+		document.getElementById("legend-finding").className = ""
+		document.getElementById("legend-conservation").className = ""
+		document.getElementById("legend-museums").className = "active"
+	}
+	
+
+	showFinding();
+	
+	function clickMarker(evt) { window.location = evt.target.options.url }
+</script>

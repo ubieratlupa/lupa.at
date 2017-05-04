@@ -1,0 +1,14 @@
+<div class="place page">
+	<h1>Museen in <%= @place.name %></h1>
+	<ol class="breadcrumb">
+		<% @place.hierarchy.each do | place | %>
+			<li><%= link_to place.name, place %></li>
+		<% end %>
+		<li>Fundort</li>
+	</ol>
+	<div class="section">
+		<% @museums.each do | museum | %>
+			<p><%= link_to museum.name + ' ' + museum.place.name, museum %></p>
+		<% end %>
+	</div>
+</div>

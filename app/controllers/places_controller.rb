@@ -26,8 +26,14 @@ class PlacesController < ApplicationController
     @place = Place.find(params[:id])
     @monuments_conserved = Monument.conserved_in(@place).page(params[:page]).per(50)
   end
+  
+  def show_museums
+    @place = Place.find(params[:id])
+    @museums = @place.museums
+    redirect_to @museums.first if @museums.count == 1
+  end
 
-  def map_finding_places
+  def map
     @places = Place
     			.all()
     			.joins('RIGHT JOIN monuments ON monuments.finding_place_id=places.id')
@@ -35,6 +41,20 @@ class PlacesController < ApplicationController
     			.where('long IS NOT NULL')
     			.order(:id)
     			.select(:id, :name, :full_name, :lat, :long, 'COUNT(*) AS monuments_count')
+    @conservation_places = Place
+    			.all()
+    			.joins('RIGHT JOIN monuments ON monuments.conservation_place_id=places.id')
+    			.group('places.id')
+    			.where('long IS NOT NULL')
+    			.order(:id)
+    			.select(:id, :name, :full_name, :lat, :long, 'COUNT(*) AS monuments_count')
+    @museum_places = Place
+    			.all()
+    			.joins('RIGHT JOIN museums ON museums.place_id=places.id')
+    			.group('places.id')
+    			.where('long IS NOT NULL')
+    			.order(:id)
+    			.select(:id, :name, :full_name, :lat, :long, 'COUNT(*) AS museums_count')
   end
 
 end
