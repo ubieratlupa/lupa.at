@@ -8,11 +8,15 @@
 	<% end %>
 	
 	<% if @query.keywords %>
-		<p><strong>Titel + Ikonographie:</strong> <%= @query.keywords %></p>
+		<p><strong>Titel, Objekt, Ikonographie:</strong> <%= @query.keywords %></p>
 	<% end %>
 	
 	<% if @query.inscription %>
-		<p><strong>Inschrift:</strong> <%= @query.inscription %></p>
+		<p><strong>Inschrifttext, typ:</strong> <%= @query.inscription %></p>
+	<% end %>
+	
+	<% if @query.dating %>
+		<p><strong>Datierung:</strong> <%= @query.dating %></p>
 	<% end %>
 	
 	<% if @query.finding_place %>
@@ -20,7 +24,7 @@
 	<% end %>
 	
 	<% if @query.ancient_finding_place %>
-		<p><strong>Antiker Fundort / Provinz:</strong> <%= @query.ancient_finding_place %></p>
+		<p><strong>Antiker Fundort, Provinz:</strong> <%= @query.ancient_finding_place %></p>
 	<% end %>
 	
 	<% if @query.conservation_place %>
@@ -28,7 +32,11 @@
 	<% end %>
 	
 	<% if @query.museum %>
-		<p><strong>Museum:</strong> <%= @query.museum %></p>
+		<p><strong>Museum, Inventarnummer:</strong> <%= @query.museum %></p>
+	<% end %>
+	
+	<% if @query.photo %>
+		<p><strong>Fotograf, Bildrechte:</strong> <%= @query.photo %></p>
 	<% end %>
 	
 	<% if @query.literature %>

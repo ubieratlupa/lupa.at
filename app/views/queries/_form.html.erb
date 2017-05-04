@@ -6,7 +6,7 @@
 
 	<div class="flex-break"></div>
 
-	<%= label_tag(:keywords, "Titel, Ikonographie") %>
+	<%= label_tag(:keywords, "Titel, Objekt, Ikonographie") %>
 	<%= text_field(:query, :keywords) %>
 	
 	<div class="flex-break"></div>
@@ -16,16 +16,24 @@
 
 	<div class="flex-break"></div>
 	
+	<%= label_tag(:finding_place, "Datierung (Phase)") %>
+	<%= text_field(:query, :dating) %>
+	
+	<div class="flex-break"></div>
+	
 	<%= label_tag(:finding_place, "Fundort") %>
 	<%= text_field(:query, :finding_place) %>
+	
 	<div class="flex-break"></div>
 	
 	<%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
 	<%= text_field(:query, :ancient_finding_place) %>
+	
 	<div class="flex-break"></div>
 
 	<%= label_tag(:conservation_place, "Verwahrort") %>
 	<%= text_field(:query, :conservation_place) %>
+	
 	<div class="flex-break"></div>
 	
 	<%= label_tag(:museum, "Museum, Inventarnummer") %>
@@ -33,6 +41,11 @@
 
 	<div class="flex-break"></div>
 
+	<%= label_tag(:literature, "Fotograf, Bildrechte") %>
+	<%= text_field(:query, :photo) %>
+	
+	<div class="flex-break"></div>
+	
 	<%= label_tag(:literature, "Literatur") %>
 	<%= text_field(:query, :literature) %>
 
