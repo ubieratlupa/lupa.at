@@ -41,7 +41,7 @@ class Query < ActiveRecord::Base
     
     if museum
       for term in museum.split(/\s+/)
-        matches = matches.joins(museum: :place).where("museums.name || ' ' || places.name ILIKE ?", "%#{term}%")
+        matches = matches.joins(museum: :place).where("concat_ws(' ', museums.name, places.name, museum_inventory_number) ILIKE ?", "%#{term}%")
       end
     end
     
