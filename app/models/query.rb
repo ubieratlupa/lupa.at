@@ -11,7 +11,7 @@ class Query < ActiveRecord::Base
     
     if inscription
       for term in inscription.split(/\s+/)
-        matches = matches.where("regexp_replace(regexp_replace(inscription,'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\\1', 'g') ILIKE :term OR inscription ILIKE :term", {term: "%#{term}%"})
+        matches = matches.where("regexp_replace(regexp_replace(concat_ws(' ',inscription, inscription_name_donor, inscription_function, inscription_formula),'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\\1', 'g') ILIKE :term OR concat_ws(' ', inscription, inscription_name_donor, inscription_function, inscription_formula, inscription_comment, inscription_type) ILIKE :term", {term: "%#{term}%"})
       end
     end
     
