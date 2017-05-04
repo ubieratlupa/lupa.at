@@ -26,4 +26,10 @@ class MonumentsController < ApplicationController
     @new_monuments = @new_monuments.page(params[:page]).per(50)
   end
   
+  def photos
+    @monument = Monument.find(params[:id])
+    @photos = @monument.photos.page(params[:page]).per(1)
+    @photo = @photos.first
+  end
+  
 end

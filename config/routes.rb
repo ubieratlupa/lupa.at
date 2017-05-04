@@ -28,6 +28,8 @@ Rails.application.routes.draw do
 
   get ':id' => 'monuments#show'
   
+  get ':id/photos/:page' => 'monuments#photos'
+  
   resources :monuments do
     get 'qr', :on => :member
     get 'recent', :on => :collection

@@ -1,0 +1,15 @@
+<div class="monument page">
+	
+	<h2>
+		<%= @monument.id %>
+		<%= @monument.title %>
+	</h2>
+		
+		
+	<img src="http://lupa.at/img/<%= @photo.filename %>">
+	
+	<p>Bildnummer: <%= @photo.filename.sub(/\.jpe?g$/i, '') %></p>
+	
+	<p><%= nl2br @photo.caption %></p>
+		
+</div>
