@@ -9,7 +9,7 @@
 	</div>
 	
 	<%= render partial: 'queries/form', locals: { query: @query } %>
-	<h2>Neuzugänge <%= l @new_monuments.first.created, format: "%B %Y" %></h2>
+	<h2>Neuzugänge seit <%= l @new_monuments.first.created, format: "%B %Y" %></h2>
 	<div class="two-column">
 		<%= render partial: 'monuments/monuments_list', locals: { monuments: @new_monuments } %>
 	</div>
