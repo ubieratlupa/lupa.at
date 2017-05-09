@@ -324,7 +324,7 @@
 			<% if @monument.literature_online %>
 				<dt>Online Literatur</dt>
 				<dd>
-					<%= nl2br @monument.literature_online %>
+					<%== nl2br(@monument.literature_online).gsub(/HD\d+/, '<a href="http://edh-www.adw.uni-heidelberg.de/edh/inschrift/\\0">\\0</a>') %>
 				</dd>
 			<% end %>
 			<dt>Zitat</dt>
