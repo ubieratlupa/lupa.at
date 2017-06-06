@@ -24,7 +24,8 @@ class MonumentsController < ApplicationController
   end
   
   def recent
-    @new_monuments = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = (select date_trunc('month',max(created)) latest_month from photos where monument_id in (select id from monuments where visible)))")
+    @new_monuments_date = Photo.select("date_trunc('month',max(created)) AS created").where("monument_id not in (select id from monuments where not visible)")[0].created
+    @new_monuments = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", @new_monuments_date)
     @new_monuments = @new_monuments.order("id desc")
     @new_monuments = @new_monuments.page(params[:page]).per(50)
   end
