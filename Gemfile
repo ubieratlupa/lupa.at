@@ -4,7 +4,6 @@ source 'https://rubygems.org'
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
 gem 'mina', :require => false
-gem 'mina-puma', :require => false
 
 gem 'pg'
 # Use Puma as the app server
