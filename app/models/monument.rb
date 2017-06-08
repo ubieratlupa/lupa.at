@@ -3,11 +3,13 @@ class Monument < ActiveRecord::Base
   belongs_to :conservation_place, class_name: "Place", optional: true
   belongs_to :ancient_finding_place, class_name: "AncientPlace", optional: true
   belongs_to :museum, optional: true
+  belongs_to :parent_monument, class_name: "Monument", optional: true
   belongs_to :archaeology_author, class_name: "Author", optional: true
   belongs_to :epigraphy_author, class_name: "Author", optional: true
   belongs_to :architecture_author, class_name: "Author", optional: true
   
   has_many :photos
+  has_many :child_monuments, class_name: "Monument", foreign_key: "parent_monument_id"
   
   default_scope { where(visible: true) }
   scope :found_in, ->(place) { 

@@ -78,10 +78,18 @@
 				<%= @monument.comment %>
 			</dd>
 		<% end %>
-		<% if @monument.related_monument_ids %>
+		<% if @monument.parent_monument %>
 			<dt>Teil von</dt>
 			<dd>
-				<%= @monument.related_monument_ids %>
+				<%= link_to_monument @monument.parent_monument %>
+			</dd>
+		<% end %>
+		<% if @monument.child_monuments.present? %>
+			<dt>Zugehörige Teile</dt>
+			<dd>
+				<% for m in @monument.child_monuments %>
+					<p><%= link_to_monument m %></p>
+				<% end %>
 			</dd>
 		<% end %>
 	</dl>

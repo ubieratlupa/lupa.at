@@ -4,7 +4,7 @@ module MonumentHelper
   end
   
   def link_to_monument(monument) 
-    link_to monument.title, monument_short_path(monument)
+    link_to "#{monument.id} #{monument.title}", monument_short_path(monument)
   end
   
   def canonical_url_for_monument(monument)
