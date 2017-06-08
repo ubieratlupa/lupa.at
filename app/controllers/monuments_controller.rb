@@ -31,6 +31,10 @@ class MonumentsController < ApplicationController
   end
   
   def photos
+    if params[:page].nil? 
+      redirect_to page: 1
+      return
+    end
     @monument = Monument.find(params[:id])
     @photos = @monument.photos.order(:ord, :id).page(params[:page]).per(1)
     @photo = @photos.first
