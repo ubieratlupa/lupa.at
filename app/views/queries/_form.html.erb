@@ -1,55 +1,41 @@
 <%= form_tag({controller: :queries, action: :create}, class:"query-form") do %>
-	<h4>Suchabfrage</h4>
-	
-	<%= label_tag(:id_range, "Nr") %>
-	<%= text_field(:query, :id_ranges) %>
+	<h1>Suchabfrage</h1>
 
-	<div class="flex-break"></div>
+	<div class="query-inside">
 
-	<%= label_tag(:keywords, "Titel, Objekt, Ikonographie") %>
-	<%= text_field(:query, :keywords) %>
-	
-	<div class="flex-break"></div>
+	<div class="query-box"><%= label_tag(:id_range, "Nr") %>
+	<%= text_field(:query, :id_ranges) %> </div>
 
-	<%= label_tag(:inscription, "Inschrifttext, Typ") %>
-	<%= text_field(:query, :inscription) %>
+	<div class="query-box"><%= label_tag(:keywords, "Titel, Objekt, Ikonographie") %>
+	<%= text_field(:query, :keywords) %> </div>
 
-	<div class="flex-break"></div>
+	<div class="query-box"><%= label_tag(:inscription, "Inschrifttext, Typ") %>
+	<%= text_field(:query, :inscription) %> </div>
 	
-	<%= label_tag(:finding_place, "Datierung (Phase)") %>
-	<%= text_field(:query, :dating) %>
+	<div class="query-box"><%= label_tag(:finding_place, "Datierung (Phase)") %>
+	<%= text_field(:query, :dating) %> </div>
 	
-	<div class="flex-break"></div>
+	<div class="query-box"><%= label_tag(:finding_place, "Fundort") %>
+	<%= text_field(:query, :finding_place) %> </div>
 	
-	<%= label_tag(:finding_place, "Fundort") %>
-	<%= text_field(:query, :finding_place) %>
-	
-	<div class="flex-break"></div>
-	
-	<%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
-	<%= text_field(:query, :ancient_finding_place) %>
-	
-	<div class="flex-break"></div>
+	<div class="query-box"><%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
+	<%= text_field(:query, :ancient_finding_place) %> </div>
 
-	<%= label_tag(:conservation_place, "Verwahrort") %>
-	<%= text_field(:query, :conservation_place) %>
+	<div class="query-box"><%= label_tag(:conservation_place, "Verwahrort") %>
+	<%= text_field(:query, :conservation_place) %> </div>
 	
-	<div class="flex-break"></div>
-	
-	<%= label_tag(:museum, "Museum, Inventarnummer") %>
-	<%= text_field(:query, :museum) %>
+	<div class="query-box"><%= label_tag(:museum, "Museum, Inventarnummer") %>
+	<%= text_field(:query, :museum) %> </div>
 
-	<div class="flex-break"></div>
-
-	<%= label_tag(:literature, "Fotograf, Bildrechte") %>
-	<%= text_field(:query, :photo) %>
+	<div class="query-box"><%= label_tag(:literature, "Fotograf, Bildrechte") %>
+	<%= text_field(:query, :photo) %> </div>
 	
-	<div class="flex-break"></div>
-	
-	<%= label_tag(:literature, "Literatur") %>
-	<%= text_field(:query, :literature) %>
+	<div class="query-box"><%= label_tag(:literature, "Literatur") %>
+	<%= text_field(:query, :literature) %> </div>
 
-	<div class="flex-break"></div>
+	<div class="clearfloat"></div>
+
+	</div>
 
 	<%= submit_tag "Suchen", class: 'button' %>
 <% end %>
