@@ -6,7 +6,7 @@
 					<div style="background-image: url(//lupa.at/img/<%= photo.filename %>);" class=photo></div>
 				<% end %>
 				<p class="id">
-					<%= monument.id%>
+					<%= monument.id%>&emsp;
 					<%= monument.title %>
 				</p>
 				<% if !@query || @query.id == 1 %>
@@ -64,7 +64,7 @@
 						Ikonografie: <%= iconography_excerpt %>
 					</p>
 				<% end %>
-				<% if @query && @query.inscription && monument.inscription %>
+				<% if @query && @query.inscription && monument.inscåription %>
 					<p class="detail">
 						Inschrift: <%= @query.inscription_excerpt(monument) %>
 					</p>
@@ -82,5 +82,8 @@
 			</a>
 		</div>
 	<% end %>
+	<div class="monument-card-wrapper">
+		<a class="monument-card show-more" <%= link_to "Alle Neuzugänge anzeigen", action: "recent" %> <img class="show-more-photo" src="<%= asset_path "show_more.png" %>" linkto="action:"recent" /></a>
+	</div>
 	<div style='clear: both;'></div>
 </div>

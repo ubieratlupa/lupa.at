@@ -18,7 +18,7 @@ class MonumentsController < ApplicationController
     @new_monuments = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", @new_monuments_date)
     @new_monuments_count = @new_monuments.count
     @new_monuments = @new_monuments.order("id desc")
-    @new_monuments = @new_monuments.limit(6)
+    @new_monuments = @new_monuments.limit(5)
     @new_monuments = @new_monuments
     @index_page = Page.find('index')
   end
