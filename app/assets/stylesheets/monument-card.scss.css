@@ -15,11 +15,10 @@
 	padding: 5px;
 }
 
-.monument-card-wrapper .show-more{
+.monument-card-wrapper{
 	font-size: 12px;
-	padding-top: 37px;
 	box-sizing: border-box;
-	padding-left: 60px;
+	text-align: center;
 }
 
 a.monument-card {
@@ -30,6 +29,7 @@ a.monument-card {
 	color: inherit;
 	border-radius: 2px;
 	overflow: hidden;
+	text-align: left;
 }
 
 .monument-card .photo {
@@ -43,18 +43,21 @@ a.monument-card {
 
 .photo{
 	background-size: cover;
-	//height: 85px;
-	//overflow: hidden;
 	position: relative;
 }
 
 .show-more-photo{
 	height: 55px;
 	width: 55px;
-	padding: 15px;
 	position: relative;
-	top: -85px;
-	margin: 0;
+	top: 15px;
+	left: 15px;
+}
+
+.show-more-text{
+	position: relative;
+	top: -7px;
+	left: 40px;
 }
 
 .monument-card-wrapper .monument-card p {

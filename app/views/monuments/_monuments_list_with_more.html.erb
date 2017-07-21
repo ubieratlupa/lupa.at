@@ -83,7 +83,7 @@
 		</div>
 	<% end %>
 	<div class="monument-card-wrapper">
-		<a class="monument-card show-more" <%= link_to "Alle Neuzugänge anzeigen", action: "recent" %> <img class="show-more-photo" src="<%= asset_path "show_more.png" %>" linkto="action:"recent" /></a>
+		<a class="monument-card" href="<%= url_for action: "recent" %>"><img class="show-more-photo" src="<%= asset_path "show_more.png" %>" linkto="action:"recent" /><span class="show-more-text">Alle Neuzugänge anzeigen</span></a>
 	</div>
 	<div style='clear: both;'></div>
 </div>
