@@ -63,21 +63,18 @@ a:visited {
 #lupa-menu a {
 	display: inline-block;
 	text-decoration: none;
-	color: #666;
+	color: #aaa;
 	height: 19px;
 	padding: 8px 10px;
 	vertical-align: center;
 }
 
 #lupa-menu a:hover {
-	text-decoration: underline;
-}
-
-#lupa-menu a:active {
+	color: black;
 }
 
 #lupa-menu a.active {
-	text-decoration: underline;
+	color: black;
 }
 
 #content {
