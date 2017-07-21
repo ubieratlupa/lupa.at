@@ -24,10 +24,10 @@ class Photo < ActiveRecord::Base
       photography.append self.year
     end
     
-    if photography
-      lines.append "Fotografie: " + photography.join(', ')
+    if photography.count > 0
+      lines.append "Foto: " + photography.join(' ')
     end
       
-    lines.join("\n")
+    lines.join(", ")
   end
 end
