@@ -21,6 +21,10 @@
 .query-summary {
 }
 
+.query-box{
+	position: relative;
+}
+
 .query-summary .show-more {
 	text-align: right;
 	float: right;

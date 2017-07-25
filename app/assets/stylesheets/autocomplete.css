@@ -1,0 +1,78 @@
+#textfield{
+	font-family: Helvetica;
+	border: 3px solid black;
+	height: 50px;
+	width: 200px;
+	font-size: 14px;
+	padding: 5px;
+}
+
+.autocomplete-suggestion{
+	font-family: Helvetica;
+	color: #aaa;
+	border-bottom: 1px solid #aaa;
+	padding: 5px;
+	font-size: 13px;
+	position: relative; 
+	padding: 0.6em; 
+	line-height: 23px; 
+	white-space: nowrap; 
+	overflow: hidden; 
+	text-overflow: ellipsis;
+}
+
+.autocomplete-suggestion b{
+	font-family: Helvetica;
+	color: black;
+	font-weight: normal;
+}
+
+@media all and (min-width: 500px){
+
+	#reset_img_fundort, #reset_img_verwahrort, #reset_img_antikerfundort{
+	height: 20px;
+	position: absolute;
+	top: 25px;
+	right: 10px;
+	display: none;
+	}
+}
+
+@media all and (max-width: 499px){
+	#reset_img_fundort, #reset_img_verwahrort, #reset_img_antikerfundort{
+		height: 20px;
+		position: absolute;
+		top: 30px;
+		right: 10px;
+		display: none;
+	}
+}
+
+
+
+#outputtitle{
+	color: black;
+}
+
+.autocomplete-suggestions {
+    text-align: left; 
+    cursor: default; 
+    border: 1px solid #aaa; 
+    border-top: 0; 
+    background: #fff; 
+    box-shadow: -1px 1px 3px rgba(0,0,0,.1);
+    max-height: 200px;
+
+    /* core styles should not be changed */
+    position: absolute; 
+    display: none; 
+    z-index: 9999; 
+    max-height: 254px; 
+    overflow: hidden; 
+    overflow-y: auto; 
+    box-sizing: border-box;
+}
+
+.autocomplete-suggestion.selected { 
+	background: #eee; 
+}

@@ -1,35 +1,64 @@
-<%= form_tag({controller: :queries, action: :create}, class:"query-form") do %>
+<%= form_tag({controller: :queries, action: :create}, class:"query-form", id:"query-form") do  %>
 	<div class="query-inside">
 
-	<div class="query-box"><%= label_tag(:id_range, "Nr") %>
-	<%= text_field(:query, :id_ranges) %> </div>
+	<div class="query-box">
+		<%= label_tag(:id_range, "Nr") %>
+		<%= text_field(:query, :id_ranges) %>
+	</div>
 
-	<div class="query-box"><%= label_tag(:keywords, "Titel, Objekt, Ikonographie") %>
-	<%= text_field(:query, :keywords) %> </div>
+	<div class="query-box">
+		<%= label_tag(:keywords, "Titel, Objekt, Ikonographie") %>
+		<%= text_field(:query, :keywords) %> 
+	</div>
 
-	<div class="query-box"><%= label_tag(:inscription, "Inschrifttext, Typ") %>
-	<%= text_field(:query, :inscription) %> </div>
+	<div class="query-box">
+		<%= label_tag(:inscription, "Inschrifttext, Typ") %>
+		<%= text_field(:query, :inscription) %> 
+	</div>
 	
-	<div class="query-box"><%= label_tag(:finding_place, "Datierung (Phase)") %>
-	<%= text_field(:query, :dating) %> </div>
+	<div class="query-box">
+		<%= label_tag(:finding_place, "Datierung (Phase)") %>
+		<%= text_field(:query, :dating) %> 
+	</div>
 	
-	<div class="query-box"><%= label_tag(:finding_place, "Fundort") %>
-	<%= text_field(:query, :finding_place) %> </div>
+	<div class="query-box" id="FundortBox">
+		<%= label_tag(:finding_place, "Fundort") %>
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="textfield_fundort" name="textfield_fundort"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_fundort" alt="reset">
+		<input type="hidden" value="" id="place_id_fundort" name="place_id_fundort" >
+		<!--<input type="submit" style="display: none"> -->
+	</div>
 	
-	<div class="query-box"><%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
-	<%= text_field(:query, :ancient_finding_place) %> </div>
+	<div class="query-box" id="AntikerFundortBox">
+		<%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="textfield_antikerfundort" name="textfield_antikerfundort"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_antikerfundort" alt="reset" >
+		<input type="hidden" value="" id="place_id_antikerfundort" name="place_id_antikerfundort" >
+		<!--<input type="submit" style="display: none"> -->
+	</div>
 
-	<div class="query-box"><%= label_tag(:conservation_place, "Verwahrort") %>
-	<%= text_field(:query, :conservation_place) %> </div>
+	<div class="query-box" id="VerwahrortBox">
+		<%= label_tag(:conservation_place, "Verwahrort") %>
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="textfield_verwahrort" name="textfield_verwahrort"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_verwahrort" alt="reset" >
+		<input type="hidden" value="" id="place_id_verwahrort" name="place_id_verwahrort" >
+		<!--<input type="submit" style="display: none"> -->
+	</div>
 	
-	<div class="query-box"><%= label_tag(:museum, "Museum, Inventarnummer") %>
-	<%= text_field(:query, :museum) %> </div>
+	<div class="query-box">
+		<%= label_tag(:museum, "Museum, Inventarnummer") %>
+		<%= text_field(:query, :museum) %> 
+	</div>
 
-	<div class="query-box"><%= label_tag(:literature, "Fotograf, Bildrechte") %>
-	<%= text_field(:query, :photo) %> </div>
+	<div class="query-box">
+		<%= label_tag(:literature, "Fotograf, Bildrechte") %>
+		<%= text_field(:query, :photo) %> 
+	</div>
 	
-	<div class="query-box"><%= label_tag(:literature, "Literatur") %>
-	<%= text_field(:query, :literature) %> </div>
+	<div class="query-box">
+		<%= label_tag(:literature, "Literatur") %>
+		<%= text_field(:query, :literature) %> 
+	</div>
 
 	<div class="clearfloat"></div>
 
