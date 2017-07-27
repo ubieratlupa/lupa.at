@@ -21,27 +21,27 @@
 		<%= text_field(:query, :dating) %> 
 	</div>
 	
-	<div class="query-box" id="FundortBox">
+	<div class="query-box" id="findingPlaceBox">
 		<%= label_tag(:finding_place, "Fundort") %>
-		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="textfield_fundort" name="textfield_fundort"> 
-		<img src="<%= asset_path "reset.png" %>" id="reset_img_fundort" alt="reset">
-		<input type="hidden" value="" id="place_id_fundort" name="place_id_fundort" >
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="finding_place" name="finding_place"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_finding_place" alt="reset">
+		<input type="hidden" value="" id="finding_place_id" name="finding_place_id" >
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 	
-	<div class="query-box" id="AntikerFundortBox">
+	<div class="query-box" id="ancientFindingPlaceBox">
 		<%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
-		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="textfield_antikerfundort" name="textfield_antikerfundort"> 
-		<img src="<%= asset_path "reset.png" %>" id="reset_img_antikerfundort" alt="reset" >
-		<input type="hidden" value="" id="place_id_antikerfundort" name="place_id_antikerfundort" >
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="ancient_finding_place" name="ancient_finding_place"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_ancient_finding_place" alt="reset" >
+		<input type="hidden" value="" id="ancient_finding_place_id" name="ancient_finding_place_id" >
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 
-	<div class="query-box" id="VerwahrortBox">
+	<div class="query-box" id="conservationPlaceBox">
 		<%= label_tag(:conservation_place, "Verwahrort") %>
-		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="textfield_verwahrort" name="textfield_verwahrort"> 
-		<img src="<%= asset_path "reset.png" %>" id="reset_img_verwahrort" alt="reset" >
-		<input type="hidden" value="" id="place_id_verwahrort" name="place_id_verwahrort" >
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="conservation_place" name="conservation_place"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_conservation_place" alt="reset" >
+		<input type="hidden" value="" id="conservation_place_id" name="conservation_place_id" >
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 	

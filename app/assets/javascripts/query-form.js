@@ -5,40 +5,40 @@ var formContents;
 function saveFormContents(){
     if(document.getElementById("query-form")){
     formContents = new Object;
-    formContents.fundortTitle = document.getElementById("textfield_fundort").value;
-    formContents.fundortPlaceID = document.getElementById("place_id_fundort").value;
-    formContents.verwahrortTitle = document.getElementById("textfield_verwahrort").value;
-    formContents.verwahrortPlaceID = document.getElementById("place_id_verwahrort").value;
-    formContents.antikerFundortTitle = document.getElementById("textfield_antikerfundort").value;
-    formContents.antikerFundortPlaceID = document.getElementById("place_id_antikerfundort").value;
+    formContents.findingPlaceTitle = document.getElementById("finding_place").value;
+    formContents.findingPlaceID = document.getElementById("finding_place_id").value;
+    formContents.conservationPlaceTitle = document.getElementById("conservation_place").value;
+    formContents.conservationPlaceID = document.getElementById("conservation_place_id").value;
+    formContents.ancientFindingPlaceTitle = document.getElementById("ancient_finding_place").value;
+    formContents.ancientFindingPlaceID = document.getElementById("ancient_finding_place_id").value;
 
     window.onpageshow = restoreFormContents;
     }     
 }
 
 function restoreFormContents(){
-    document.getElementById("textfield_fundort").value = formContents.fundortTitle;
-    document.getElementById("place_id_fundort").value = formContents.fundortPlaceID;
-    document.getElementById("textfield_verwahrort").value = formContents.verwahrortTitle;
-    document.getElementById("place_id_verwahrort").value = formContents.verwahrortPlaceID;
-    document.getElementById("textfield_antikerfundort").value = formContents.antikerFundortTitle;
-    document.getElementById("place_id_antikerfundort").value = formContents.antikerFundortPlaceID;
+    document.getElementById("finding_place").value = formContents.findingPlaceTitle;
+    document.getElementById("finding_place_id").value = formContents.findingPlaceID;
+    document.getElementById("conservation_place").value = formContents.conservationPlaceTitle;
+    document.getElementById("conservation_place_id").value = formContents.conservationPlaceID;
+    document.getElementById("ancient_finding_place").value = formContents.ancientFindingPlaceTitle;
+    document.getElementById("ancient_finding_place_id").value = formContents.ancientFindingPlaceID;
 }
 
-function xreset(feldname) { 
-    document.getElementById("place_id_" + feldname).value = "";
-    document.getElementById("reset_img_" + feldname).style.display = "none";
-    document.getElementById("textfield_" + feldname).removeAttribute("disabled");
-    document.getElementById("textfield_" + feldname).focus();
-    document.getElementById("textfield_" + feldname).select();
-    document.getElementById("textfield_" + feldname).value = ""; 
+function xreset(fieldname) { 
+    document.getElementById(fieldname + "_id").value = "";
+    document.getElementById("reset_img_" + fieldname).style.display = "none";
+    document.getElementById(fieldname).removeAttribute("disabled");
+    document.getElementById(fieldname).focus();
+    document.getElementById(fieldname).select();
+    document.getElementById(fieldname).value = ""; 
 }
 
 $(document).ready(function() {
-    var feldnamen = ["fundort","verwahrort","antikerfundort"];
+    var fieldnames = ["finding_place","conservation_place","ancient_finding_place"];
     
-    for (i=0; i<feldnamen.length; i++) {
-        createAutoComplete(feldnamen[i]);
+    for (i=0; i<fieldnames.length; i++) {
+        createAutoComplete(fieldnames[i]);
     }
 
     $(document).keypress(function (e){
@@ -53,32 +53,32 @@ $(document).ready(function() {
             });
         }
     });
- 
+
     $("#query-form").submit(function(evt){
-        var textfeldFundortValue = document.getElementById("textfield_fundort").value;
-        var platzIDFundortValue = document.getElementById("place_id_fundort").value;
-        if(platzIDFundortValue=="" && textfeldFundortValue.length>0){
-            document.getElementById("textfield_fundort").style.color = "#ff0000";
-            document.getElementById("textfield_fundort").select();
-			//document.getElementById("textfield_fundort").updateSC();
+        var FindingPlaceValue = document.getElementById("finding_place").value;
+        var FindingPlaceID = document.getElementById("finding_place_id").value;
+        if(FindingPlaceID=="" && FindingPlaceValue.length>0){
+            document.getElementById("finding_place").style.color = "#ff0000";
+            document.getElementById("finding_place").select();
+			document.getElementById("finding_place").updateSC();
             return false;
         }  
 
-        var textfeldAntikerFundortValue = document.getElementById("textfield_antikerfundort").value;
-        var platzIDAntikerFundortValue = document.getElementById("place_id_antikerfundort").value;
-        if(platzIDAntikerFundortValue=="" && textfeldAntikerFundortValue.length>0){
-            document.getElementById("textfield_antikerfundort").style.color = "#ff0000";
-            document.getElementById("textfield_antikerfundort").select();
-			//document.getElementById("textfield_antikerfundort").updateSC();
+        var AncientFindingPlaceValue = document.getElementById("ancient_finding_place").value;
+        var AncientFindingPlaceID = document.getElementById("ancient_finding_place_id").value;
+        if(AncientFindingPlaceID=="" && AncientFindingPlaceValue.length>0){
+            document.getElementById("ancient_finding_place").style.color = "#ff0000";
+            document.getElementById("ancient_finding_place").select();
+			document.getElementById("ancient_finding_place").updateSC();
             return false;
         } 
 
-        var textfeldVerwahrortValue = document.getElementById("textfield_verwahrort").value;
-        var platzIDVerwahrortValue = document.getElementById("place_id_verwahrort").value;
-        if(platzIDVerwahrortValue=="" && textfeldVerwahrortValue.length>0){
-            document.getElementById("textfield_verwahrort").style.color = "#ff0000";
-            document.getElementById("textfield_verwahrort").select();
-			//document.getElementById("textfield_verwahrort").updateSC();
+        var ConservationPlaceValue = document.getElementById("conservation_place").value;
+        var ConservationPlaceID = document.getElementById("conservation_place_id").value;
+        if(ConservationPlaceID=="" && ConservationPlaceValue.length>0){
+            document.getElementById("conservation_place").style.color = "#ff0000";
+            document.getElementById("conservation_place").select();
+			document.getElementById("conservation_place").updateSC();
             return false;
         }  
     });
@@ -86,17 +86,17 @@ $(document).ready(function() {
 });
 
 
-function createAutoComplete( feldname ) {
-    $("#reset_img_" + feldname).click( function(){xreset(feldname)} )
+function createAutoComplete( fieldname ) {
+    $("#reset_img_" + fieldname).click( function(){xreset(fieldname)} )
     //var datatypecontrol = true;
     new autoComplete({
-            selector: '#textfield_' + feldname,
+            selector: '#' + fieldname,
             minChars: 1,
 			cache: false,
             source: function(term, successHandler) {				
 				$.ajax({
 				    type: "GET",
-				    url: "/queries/completions/finding_place",
+				    url: "/queries/completions/" + fieldname,
 					data: {"term": term},
 				    dataType: "json",
 					cache: false,
@@ -107,21 +107,23 @@ function createAutoComplete( feldname ) {
                 search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
 
-				var itemText = "";
 				if (item.type) {
 					if (item.type.includes("(")) {
-					    itemText = " " + item.type;
+					    item.type = " " + item.type;
 					} else {
-					    itemText = " (" + item.type + ")";
+					    item.type = " (" + item.type + ")";
 					} 
 				}
+                else{
+                    item.type = "";
+                }
 
                 return '<div class="autocomplete-suggestion" data-title="' + item.title 
                     + '" data-id="' + item.id 
                     + '" data-path"' + item.path
                     + '" data-type="' + item.type
                     + '" data-val="' + search + '">'
-                    + "<span id='outputtitle'>" + item.title.replace(re, "<b>$1</b>") + "</span>" + itemText + "<br> <span='outputpath'>" + item.path + "</span>"
+                    + "<span id='outputtitle'>" + item.title.replace(re, "<b>$1</b>") + "</span>" + item.type + "<br> <span='outputpath'>" + item.path + "</span>"
                     + '</div>';
             },
             onSelect: function(e, term, item){
@@ -129,11 +131,12 @@ function createAutoComplete( feldname ) {
                 var output_id = item.getAttribute('data-id');
                 var output_type = item.getAttribute('data-type');
                 var output_path = item.getAttribute('data-path');
-                document.getElementById("textfield_" + feldname).value = output + output_type;
-                document.getElementById("place_id_" + feldname).value = output_id;
-                document.getElementById("textfield_" + feldname).disabled = true;
-                document.getElementById("reset_img_" + feldname).style.display = "inline"            
-                document.getElementById("textfield_" + feldname).style.color = "black";
+
+                document.getElementById(fieldname).value = output + output_type;
+                document.getElementById(fieldname + "_id").value = output_id;
+                document.getElementById(fieldname).disabled = true;
+                document.getElementById("reset_img_" + fieldname).style.display = "inline"            
+                document.getElementById(fieldname).style.color = "black";
                 
                 if(e.which==13){
                     e.preventDefault();
