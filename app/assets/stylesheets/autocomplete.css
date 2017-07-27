@@ -33,17 +33,17 @@
 	height: 20px;
 	position: absolute;
 	top: 25px;
-	right: 10px;
+	right: 7px;
 	display: none;
 	}
 }
 
 @media all and (max-width: 499px){
 	#reset_img_fundort, #reset_img_verwahrort, #reset_img_antikerfundort{
-		height: 20px;
+		height: 30px;
 		position: absolute;
-		top: 30px;
-		right: 10px;
+		top: 25px;
+		right: 7px;
 		display: none;
 	}
 }
