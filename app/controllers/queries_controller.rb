@@ -1,4 +1,6 @@
 class QueriesController < ApplicationController
+  # allow creating queries without requiring an authenticity token
+  skip_before_action :verify_authenticity_token, :only => [:create]
 
   def show
     @query = Query.find(params[:id])
