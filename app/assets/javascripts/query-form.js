@@ -93,14 +93,6 @@ $(document).ready(function() {
     });
  
     $("#query-form").submit(function(evt){
-
-        // document.getElementById("reset_img_fundort").style.display = "none";
-        // document.getElementById("textfield_fundort").removeAttribute("disabled");
-        // document.getElementById("reset_img_antikerfundort").style.display = "none";
-        // document.getElementById("textfield_antikerfundort").removeAttribute("disabled");
-        // document.getElementById("reset_img_verwahrort").style.display = "none";
-        // document.getElementById("textfield_verwahrort").removeAttribute("disabled");
-
         var textfeldFundortValue = document.getElementById("textfield_fundort").value;
         var platzIDFundortValue = document.getElementById("place_id_fundort").value;
         if(platzIDFundortValue=="" && textfeldFundortValue.length>0){
