@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :places
   resources :queries do
     get 'qr', :on => :member
+    get 'completions/:field', :on => :collection, :action => 'completions'
   end
 
 

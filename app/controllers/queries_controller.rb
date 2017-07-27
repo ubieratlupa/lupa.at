@@ -35,4 +35,16 @@ class QueriesController < ApplicationController
       redirect_to @query
     end
   end
+  
+  def completions
+    if params[:field] == 'finding_place' || params[:field] == 'conservation_place'
+      places = Place.where("name ILIKE ?", "%#{params[:term]}%").order(["name ILIKE ? DESC", "#{params[:term]}"], ["name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(10)
+      completions = places.map { |p| {id: p.id, title: p.name, type: p.place_type, path: p.full_name} }
+      render json: completions
+    elsif params[:field] == 'ancient_finding_place'
+        places = AncientPlace.where("name ILIKE ?", "%#{params[:term]}%").order(["name ILIKE ? DESC", "#{params[:term]}"], ["name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(10)
+        completions = places.map { |p| {id: p.id, title: p.name, path: p.full_name} }
+        render json: completions
+      end
+  end
 end
