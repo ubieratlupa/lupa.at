@@ -19,16 +19,27 @@
 		<p><strong>Datierung:</strong> <%= @query.dating %></p>
 	<% end %>
 	
-	<% if @query.finding_place %>
-		<p><strong>Fundort:</strong> <%= @query.finding_place %></p>
+	<% if @query.finding_place_id %>
+		<p>
+			<strong>Fundort:</strong> 
+			<%= @query.finding_place.name %>
+			<%= '(' + @query.finding_place.place_type + ')' if @query.finding_place.place_type %>
+		</p>
 	<% end %>
 	
-	<% if @query.ancient_finding_place %>
-		<p><strong>Antiker Fundort, Provinz:</strong> <%= @query.ancient_finding_place %></p>
+	<% if @query.ancient_finding_place_id %>
+		<p>
+			<strong>Antiker Fundort, Provinz:</strong>
+			<%= @query.ancient_finding_place.name %>
+		</p>
 	<% end %>
 	
 	<% if @query.conservation_place %>
-		<p><strong>Verwahrort:</strong> <%= @query.conservation_place %></p>
+		<p>
+			<strong>Verwahrort:</strong>
+			<%= @query.conservation_place.name %>
+			<%= '(' + @query.conservation_place.place_type + ')' if @query.conservation_place.place_type %>
+		</p>
 	<% end %>
 	
 	<% if @query.museum %>

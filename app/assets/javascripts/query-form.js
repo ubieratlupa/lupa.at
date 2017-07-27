@@ -6,11 +6,11 @@ function saveFormContents(){
     if(document.getElementById("query-form")){
     formContents = new Object;
     formContents.findingPlaceTitle = document.getElementById("finding_place").value;
-    formContents.findingPlaceID = document.getElementById("finding_place_id").value;
+    formContents.findingPlaceID = document.getElementById("query_finding_place_id").value;
     formContents.conservationPlaceTitle = document.getElementById("conservation_place").value;
-    formContents.conservationPlaceID = document.getElementById("conservation_place_id").value;
+    formContents.conservationPlaceID = document.getElementById("query_conservation_place_id").value;
     formContents.ancientFindingPlaceTitle = document.getElementById("ancient_finding_place").value;
-    formContents.ancientFindingPlaceID = document.getElementById("ancient_finding_place_id").value;
+    formContents.ancientFindingPlaceID = document.getElementById("query_ancient_finding_place_id").value;
 
     window.onpageshow = restoreFormContents;
     }     
@@ -18,15 +18,15 @@ function saveFormContents(){
 
 function restoreFormContents(){
     document.getElementById("finding_place").value = formContents.findingPlaceTitle;
-    document.getElementById("finding_place_id").value = formContents.findingPlaceID;
+    document.getElementById("query_finding_place_id").value = formContents.findingPlaceID;
     document.getElementById("conservation_place").value = formContents.conservationPlaceTitle;
-    document.getElementById("conservation_place_id").value = formContents.conservationPlaceID;
+    document.getElementById("query_conservation_place_id").value = formContents.conservationPlaceID;
     document.getElementById("ancient_finding_place").value = formContents.ancientFindingPlaceTitle;
-    document.getElementById("ancient_finding_place_id").value = formContents.ancientFindingPlaceID;
+    document.getElementById("query_ancient_finding_place_id").value = formContents.ancientFindingPlaceID;
 }
 
 function xreset(fieldname) { 
-    document.getElementById(fieldname + "_id").value = "";
+    document.getElementById("query_" + fieldname + "_id").value = "";
     document.getElementById("reset_img_" + fieldname).style.display = "none";
     document.getElementById(fieldname).removeAttribute("disabled");
     document.getElementById(fieldname).focus();
@@ -56,7 +56,7 @@ $(document).ready(function() {
 
     $("#query-form").submit(function(evt){
         var FindingPlaceValue = document.getElementById("finding_place").value;
-        var FindingPlaceID = document.getElementById("finding_place_id").value;
+        var FindingPlaceID = document.getElementById("query_finding_place_id").value;
         if(FindingPlaceID=="" && FindingPlaceValue.length>0){
             document.getElementById("finding_place").style.color = "#ff0000";
             document.getElementById("finding_place").select();
@@ -65,7 +65,7 @@ $(document).ready(function() {
         }  
 
         var AncientFindingPlaceValue = document.getElementById("ancient_finding_place").value;
-        var AncientFindingPlaceID = document.getElementById("ancient_finding_place_id").value;
+        var AncientFindingPlaceID = document.getElementById("query_ancient_finding_place_id").value;
         if(AncientFindingPlaceID=="" && AncientFindingPlaceValue.length>0){
             document.getElementById("ancient_finding_place").style.color = "#ff0000";
             document.getElementById("ancient_finding_place").select();
@@ -74,7 +74,7 @@ $(document).ready(function() {
         } 
 
         var ConservationPlaceValue = document.getElementById("conservation_place").value;
-        var ConservationPlaceID = document.getElementById("conservation_place_id").value;
+        var ConservationPlaceID = document.getElementById("query_conservation_place_id").value;
         if(ConservationPlaceID=="" && ConservationPlaceValue.length>0){
             document.getElementById("conservation_place").style.color = "#ff0000";
             document.getElementById("conservation_place").select();
@@ -133,7 +133,7 @@ function createAutoComplete( fieldname ) {
                 var output_path = item.getAttribute('data-path');
 
                 document.getElementById(fieldname).value = output + output_type;
-                document.getElementById(fieldname + "_id").value = output_id;
+                document.getElementById("query_" + fieldname + "_id").value = output_id;
                 document.getElementById(fieldname).disabled = true;
                 document.getElementById("reset_img_" + fieldname).style.display = "inline"            
                 document.getElementById(fieldname).style.color = "black";

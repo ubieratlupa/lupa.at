@@ -23,25 +23,25 @@
 	
 	<div class="query-box" id="findingPlaceBox">
 		<%= label_tag(:finding_place, "Fundort") %>
-		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="finding_place" name="finding_place"> 
-		<img src="<%= asset_path "reset.png" %>" id="reset_img_finding_place" alt="reset">
-		<input type="hidden" value="" id="finding_place_id" name="finding_place_id" >
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="finding_place" value="<%= query.finding_place.name if query.finding_place %>"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_finding_place" alt="reset" <%== "style=\"display:inline \"" if query.finding_place %>>
+		<%= hidden_field(:query, :finding_place_id) %> 
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 	
 	<div class="query-box" id="ancientFindingPlaceBox">
 		<%= label_tag(:ancient_finding_place, "Antiker Fundort, Provinz") %>
-		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="ancient_finding_place" name="ancient_finding_place"> 
-		<img src="<%= asset_path "reset.png" %>" id="reset_img_ancient_finding_place" alt="reset" >
-		<input type="hidden" value="" id="ancient_finding_place_id" name="ancient_finding_place_id" >
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="ancient_finding_place" value="<%= query.ancient_finding_place.name if query.ancient_finding_place %>"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_ancient_finding_place" alt="reset" <%== "style=\"display:inline\"" if query.ancient_finding_place %>>
+		<%= hidden_field(:query, :ancient_finding_place_id) %> 
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 
 	<div class="query-box" id="conservationPlaceBox">
 		<%= label_tag(:conservation_place, "Verwahrort") %>
-		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="conservation_place" name="conservation_place"> 
-		<img src="<%= asset_path "reset.png" %>" id="reset_img_conservation_place" alt="reset" >
-		<input type="hidden" value="" id="conservation_place_id" name="conservation_place_id" >
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="conservation_place" value="<%= query.conservation_place.name if query.conservation_place %>"> 
+		<img src="<%= asset_path "reset.png" %>" id="reset_img_conservation_place" alt="reset" <%== "style=\"display:inline \"" if query.conservation_place %>>
+		<%= hidden_field(:query, :conservation_place_id) %> 
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 	

@@ -1,4 +1,7 @@
 class Query < ActiveRecord::Base
+  belongs_to :finding_place, class_name: "Place", optional: true
+  belongs_to :conservation_place, class_name: "Place", optional: true
+  belongs_to :ancient_finding_place, class_name: "AncientPlace", optional: true
 
   def matches
     matches = Monument.all
@@ -45,16 +48,16 @@ class Query < ActiveRecord::Base
       end
     end
     
-    if conservation_place
-      matches = matches.where("conservation_place_id in (with recursive place_ids as (select id from vocabulary.places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", conservation_place)
+    if conservation_place_id
+      matches = matches.where("conservation_place_id in (with recursive place_ids as (select ?::int as id union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", conservation_place_id)
     end
     
-    if finding_place
-      matches = matches.where("finding_place_id in (with recursive place_ids as (select id from vocabulary.places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", finding_place)
+    if finding_place_id
+      matches = matches.where("finding_place_id in (with recursive place_ids as (with recursive place_ids as (select ?::int as id union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids) select * from place_ids)", finding_place_id)
     end
     
-    if ancient_finding_place
-      matches = matches.where("ancient_finding_place_id in (with recursive ancient_place_ids as (select id from vocabulary.ancient_places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_ancient_places.id from vocabulary.ancient_places child_ancient_places join ancient_place_ids on ancient_place_ids.id = child_ancient_places.parent_id ) select * from ancient_place_ids)", ancient_finding_place)
+    if ancient_finding_place_id
+      matches = matches.where("ancient_finding_place_id in (with recursive ancient_place_ids as (select ?::int as id union select child_ancient_places.id from vocabulary.ancient_places child_ancient_places join ancient_place_ids on ancient_place_ids.id = child_ancient_places.parent_id ) select * from ancient_place_ids)", ancient_finding_place_id)
     end
     
     if photo
@@ -73,7 +76,7 @@ class Query < ActiveRecord::Base
   end
   
   def self.allowed_search_parameters
-    return :keywords, :inscription, :id_ranges, :museum, :finding_place, :conservation_place, :literature, :ancient_finding_place, :photo, :dating
+    return :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating
   end
   
   def inscription_excerpt(monument)
