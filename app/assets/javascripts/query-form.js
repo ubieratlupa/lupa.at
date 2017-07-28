@@ -137,7 +137,18 @@ function createAutoComplete( fieldname ) {
                 document.getElementById(fieldname).disabled = true;
                 document.getElementById("reset_img_" + fieldname).style.display = "inline"            
                 document.getElementById(fieldname).style.color = "black";
+
+                function isElementInViewport (el) {
+                    var rect = el.getBoundingClientRect();
+                    return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+                }
+
+                if(!isElementInViewport(document.getElementById(fieldname))){
+                    $(document).scrollTop($("#" + fieldname).parent().offset().top);
+                }
+
                 
+
                 if(e.which==13){
                     e.preventDefault();
                 }
