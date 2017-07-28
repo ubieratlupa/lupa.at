@@ -94,3 +94,10 @@
 .autocomplete-suggestion.selected { 
 	background: #eee; 
 }
+
+#erroralert{
+	padding: 5px;
+	font-family: Helvetica;
+	font-size: 13px;
+	color: #aaa;
+}

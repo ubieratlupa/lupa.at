@@ -112,9 +112,10 @@ var autoComplete = (function(){
             var suggest = function(data){
                 var val = that.value;
                 that.cache[val] = data;
-                if (data.length && val.length >= o.minChars) {
+                if (val.length >= o.minChars) {
                     var s = '';
                     for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
+                    if (!data.length) s += "<div id='erroralert'>Kein Eintrag gefunden</div>";
                     that.sc.innerHTML = s;
                     that.updateSC(0);
                 }
@@ -183,10 +184,12 @@ var autoComplete = (function(){
             addEvent(that, 'keyup', that.keyupHandler);
 
             that.focusHandler = function(e){
-                that.last_val = '\n';
-                that.keyupHandler(e)
+                if (that.value.length) {
+                    that.last_val = '\n';
+                    that.keyupHandler(e)
+                }
             };
-            if (!o.minChars) addEvent(that, 'focus', that.focusHandler);
+            addEvent(that, 'focus', that.focusHandler);
         }
 
         // public destroy method

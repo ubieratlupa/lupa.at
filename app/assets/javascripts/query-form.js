@@ -60,7 +60,6 @@ $(document).ready(function() {
         if(FindingPlaceID=="" && FindingPlaceValue.length>0){
             document.getElementById("finding_place").style.color = "#ff0000";
             document.getElementById("finding_place").select();
-			document.getElementById("finding_place").updateSC();
             return false;
         }  
 
@@ -69,7 +68,6 @@ $(document).ready(function() {
         if(AncientFindingPlaceID=="" && AncientFindingPlaceValue.length>0){
             document.getElementById("ancient_finding_place").style.color = "#ff0000";
             document.getElementById("ancient_finding_place").select();
-			document.getElementById("ancient_finding_place").updateSC();
             return false;
         } 
 
@@ -78,7 +76,6 @@ $(document).ready(function() {
         if(ConservationPlaceID=="" && ConservationPlaceValue.length>0){
             document.getElementById("conservation_place").style.color = "#ff0000";
             document.getElementById("conservation_place").select();
-			document.getElementById("conservation_place").updateSC();
             return false;
         }  
     });
