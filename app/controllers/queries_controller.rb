@@ -39,12 +39,36 @@ class QueriesController < ApplicationController
   def completions
     if params[:field] == 'finding_place' || params[:field] == 'conservation_place'
       places = Place.where("name ILIKE ?", "%#{params[:term]}%").order(["name ILIKE ? DESC", "#{params[:term]}"], ["name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(10)
-      completions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: p.full_name.sub(/^[^,]*(,|$)/,'') } }
+      completions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: p.full_name.sub(/^[^,]*(,\s*|$)/,'') } }
       render json: completions
     elsif params[:field] == 'ancient_finding_place'
         places = AncientPlace.where("name ILIKE ?", "%#{params[:term]}%").order(["name ILIKE ? DESC", "#{params[:term]}"], ["name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(10)
-        completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,|$)/,'') } }
+        completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,'') } }
         render json: completions
       end
+  end
+  
+  def suggestions
+    if params[:field] == 'finding_place' || params[:field] == 'conservation_place'
+      if params[:parent_id]
+        places = Place.where(parent_id: params[:parent_id])
+      else
+        places = Place.where(parent_id: nil)
+      end
+      places = places.where("name is not null")
+      places = places.order(:name)
+      suggestions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: (p.full_name.sub(/^[^,]*(,\s*|$)/,'') if p.full_name) } }
+      render json: suggestions
+    elsif params[:field] == 'ancient_finding_place'
+      if params[:parent_id]
+        places = AncientPlace.where(parent_id: params[:parent_id])
+      else
+        places = AncientPlace.where(parent_id: nil)
+      end
+      places = places.where("name is not null")
+      places = places.order(:name)
+      completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,'') } }
+      render json: completions
+    end
   end
 end

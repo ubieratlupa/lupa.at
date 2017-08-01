@@ -21,6 +21,7 @@ Rails.application.routes.draw do
   resources :queries do
     get 'qr', :on => :member
     get 'completions/:field', :on => :collection, :action => 'completions'
+    get 'suggestions/:field', :on => :collection, :action => 'suggestions'
   end
 
 
