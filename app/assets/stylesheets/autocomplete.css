@@ -50,6 +50,17 @@
 		max-height: 250px;
 		overflow: visible;
 	}
+
+	.menu_img, .menu_img_child{
+		height: 20px;
+		position: absolute;
+		top: 25px;
+		right: 7px;
+	}
+
+	.menu_img_child{
+		top: 10px;
+	}
 }
 
 @media all and (max-width: 499px){
@@ -67,6 +78,17 @@
 		width: 100%;
 		display: block;
 		margin-bottom: 20px;
+	}
+
+	.menu_img, .menu_img_child{
+		height: 30px;
+		position: absolute;
+		top: 25px;
+		right: 7px;
+	}
+
+	.menu_img_child{
+		top: 10px;
 	}
 }
 

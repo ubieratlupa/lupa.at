@@ -91,6 +91,9 @@ var autoComplete = (function(){
             }, that.sc);
 
             live('autocomplete-suggestion', 'mousedown', function(e){
+                if (hasClass(e.target || e.srcElement, 'menu_img_child')) {
+                    return;
+                }
                 if (hasClass(this, 'autocomplete-suggestion')) { // else outside click
                     var v = this.getAttribute('data-val');
                     that.value = v;
@@ -109,10 +112,10 @@ var autoComplete = (function(){
             };
             addEvent(that, 'blur', that.blurHandler);
 
-            var suggest = function(data){
+            var suggest = function(data, ignore_min_length = false){
                 var val = that.value;
                 that.cache[val] = data;
-                if (val.length >= o.minChars) {
+                if (ignore_min_length || val.length >= o.minChars) {
                     var s = '';
                     for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
                     if (!data.length) s += "<div id='erroralert'>Kein Eintrag gefunden</div>";
@@ -122,6 +125,7 @@ var autoComplete = (function(){
                 else
                     that.sc.style.display = 'none';
             }
+            that.suggest = suggest;
 
             that.keydownHandler = function(e){
                 var key = window.event ? e.keyCode : e.which;

@@ -32,10 +32,16 @@ function xreset(fieldname) {
     document.getElementById(fieldname).focus();
     document.getElementById(fieldname).select();
     document.getElementById(fieldname).value = ""; 
+
+    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
 }
 
 $(document).ready(function() {
     var fieldnames = ["finding_place","conservation_place","ancient_finding_place"];
+    $("#ancientFindingPlaceMenuIMG").click(function(evt){
+        createSuggestions(evt);
+        document.getElementById("ancient_finding_place").value = "";
+    });
     
     for (i=0; i<fieldnames.length; i++) {
         createAutoComplete(fieldnames[i]);
@@ -82,6 +88,36 @@ $(document).ready(function() {
 
 });
 
+$(window).click(function(){
+    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
+    document.getElementById("reset_img_ancient_finding_place").style.display = "none";
+})
+
+function createSuggestions(evt) {
+    if(evt.target.className == "menu_img_child"){
+        var ajaxdata = {"parent_id": evt.target.parentElement.getAttribute("data-id")
+};
+    }
+    else{
+        var ajaxdata = {}
+    }
+
+    $.ajax({
+        type: "GET",
+        url: "/queries/suggestions/ancient_finding_place",
+        data: ajaxdata,
+        dataType: "json",
+        cache: false,
+        success: function (data){
+            document.getElementById("ancient_finding_place").focus();
+            document.getElementById("ancient_finding_place").suggest(data, true);
+            $(".menu_img_child").click(createSuggestions)
+        }      
+    });
+
+    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
+    return false;
+}
 
 function createAutoComplete( fieldname ) {
     $("#reset_img_" + fieldname).click( function(){xreset(fieldname)} )
@@ -100,7 +136,7 @@ function createAutoComplete( fieldname ) {
 				    success: successHandler      
 				});
             },
-            renderItem: function (item, search){
+            renderItem: function (item, search) {
                 search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
 
@@ -115,12 +151,25 @@ function createAutoComplete( fieldname ) {
                     item.type = "";
                 }
 
+                var itemTitle = item.title.replace(re, "<b>$1</b>");
+                var itemIMG;
+
+                if(item.child_count>0){
+                    itemIMG = "<img src='" + document.getElementById("ancientFindingPlaceMenuIMG").src + "' class='menu_img_child' alt='menu'>";
+                }
+                else{
+                    itemIMG = "";
+                }
+
                 return '<div class="autocomplete-suggestion" data-title="' + item.title 
                     + '" data-id="' + item.id 
                     + '" data-path"' + item.path
                     + '" data-type="' + item.type
                     + '" data-val="' + search + '">'
-                    + "<span id='outputtitle'>" + item.title.replace(re, "<b>$1</b>") + "</span>" + item.type + "<br> <span='outputpath'>" + item.path + "</span>"
+                    + "<span id='outputtitle'>" + itemTitle + "</span>" 
+                    + item.type + "<br> "
+                    + "<span class='outputpath'>" + item.path + "</span>"
+                    + itemIMG
                     + '</div>';
             },
             onSelect: function(e, term, item){
@@ -134,6 +183,7 @@ function createAutoComplete( fieldname ) {
                 document.getElementById(fieldname).disabled = true;
                 document.getElementById("reset_img_" + fieldname).style.display = "inline"            
                 document.getElementById(fieldname).style.color = "black";
+                document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
 
                 function isElementInViewport (el) {
                     var rect = el.getBoundingClientRect();
