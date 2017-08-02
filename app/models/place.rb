@@ -1,5 +1,6 @@
 class Place < ActiveRecord::Base
   belongs_to :parent, class_name: "Place"
+  has_many :children, class_name: "Place", foreign_key: "parent_id"
   has_many :museums
   
   def hierarchy

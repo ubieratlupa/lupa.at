@@ -55,9 +55,10 @@ class QueriesController < ApplicationController
       else
         places = Place.where(parent_id: nil)
       end
-      places = places.where("name is not null")
+      places = places.where("places.name is not null")
       places = places.order(:name)
-      suggestions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: (p.full_name.sub(/^[^,]*(,\s*|$)/,'') if p.full_name) } }
+      places = places.left_outer_joins(:children).distinct.select('places.*, COUNT(children_places.*) AS child_count').group('places.id')
+      suggestions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: (p.full_name.sub(/^[^,]*(,\s*|$)/,'') if p.full_name), child_count: p.child_count } }
       render json: suggestions
     elsif params[:field] == 'ancient_finding_place'
       if params[:parent_id]
@@ -65,9 +66,10 @@ class QueriesController < ApplicationController
       else
         places = AncientPlace.where(parent_id: nil)
       end
-      places = places.where("name is not null")
+      places = places.where("ancient_places.name is not null")
       places = places.order(:name)
-      completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,'') } }
+      places = places.left_outer_joins(:children).distinct.select('ancient_places.*, COUNT(children_ancient_places.*) AS child_count').group('ancient_places.id')
+      completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
       render json: completions
     end
   end
