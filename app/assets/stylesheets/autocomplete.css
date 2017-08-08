@@ -61,6 +61,14 @@
 	.menu_img_child{
 		top: 10px;
 	}
+
+	.loading_gif{
+		top: 25px;
+		right: 7px;
+		position: absolute;
+		height: 20px;
+		display: none;
+	}
 }
 
 @media all and (max-width: 499px){
@@ -88,7 +96,15 @@
 	}
 
 	.menu_img_child{
-		top: 10px;
+		top: 7px;
+	}
+
+	.loading_gif{
+		top: 25px;
+		right: 7px;
+		position: absolute;
+		height: 30px;
+		display: none;
 	}
 }
 

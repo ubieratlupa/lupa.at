@@ -26,6 +26,7 @@
 		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="finding_place" value="<%= query.finding_place.name if query.finding_place %>"> 
 		<img src="<%= asset_path "reset.png" %>" id="reset_img_finding_place" alt="reset" <%== "style=\"display:inline \"" if query.finding_place %>>
 		<img src="<%= asset_path "menu.png" %>" id="findingPlaceMenuIMG" class="menu_img" alt="menu">
+		<img src="<%= asset_path "loading.gif" %>" id="findingPlaceLoading" class="loading_gif" alt="menu">
 		<%= hidden_field(:query, :finding_place_id) %> 
 		<!--<input type="submit" style="display: none"> -->
 	</div>
@@ -35,6 +36,7 @@
 		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="ancient_finding_place" value="<%= query.ancient_finding_place.name if query.ancient_finding_place %>"> 
 		<img src="<%= asset_path "reset.png" %>" id="reset_img_ancient_finding_place" alt="reset" <%== "style=\"display:inline\"" if query.ancient_finding_place %>>
 		<img src="<%= asset_path "menu.png" %>" id="ancientFindingPlaceMenuIMG" class="menu_img" alt="menu">
+		<img src="<%= asset_path "loading.gif" %>" id="ancientFindingPlaceLoading" class="loading_gif" alt="menu">
 		<%= hidden_field(:query, :ancient_finding_place_id) %> 
 		<!--<input type="submit" style="display: none"> -->
 	</div>
@@ -44,6 +46,7 @@
 		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="conservation_place" value="<%= query.conservation_place.name if query.conservation_place %>">
 		<img src="<%= asset_path "reset.png" %>" id="reset_img_conservation_place" alt="reset" <%== "style=\"display:inline \"" if query.conservation_place %>>
 		<img src="<%= asset_path "menu.png" %>" id="conservationPlaceMenuIMG" class="menu_img" alt="menu">
+		<img src="<%= asset_path "loading.gif" %>" id="conservationPlaceLoading" class="loading_gif" alt="menu">
 		<%= hidden_field(:query, :conservation_place_id) %> 
 		<!--<input type="submit" style="display: none"> -->
 	</div>

@@ -29,9 +29,9 @@ function xreset(fieldname) {
     document.getElementById("query_" + fieldname + "_id").value = "";
     document.getElementById("reset_img_" + fieldname).style.display = "none";
     document.getElementById(fieldname).removeAttribute("disabled");
+    document.getElementById(fieldname).value = ""; 
     document.getElementById(fieldname).focus();
     document.getElementById(fieldname).select();
-    document.getElementById(fieldname).value = ""; 
 
     document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
 }
@@ -42,6 +42,7 @@ $(document).ready(function() {
         createSuggestions(evt);
         document.getElementById("ancient_finding_place").value = "";
     });
+
     
     for (i=0; i<fieldnames.length; i++) {
         createAutoComplete(fieldnames[i]);
@@ -88,17 +89,36 @@ $(document).ready(function() {
 
 });
 
-$(window).click(function(){
-    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
-    document.getElementById("reset_img_ancient_finding_place").style.display = "none";
+$(window).click(function(evt){
+
+    if(document.getElementById("query_ancient_finding_place_id").value == ""){
+        document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
+        document.getElementById("reset_img_ancient_finding_place").style.display = "none";
+        document.getElementById("ancient_finding_place").value = "";
+    } 
+
+    if(document.getElementById("query_conservation_place_id").value == ""){
+        document.getElementById("conservationPlaceMenuIMG").style.display = "inline";
+        document.getElementById("reset_img_conservation_place").style.display = "none";
+        document.getElementById("conservation_place").value = "";
+    }
+
+    if(document.getElementById("query_finding_place_id").value == ""){
+        document.getElementById("findingPlaceMenuIMG").style.display = "inline";
+        document.getElementById("reset_img_finding_place").style.display = "none";
+        document.getElementById("finding_place").value = "";
+    }
+
 })
 
 function createSuggestions(evt) {
+
+    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
+    document.getElementById("ancientFindingPlaceLoading").style.display = "inline";
+
     if(evt.target.className == "menu_img_child"){
-        var ajaxdata = {"parent_id": evt.target.parentElement.getAttribute("data-id")
-};
-    }
-    else{
+        var ajaxdata = {"parent_id": evt.target.parentElement.getAttribute("data-id")};
+    } else {
         var ajaxdata = {}
     }
 
@@ -111,6 +131,8 @@ function createSuggestions(evt) {
         success: function (data){
             document.getElementById("ancient_finding_place").focus();
             document.getElementById("ancient_finding_place").suggest(data, true);
+            document.getElementById("ancientFindingPlaceLoading").style.display = "none";
+            document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
             $(".menu_img_child").click(createSuggestions)
         }      
     });
@@ -137,6 +159,8 @@ function createAutoComplete( fieldname ) {
 				});
             },
             renderItem: function (item, search) {
+
+    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
                 search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
 
