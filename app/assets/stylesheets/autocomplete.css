@@ -15,7 +15,6 @@
 	font-size: 13px;
 	position: relative; 
 	padding: 0.6em; 
-	line-height: 23px; 
 	white-space: nowrap; 
 	overflow: hidden; 
 	text-overflow: ellipsis;
@@ -51,6 +50,10 @@
 		overflow: visible;
 	}
 
+	.autocomplete-suggestion{	
+		line-height: 25px; 
+	}
+
 	.menu_img, .menu_img_child{
 		height: 20px;
 		position: absolute;
@@ -62,13 +65,13 @@
 		top: 10px;
 	}
 
-	.loading_gif{
+	/*.loadingGif{
 		top: 25px;
 		right: 7px;
 		position: absolute;
 		height: 20px;
 		display: none;
-	}
+	}*/
 }
 
 @media all and (max-width: 499px){
@@ -88,6 +91,10 @@
 		margin-bottom: 20px;
 	}
 
+	.autocomplete-suggestion{	
+		line-height: 35px; 
+	}
+
 	.menu_img, .menu_img_child{
 		height: 30px;
 		position: absolute;
@@ -96,16 +103,16 @@
 	}
 
 	.menu_img_child{
-		top: 7px;
+		top: 10px;
 	}
 
-	.loading_gif{
+	/*.loadingGif{
 		top: 25px;
 		right: 7px;
 		position: absolute;
 		height: 30px;
 		display: none;
-	}
+	}*/
 }
 
 #outputtitle{

@@ -1,3 +1,8 @@
+function isElementInViewport (el) {
+    var rect = el.getBoundingClientRect();
+    return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
+}
+
 window.onpagehide = saveFormContents;
 
 var formContents;
@@ -33,17 +38,12 @@ function xreset(fieldname) {
     document.getElementById(fieldname).focus();
     document.getElementById(fieldname).select();
 
-    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
+    document.getElementById(fieldname + "_menu_img").style.display = "inline";
 }
 
 $(document).ready(function() {
     var fieldnames = ["finding_place","conservation_place","ancient_finding_place"];
-    $("#ancientFindingPlaceMenuIMG").click(function(evt){
-        createSuggestions(evt);
-        document.getElementById("ancient_finding_place").value = "";
-    });
-
-    
+ 
     for (i=0; i<fieldnames.length; i++) {
         createAutoComplete(fieldnames[i]);
     }
@@ -90,31 +90,30 @@ $(document).ready(function() {
 });
 
 $(window).click(function(evt){
+        if(document.getElementById("query_ancient_finding_place_id").value == ""){
+            document.getElementById("ancient_finding_place_menu_img").style.display = "inline";
+            document.getElementById("reset_img_ancient_finding_place").style.display = "none";
+            document.getElementById("ancient_finding_place").value = "";
+        } 
 
-    if(document.getElementById("query_ancient_finding_place_id").value == ""){
-        document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
-        document.getElementById("reset_img_ancient_finding_place").style.display = "none";
-        document.getElementById("ancient_finding_place").value = "";
-    } 
+        if(document.getElementById("query_conservation_place_id").value == ""){
+            document.getElementById("conservation_place_menu_img").style.display = "inline";
+            document.getElementById("reset_img_conservation_place").style.display = "none";
+            document.getElementById("conservation_place").value = "";
+        }
 
-    if(document.getElementById("query_conservation_place_id").value == ""){
-        document.getElementById("conservationPlaceMenuIMG").style.display = "inline";
-        document.getElementById("reset_img_conservation_place").style.display = "none";
-        document.getElementById("conservation_place").value = "";
-    }
-
-    if(document.getElementById("query_finding_place_id").value == ""){
-        document.getElementById("findingPlaceMenuIMG").style.display = "inline";
-        document.getElementById("reset_img_finding_place").style.display = "none";
-        document.getElementById("finding_place").value = "";
-    }
+        if(document.getElementById("query_finding_place_id").value == ""){
+            document.getElementById("finding_place_menu_img").style.display = "inline";
+            document.getElementById("reset_img_finding_place").style.display = "none";
+            document.getElementById("finding_place").value = "";
+        }
 
 })
 
-function createSuggestions(evt) {
+function createSuggestions(evt, fieldname) {
 
-    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
-    document.getElementById("ancientFindingPlaceLoading").style.display = "inline";
+    document.getElementById(fieldname).value = "";
+    evt.target.src = document.getElementById("loadingGif").src;
 
     if(evt.target.className == "menu_img_child"){
         var ajaxdata = {"parent_id": evt.target.parentElement.getAttribute("data-id")};
@@ -124,24 +123,32 @@ function createSuggestions(evt) {
 
     $.ajax({
         type: "GET",
-        url: "/queries/suggestions/ancient_finding_place",
+        url: "/queries/suggestions/" + fieldname,
         data: ajaxdata,
         dataType: "json",
         cache: false,
-        success: function (data){
-            document.getElementById("ancient_finding_place").focus();
-            document.getElementById("ancient_finding_place").suggest(data, true);
-            document.getElementById("ancientFindingPlaceLoading").style.display = "none";
-            document.getElementById("ancientFindingPlaceMenuIMG").style.display = "inline";
-            $(".menu_img_child").click(createSuggestions)
+        success: function (data){    
+            evt.target.src = document.getElementById("menuDownIMG").src;
+            document.getElementById(fieldname).focus();
+            document.getElementById(fieldname).suggest(data, true);
+
+            if(!isElementInViewport(document.getElementById(fieldname))){
+                    $(document).scrollTop($("#" + fieldname).parent().offset().top);
+            }
+            $(".menu_img_child").click(function(clickEvt){
+                createSuggestions(clickEvt, fieldname);
+            }); 
         }      
     });
 
-    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
     return false;
 }
 
 function createAutoComplete( fieldname ) {
+    $("#" + fieldname + "_menu_img").click(function(evt){
+        createSuggestions(evt, fieldname);
+    });
+
     $("#reset_img_" + fieldname).click( function(){xreset(fieldname)} )
     //var datatypecontrol = true;
     new autoComplete({
@@ -160,7 +167,7 @@ function createAutoComplete( fieldname ) {
             },
             renderItem: function (item, search) {
 
-    document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
+                document.getElementById(fieldname + "_menu_img").style.display = "none";
                 search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
 
@@ -179,7 +186,7 @@ function createAutoComplete( fieldname ) {
                 var itemIMG;
 
                 if(item.child_count>0){
-                    itemIMG = "<img src='" + document.getElementById("ancientFindingPlaceMenuIMG").src + "' class='menu_img_child' alt='menu'>";
+                    itemIMG = "<img src='" + document.getElementById("menuDownIMG").src + "' class='menu_img_child' alt='menu'>";
                 }
                 else{
                     itemIMG = "";
@@ -207,18 +214,11 @@ function createAutoComplete( fieldname ) {
                 document.getElementById(fieldname).disabled = true;
                 document.getElementById("reset_img_" + fieldname).style.display = "inline"            
                 document.getElementById(fieldname).style.color = "black";
-                document.getElementById("ancientFindingPlaceMenuIMG").style.display = "none";
-
-                function isElementInViewport (el) {
-                    var rect = el.getBoundingClientRect();
-                    return rect.top >= 0 && rect.bottom <= (window.innerHeight || document.documentElement.clientHeight)
-                }
+                document.getElementById(fieldname + "_menu_img").style.display = "none";
 
                 if(!isElementInViewport(document.getElementById(fieldname))){
                     $(document).scrollTop($("#" + fieldname).parent().offset().top);
                 }
-
-                
 
                 if(e.which==13){
                     e.preventDefault();
