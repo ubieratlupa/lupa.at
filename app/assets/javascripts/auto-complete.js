@@ -61,7 +61,7 @@ var autoComplete = (function(){
             that.cache = {};
             that.last_val = '';
 
-            that.updateSC = function(resize, next){
+            that.updateSC = function(next){
                 if (!resize) {
                     that.sc.style.display = 'block';
                     if (!that.sc.maxHeight) { that.sc.maxHeight = parseInt((window.getComputedStyle ? getComputedStyle(that.sc, null) : that.sc.currentStyle).maxHeight); }
@@ -119,7 +119,7 @@ var autoComplete = (function(){
                     for (var i=0;i<data.length;i++) s += o.renderItem(data[i], val);
                     if (!data.length) s += "<div id='erroralert'>Kein Eintrag gefunden</div>";
                     that.sc.innerHTML = s;
-                    that.updateSC(0);
+                    that.updateSC();
                 }
                 else
                     that.sc.style.display = 'none';
@@ -144,7 +144,7 @@ var autoComplete = (function(){
                         }
                         else { sel.className = sel.className.replace('selected', ''); that.value = that.last_val; next = 0; }
                     }
-                    that.updateSC(0, next);
+                    that.updateSC(next);
                     return false;
                 }
                 // esc
@@ -199,7 +199,6 @@ var autoComplete = (function(){
         this.destroy = function(){
             for (var i=0; i<elems.length; i++) {
                 var that = elems[i];
-                removeEvent(window, 'resize', that.updateSC);
                 removeEvent(that, 'blur', that.blurHandler);
                 removeEvent(that, 'focus', that.focusHandler);
                 removeEvent(that, 'keydown', that.keydownHandler);
