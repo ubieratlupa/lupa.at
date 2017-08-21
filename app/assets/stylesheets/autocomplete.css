@@ -60,6 +60,10 @@
 		top: 25px;
 		right: 7px;
 	}
+	
+	.menu_img_child{
+		transform: rotate(-90deg);
+	}
 
 	.menu_img_child{
 		top: 10px;
