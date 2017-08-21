@@ -5,29 +5,32 @@ function isElementInViewport (el) {
 
 window.onpagehide = saveFormContents;
 
+var autocomplete_fieldnames = ["finding_place","conservation_place","ancient_finding_place"];
 var formContents;
 
 function saveFormContents(){
-    if(document.getElementById("query-form")){
-    formContents = new Object;
-    formContents.findingPlaceTitle = document.getElementById("finding_place").value;
-    formContents.findingPlaceID = document.getElementById("query_finding_place_id").value;
-    formContents.conservationPlaceTitle = document.getElementById("conservation_place").value;
-    formContents.conservationPlaceID = document.getElementById("query_conservation_place_id").value;
-    formContents.ancientFindingPlaceTitle = document.getElementById("ancient_finding_place").value;
-    formContents.ancientFindingPlaceID = document.getElementById("query_ancient_finding_place_id").value;
-
-    window.onpageshow = restoreFormContents;
-    }     
+    if (document.getElementById("query-form")) {
+        formContents = new Object;
+        for (i=0; i<autocomplete_fieldnames.length; i++) {
+            var titleField = document.getElementById(autocomplete_fieldnames[i]);
+            var idField = document.getElementById("query_" + autocomplete_fieldnames[i] + "_id");
+            formContents[autocomplete_fieldnames[i]] = { title: titleField.value, id: idField.value }
+        }
+        window.onpageshow = restoreFormContents;
+    }
 }
 
 function restoreFormContents(){
-    document.getElementById("finding_place").value = formContents.findingPlaceTitle;
-    document.getElementById("query_finding_place_id").value = formContents.findingPlaceID;
-    document.getElementById("conservation_place").value = formContents.conservationPlaceTitle;
-    document.getElementById("query_conservation_place_id").value = formContents.conservationPlaceID;
-    document.getElementById("ancient_finding_place").value = formContents.ancientFindingPlaceTitle;
-    document.getElementById("query_ancient_finding_place_id").value = formContents.ancientFindingPlaceID;
+    for (i=0; i<autocomplete_fieldnames.length; i++) {
+        var titleField = document.getElementById(autocomplete_fieldnames[i]);
+        var idField = document.getElementById("query_" + autocomplete_fieldnames[i] + "_id");
+        titleField.value = formContents[autocomplete_fieldnames[i]].title;
+        idField.value = formContents[autocomplete_fieldnames[i]].id;
+        if (formContents[autocomplete_fieldnames[i]].id) {
+            document.getElementById(autocomplete_fieldnames[i] + "_menu_img").style.display = "none";
+            document.getElementById("reset_img_" + autocomplete_fieldnames[i]).style.display = "inline";
+        }
+    }
 }
 
 function xreset(fieldname) { 
@@ -42,10 +45,9 @@ function xreset(fieldname) {
 }
 
 $(document).ready(function() {
-    var fieldnames = ["finding_place","conservation_place","ancient_finding_place"];
  
-    for (i=0; i<fieldnames.length; i++) {
-        createAutoComplete(fieldnames[i]);
+    for (i=0; i<autocomplete_fieldnames.length; i++) {
+        createAutoComplete(autocomplete_fieldnames[i]);
     }
 
     $(document).keypress(function (e){
