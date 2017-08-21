@@ -112,7 +112,7 @@ var autoComplete = (function(){
             };
             addEvent(that, 'blur', that.blurHandler);
 
-            var suggest = function(data, ignore_min_length = false){
+            var suggest = function(data, ignore_min_length){
                 var val = that.value;
                 that.cache[val] = data;
                 if (ignore_min_length || val.length >= o.minChars) {
