@@ -93,7 +93,6 @@ $(document).ready(function() {
 
 function createSuggestions(evt, fieldname) {
 
-    document.getElementById(fieldname).value = "";
     evt.target.src = document.getElementById("loadingGif").src;
 
     if(evt.target.className == "menu_img_child"){
@@ -117,7 +116,7 @@ function createSuggestions(evt, fieldname) {
                     $(document).scrollTop($("#" + fieldname).parent().offset().top);
             }
             $(".menu_img_child").click(function(clickEvt){
-                createSuggestions(clickEvt, fieldname);
+                return createSuggestions(clickEvt, fieldname);
             }); 
         }      
     });
@@ -127,7 +126,7 @@ function createSuggestions(evt, fieldname) {
 
 function createAutoComplete( fieldname ) {
     $("#" + fieldname + "_menu_img").click(function(evt){
-        createSuggestions(evt, fieldname);
+        return createSuggestions(evt, fieldname);
     });
 
     $("#reset_img_" + fieldname).click( function(){xreset(fieldname)} )
@@ -143,7 +142,12 @@ function createAutoComplete( fieldname ) {
 					data: {"term": term},
 				    dataType: "json",
 					cache: false,
-				    success: successHandler      
+				    success:  function(completions) {
+						successHandler(completions);
+			            $(".menu_img_child").click(function(clickEvt){
+			               return createSuggestions(clickEvt, fieldname);
+			            }); 
+					}
 				});
             },
             renderItem: function (item, search) {
