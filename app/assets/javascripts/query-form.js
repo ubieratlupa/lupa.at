@@ -89,27 +89,6 @@ $(document).ready(function() {
 
 });
 
-$(window).click(function(evt){
-        if(document.getElementById("query_ancient_finding_place_id").value == ""){
-            document.getElementById("ancient_finding_place_menu_img").style.display = "inline";
-            document.getElementById("reset_img_ancient_finding_place").style.display = "none";
-            document.getElementById("ancient_finding_place").value = "";
-        } 
-
-        if(document.getElementById("query_conservation_place_id").value == ""){
-            document.getElementById("conservation_place_menu_img").style.display = "inline";
-            document.getElementById("reset_img_conservation_place").style.display = "none";
-            document.getElementById("conservation_place").value = "";
-        }
-
-        if(document.getElementById("query_finding_place_id").value == ""){
-            document.getElementById("finding_place_menu_img").style.display = "inline";
-            document.getElementById("reset_img_finding_place").style.display = "none";
-            document.getElementById("finding_place").value = "";
-        }
-
-})
-
 function createSuggestions(evt, fieldname) {
 
     document.getElementById(fieldname).value = "";
@@ -167,7 +146,6 @@ function createAutoComplete( fieldname ) {
             },
             renderItem: function (item, search) {
 
-                document.getElementById(fieldname + "_menu_img").style.display = "none";
                 search = search.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
                 var re = new RegExp("(" + search.split(' ').join('|') + ")", "gi");
 
