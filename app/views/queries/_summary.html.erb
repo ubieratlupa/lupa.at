@@ -1,7 +1,9 @@
 <div class="query-summary">
-	<div class="show-more change-query-results">
-		<%= link_to "Suche ändern", controller: "queries", action: "edit", id: @query %>
-	</div>
+	<% unless @query.finding_place_legacy || @query.conservation_place_legacy || @query.ancient_finding_place_legacy %>
+		<div class="show-more change-query-results">
+			<%= link_to "Suche ändern", controller: "queries", action: "edit", id: @query %>
+		</div>
+	<% end %>
 
 	<% if @query.id_ranges %>
 		<p><strong>Nr:</strong> <%= @query.id_ranges %></p>
@@ -18,6 +20,28 @@
 	<% if @query.dating %>
 		<p><strong>Datierung:</strong> <%= @query.dating %></p>
 	<% end %>
+	
+	<% if @query.finding_place_legacy %>
+		<p>
+			<strong>Fundort:</strong> 
+			<%= @query.finding_place_legacy %> (alter Suchmodus)
+		</p>
+	<% end %>
+	
+	<% if @query.conservation_place_legacy %>
+		<p>
+			<strong>Verwahrort:</strong> 
+			<%= @query.conservation_place_legacy %> (alter Suchmodus)
+		</p>
+	<% end %>
+	
+	<% if @query.ancient_finding_place_legacy %>
+		<p>
+			<strong>Antiker Fundort, Provinz:</strong> 
+			<%= @query.ancient_finding_place_legacy %> (alter Suchmodus)
+		</p>
+	<% end %>
+	
 	
 	<% if @query.finding_place_id %>
 		<p>

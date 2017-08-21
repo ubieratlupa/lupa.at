@@ -48,6 +48,21 @@ class Query < ActiveRecord::Base
       end
     end
     
+    # legacy search
+    if conservation_place_legacy
+        matches = matches.where("conservation_place_id in (with recursive place_ids as (select id from vocabulary.places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", conservation_place_legacy)
+    end
+    
+    # legacy search
+    if finding_place_legacy
+        matches = matches.where("finding_place_id in (with recursive place_ids as (select id from vocabulary.places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", finding_place_legacy)
+    end
+    
+    # legacy search
+    if ancient_finding_place_legacy
+        matches = matches.where("ancient_finding_place_id in (with recursive ancient_place_ids as (select id from vocabulary.ancient_places where regexp_split_to_array(lower(name), '\\W+') @> regexp_split_to_array(lower(?), '\\W+') union select child_ancient_places.id from vocabulary.ancient_places child_ancient_places join ancient_place_ids on ancient_place_ids.id = child_ancient_places.parent_id ) select * from ancient_place_ids)", ancient_finding_place_legacy)
+    end
+
     if conservation_place_id
       matches = matches.where("conservation_place_id in (with recursive place_ids as (select ?::int as id union select child_places.id from vocabulary.places child_places join place_ids on place_ids.id = child_places.parent_id ) select * from place_ids)", conservation_place_id)
     end
