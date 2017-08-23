@@ -39,13 +39,13 @@ class QueriesController < ApplicationController
   def completions
     if params[:field] == 'finding_place' || params[:field] == 'conservation_place'
       places = Place.where("places.name ILIKE ?", "%#{params[:term]}%")
-      places = places.order(["places.name ILIKE ? DESC", "#{params[:term]}"], ["places.name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(10)
+      places = places.order(["places.name ILIKE ? DESC", "#{params[:term]}"], ["places.name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(100)
       places = places.left_outer_joins(:children).select('places.*, COUNT(children_places.*) AS child_count').group('places.id')
       completions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
       render json: completions
     elsif params[:field] == 'ancient_finding_place'
         places = AncientPlace.where("ancient_places.name ILIKE ?", "%#{params[:term]}%")
-        places = places.order(["ancient_places.name ILIKE ? DESC", "#{params[:term]}"], ["ancient_places.name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(10)
+        places = places.order(["ancient_places.name ILIKE ? DESC", "#{params[:term]}"], ["ancient_places.name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(100)
         places = places.left_outer_joins(:children).select('ancient_places.*, COUNT(children_ancient_places.*) AS child_count').group('ancient_places.id')
         completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
         render json: completions
