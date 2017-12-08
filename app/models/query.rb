@@ -7,7 +7,7 @@ class Query < ActiveRecord::Base
     matches = Monument.all
     
     if keywords
-      for keyword in keywords.split(/\s+/)
+      for keyword in keywords.split(/\W+/)
         matches = matches.where("concat_ws(' ', title, comment, catalog_text, object_type, monument_type, iconography, inscription_type) ILIKE ?", "%#{keyword}%")
       end
     end
@@ -37,13 +37,13 @@ class Query < ActiveRecord::Base
     end
     
     if literature
-      for term in literature.split(/\s+/)
-        matches = matches.where("concat_ws(' ',literature,literature_online) ILIKE ?", "%#{term}%")
+      for term in literature.split(/\W+/)
+        matches = matches.where("concat_ws(' ',literature,literature_online) ~* ('\\m0*' || regexp_quote(?) || '\\M')", term)
       end
     end
     
     if museum
-      for term in museum.split(/\s+/)
+      for term in museum.split(/\W+/)
         matches = matches.joins(museum: :place).where("concat_ws(' ', museums.name, places.name, museum_inventory_number) ILIKE ?", "%#{term}%")
       end
     end
@@ -76,13 +76,13 @@ class Query < ActiveRecord::Base
     end
     
     if photo
-      for term in photo.split(/\s+/)
+      for term in photo.split(/\W+/)
         matches = matches.where("id in (select distinct monument_id from photos left join vocabulary.copyrights on copyrights.id = copyright_id left join vocabulary.authors on authors.id = author_id where concat_ws(' ',copyright, copyright_detail, authors.first_name, authors.last_name, authors.institution) ilike ?)", "%#{term}%")
       end
     end
     
     if dating
-      for term in dating.split(/\s+/)
+      for term in dating.split(/\W+/)
         matches = matches.where("concat_ws(' ',dating_phase, dating_comment) ILIKE ?", "%#{term}%")
       end
     end
@@ -148,20 +148,21 @@ class Query < ActiveRecord::Base
   end
   
   def literature_excerpt(monument)
-    simple_excerpt(monument.literature, literature)
+    simple_excerpt(monument.literature, literature, :match_word)
   end
   
   def iconography_excerpt(monument)
     simple_excerpt(monument.iconography, keywords)
   end
   
-  def simple_excerpt(original, search)
+  def simple_excerpt(original, search, match_word = false)
     return nil unless search
     return nil unless original
     downcase = original.downcase
     offsets = []
-    search.downcase.split(/\s+/).each_with_index do |term, i|
+    search.downcase.split(/\W+/).each_with_index do |term, i|
       regex = Regexp.escape(term)
+      regex = '\\b0*' + regex + '\\b' if match_word
       i = 0
       while match = downcase.match(regex, i)
         offsets.push(match.offset(0))
