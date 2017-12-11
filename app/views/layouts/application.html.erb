@@ -17,6 +17,9 @@
 		<a href="<%= url_for :controller => 'monuments', :action => 'index' %>"<% if current_page?(:controller => 'monuments', :action => 'index') %> class="active"<% end %>>
 			STEINDENKMÄLER
 		</a>
+		<a href="<%= url_for :controller => 'museums', :action => 'index' %>"<% if controller.controller_name == 'museums' %> class="active"<% end %>>
+			MUSEEN
+		</a>
 		<a href="<%= url_for :controller => 'places', :action => 'map' %>"<% if current_page?(:controller => 'places', :action => 'map') %> class="active"<% end %>>
 			KARTEN
 		</a>

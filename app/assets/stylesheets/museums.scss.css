@@ -2,3 +2,92 @@
 	width: 3em;
 	text-align: left;
 }
+
+.museums h1 {
+	margin: 1.5em 0 0;
+}
+
+.museums table {
+	border-spacing: 0;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	margin-top: -30px;
+}
+
+.museums th {
+	font-weight: normal;
+	color: #000;
+	text-align: left;
+	padding-bottom: 3px;
+	margin-bottom: 10px;
+}
+
+.museums td, .museums th {
+	font-size: 14px;
+	margin: 0;
+	padding: 12px 3px 0;
+	vertical-align: top;
+}
+
+ .museums th {
+	border-bottom: 1px solid #000; 
+ }
+ 
+.museums td a {
+	color: inherit !important;
+}
+
+@media all and (max-width: 500px) {
+	.museums h1 {
+		font-size: 22px;
+		padding-bottom: 10px;
+	}
+	.museums tr {
+		clear: left;
+		display: block;
+		padding: 0 0 0 0;
+		position: relative;
+		min-height: 25px;
+	}
+	.museums td, .museums th {
+		margin: 0;
+		padding: 0;
+		border: 0;
+		vertical-align: bottom;
+	}
+	
+	.museums th {
+		color: #555;
+	}
+	
+	.museums th:nth-child(1), .museums td:nth-child(1) {
+		width: 100%;
+		float: left;
+	}
+	.museums td:nth-child(1) {
+		padding-right: 2em;
+		box-sizing: border-box;
+	}
+	.museums th:nth-child(1) {
+		border-bottom: 1px solid #999;
+		margin: 0 -2px 0 -2px;
+		padding: 0 2px 0  2px;
+	}
+	
+	.museums th:nth-child(2) {
+		display: none;
+	}
+	.museums td:nth-child(2) {
+		float: left;
+		padding-bottom: 14px;
+	}
+	.museums th:nth-child(3) {
+		position: absolute;
+		right: 0;
+		top: 0px;
+	}
+	.museums td:nth-child(3) {
+		position: absolute;
+		right: 0;
+		top: 1px;
+	}
+}

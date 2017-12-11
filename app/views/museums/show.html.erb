@@ -1,5 +1,5 @@
 <div class="museum page">
-	<h1><%= @museum.name %> <%= @museum.place.name %></h1>
+	<h1><%= @museum.name %></h1>
 	<p>Ort: <%= @museum.place.full_name %></p>
 	<p><%= @monuments.total_count %> Steindenkmäler</p>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>

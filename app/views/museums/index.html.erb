@@ -1,0 +1,23 @@
+<div class="page museums">
+	<table>
+		<% @museums_by_country.keys.sort.each do |country_name| %>
+			<tr>
+				<td colspan=3>
+					<h1><a name="<%= unumlaut(country_name).downcase %>"></a><%= country_name %></h1>
+				</td>
+			</tr>
+			<tr>
+				<th>Museum</th>
+				<th>Ort</th>
+				<th>Denkmäler</th>
+			</tr>
+			<% @museums_by_country[country_name].each do |museum| %>
+				<tr>
+					<td><%= link_to museum.name, museum %></td>
+					<td><%= museum.place_name %></td>
+					<td style="text-align: right"><%= museum.monument_count %></td>
+				</tr>
+			<% end %>
+		<% end %>
+	</table>
+</div>
