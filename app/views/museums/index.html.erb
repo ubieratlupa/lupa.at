@@ -1,6 +1,6 @@
 <div class="page museums">
 	<table>
-		<% @museums_by_country.keys.sort.each do |country_name| %>
+		<% @museums_by_country.keys.sort_by{ |a| unumlaut a }.each do |country_name| %>
 			<tr>
 				<td colspan=3>
 					<h1><a name="<%= unumlaut(country_name).downcase %>"></a><%= country_name %></h1>
