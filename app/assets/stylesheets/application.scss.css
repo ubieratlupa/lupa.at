@@ -23,9 +23,6 @@ a:visited {
 	font-weight: 800;
 	background: #fff;
 	color: #000;
-	display: flex;
-	align-items: flex-end;
-	flex-wrap: wrap;
 }
 
 #lupa-title img {
@@ -47,12 +44,12 @@ a:visited {
 #lupa-title h2 {
 	font-family: Helvetica, sans-serif;
 	font-weight: 100;
-	margin: 4px 6px 5px;
+	margin: 6px 6px 3px;
 	font-size: 16px;
 	color: #4e4e4e;
 	float: right;
-	flex-grow: 1;
 	text-align: right;
+	line-height: 24px;
 }
 
 @media all and (max-width: 500px) {
@@ -60,7 +57,16 @@ a:visited {
 		display: none;
 	}
 	#lupa-title img {
+		position: absolute;
+		left: 5px;
+		top: 5px;
+	}
+	#lupa-title h1 {
 		display: none;
+	}
+	
+	#lupa-menu {
+		padding-left: 80px;
 	}
 }
 
