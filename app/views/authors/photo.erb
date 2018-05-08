@@ -16,7 +16,7 @@
 		</tr>
 		<% for author in @authors %>
 			<tr>
-				<td><%= link_to "#{author.last_name}, #{author.first_name}", author %></td>
+				<td><%= link_to [author.last_name, author.first_name].reject(&:blank?).join(', '), author %></td>
 				<td><%= author.institution %></td>
 				<td style="text-align: right"><%= author.photo_count %></td>
 			</tr>
