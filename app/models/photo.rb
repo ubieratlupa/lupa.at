@@ -1,6 +1,7 @@
 class Photo < ActiveRecord::Base
   belongs_to :copyright, optional: true
   belongs_to :author, optional: true
+  belongs_to :monument, optional: true
   
   def caption
     copyrights = []

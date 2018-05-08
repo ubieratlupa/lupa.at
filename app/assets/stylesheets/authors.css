@@ -1,0 +1,63 @@
+.authors table {
+	border-spacing: 0;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+}
+
+.authors th {
+	font-weight: normal;
+	color: #000;
+	text-align: left;
+	padding-bottom: 3px;
+	margin-bottom: 10px;
+}
+
+.authors td, .authors th {
+	font-size: 14px;
+	margin: 0;
+	padding: 12px 3px 0;
+	vertical-align: top;
+}
+
+ .authors th {
+	border-bottom: 1px solid #000; 
+ }
+ 
+.authors td a {
+	color: inherit !important;
+}
+
+
+@media all and (max-width: 799px) {
+	.photo-cards {
+		text-align: center;
+	}
+	.photo-card {
+		text-decoration: none;
+	}
+	.photo-card .photo {
+		width: 83px;
+		height: 83px;
+		overflow: hidden;
+		background-image: cover;
+		display: inline-block;
+		margin: 0 4px 8px 4px;
+	}
+
+}
+
+@media all and (min-width: 800px) {
+	.photo-cards {
+	}
+	.photo-card {
+		text-decoration: none;
+	}
+	.photo-card .photo {
+		float: left;
+		width: 83px;
+		height: 83px;
+		overflow: hidden;
+		background-image: cover;
+		margin: 0 8px 8px 0;
+	}
+
+}

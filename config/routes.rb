@@ -39,4 +39,8 @@ Rails.application.routes.draw do
     get 'recent', :on => :collection
   end
   
+  resources :authors do
+    get 'photo', :on => :collection
+  end
+  
 end

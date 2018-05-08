@@ -1,0 +1,23 @@
+<div class="author page">
+	<h1>
+		<%= @author.first_name %> <%= @author.last_name %>
+	</h1>
+	<% if @author.institution %>
+		<p> 
+			Institution: <%= @author.institution %>
+		</p>
+	<% end %>
+	<p><%= @author.comment %></p>
+	<p><%= @photos.total_count %> Fotografien</p>
+	<%= paginate @photos %>
+	
+	<div class='photo-cards'>
+		<% @photos.each do | photo | %>
+			<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
+				<div style="background-image: url(//lupa.at/img/<%= photo.filename %>);" class=photo></div>
+			</a>
+		<% end %>
+		<div style='clear: both;'></div>
+	</div>
+	<%= paginate @photos %>
+</div>

@@ -1,0 +1,25 @@
+<div class="page authors">
+	
+	<h1>
+		<%= @page.display_title %>
+	</h1>
+	
+	<p>
+		<%= nl2br @page.display_text %>
+	</p>
+	
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Institution</th>
+			<th>Fotos</th>
+		</tr>
+		<% for author in @authors %>
+			<tr>
+				<td><%= link_to "#{author.last_name}, #{author.first_name}", author %></td>
+				<td><%= author.institution %></td>
+				<td style="text-align: right"><%= author.photo_count %></td>
+			</tr>
+		<% end %>
+	</table>
+</div>
