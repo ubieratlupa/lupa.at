@@ -1,11 +1,13 @@
 <div class="page-menu">
-	<% for page in @other_pages do %>
-		<% if page == @current_page %>
-			<%= link_to page.display_title, page, class: "current" %>
-		<% else %>
-			<%= link_to page.display_title, page %>
+	<div class="page-menu-inner">
+		<% for page in @other_pages do %>
+			<% if page == @current_page %>
+				<%= link_to page.display_title, page, class: "current" %>
+			<% else %>
+				<%= link_to page.display_title, page %>
+			<% end %>
 		<% end %>
-	<% end %>
+	</div>
 </div>
 <div class="page">
 	<h2>

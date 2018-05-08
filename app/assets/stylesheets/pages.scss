@@ -2,13 +2,17 @@
 
 	div.page-menu {
 		position: absolute;
-		left: 0px;
-		right: 590px;
+		left: 50%;
+		width: 0px;
 		top: 117px;
 		text-align: right;
 	}
+	div.page-menu div.page-menu-inner {
+		position: absolute;
+		right: 295px;
+	}
 	div.page-menu a {
-		margin: 0 50% 8px 0;
+		margin: 0 0 8px 0;
 		padding-right: 9px;
 		font-size: 14px;
 		line-height: 22px;
