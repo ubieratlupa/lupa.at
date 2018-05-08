@@ -1,3 +1,10 @@
+<div class="page-menu">
+	<div class="page-menu-inner">
+		<% @museums_by_country.keys.sort_by{ |a| unumlaut a }.each do |country_name| %>
+			<%= link_to country_name, "\##{unumlaut(country_name).downcase}" %>
+		<% end %>
+	</div>
+</div>
 <div class="page museums">
 	<table>
 		<% @museums_by_country.keys.sort_by{ |a| unumlaut a }.each do |country_name| %>
