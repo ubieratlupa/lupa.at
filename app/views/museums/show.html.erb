@@ -2,5 +2,7 @@
 	<h1><%= @museum.name %></h1>
 	<p>Ort: <%= @museum.place.full_name %></p>
 	<p><%= @monuments.total_count %> Steindenkmäler</p>
+	<%= paginate @monuments %>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+	<%= paginate @monuments %>
 </div>
