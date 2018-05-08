@@ -12,6 +12,12 @@ class Query < ActiveRecord::Base
       end
     end
     
+    if fulltext
+      for word in fulltext.split(/\W+/)
+        matches = matches.where("concat_ws(' ', title, catalog_text, comment, object_type, monument_type, finding_place_comment, finding_comment, conservation_place_comment, conservation_comment, conservation_state, museum_inventory_number, iconography, inscription_type, regexp_replace(regexp_replace(concat_ws(' ',inscription, inscription_name_donor, inscription_function, inscription_formula),'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\\1', 'g'), inscription_comment, inscription_variants, inscription_translation, inscription_name_donor, inscription_function, inscription_formula, dating_phase, dating_comment, literature, literature_online, material, material_comment, material_local_name, material_provenance) ILIKE :word", {word: "%#{word}%"})
+      end
+    end
+    
     if inscription
       for term in inscription.split(/\s+/)
         matches = matches.where("regexp_replace(regexp_replace(concat_ws(' ',inscription, inscription_name_donor, inscription_function, inscription_formula),'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\\1', 'g') ILIKE :term OR concat_ws(' ', inscription, inscription_name_donor, inscription_function, inscription_formula, inscription_comment, inscription_type) ILIKE :term", {term: "%#{term}%"})
@@ -91,7 +97,7 @@ class Query < ActiveRecord::Base
   end
   
   def self.allowed_search_parameters
-    return :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating
+    return :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext
   end
   
   def inscription_excerpt(monument)

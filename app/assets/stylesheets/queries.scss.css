@@ -83,25 +83,32 @@
 		/*padding: 5px;*/
 		text-align: left;
 		display: block;
+		margin-left: -10px;
+		margin-right: -10px;
 	}
 
 	.query-box{
 		float: left;
-		width: calc(50% - 10px);
+		width: calc(50% - 20px);
 		box-sizing: border-box;
+		margin-right: 10px;
+		margin-left: 10px;
 	}
+	.query-box-wide {
+		box-sizing: border-box;
+		margin-right: 10px;
+		margin-left: 10px;
+		clear: left;
+	}
+	
 
 	.clearfloat{
 		clear: left;
 	}
 
-	.query-box:nth-of-type(odd){
-		margin-right: 10px;
+	.query-box {
 	}
 
-	.query-box:nth-of-type(even){
-		margin-left: 10px;
-	}
 	.query-form input[type=text]{		
 		height: 30px;
 		font-size: 14px;

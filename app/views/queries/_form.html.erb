@@ -65,6 +65,12 @@
 		<%= label_tag(:literature, "Literatur") %>
 		<%= text_field(:query, :literature) %> 
 	</div>
+	
+	<div class="query-box-wide">
+		<%= label_tag(:id_range, "Volltextsuche (ausgenommen Fundort, Verwahrort, Museum, Antiker Fundort)") %>
+		<%= text_field(:query, :fulltext) %>
+	</div>
+	
 
 	<div class="clearfloat"></div>
 

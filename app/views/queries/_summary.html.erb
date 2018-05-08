@@ -77,7 +77,11 @@
 	<% if @query.literature %>
 		<p><strong>Literatur:</strong> <%= @query.literature %></p>
 	<% end %>
-		
+	
+	<% if @query.fulltext %>
+		<p><strong>Volltext:</strong> <%= @query.fulltext %></p>
+	<% end %>
+	
 	<% if @monuments %>
 		<p class="query-hits"><%= String(@monuments.total_count) + ' ' + (@monuments.total_count==1 ? 'Denkmal' : 'Denkmäler') %></p>
 	<% end %>
