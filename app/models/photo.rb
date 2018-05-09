@@ -13,7 +13,7 @@ class Photo < ActiveRecord::Base
     end
 
     lines = []
-    if copyrights
+    if copyrights.count > 0
       lines.append copyrights.join(' ')
     end
     
