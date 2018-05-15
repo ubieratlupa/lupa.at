@@ -284,29 +284,7 @@
 				<% if @monument.dating_from || @monument.dating_to %>
 					<dt>Jahr</dt>
 					<dd>
-						<% if @monument.dating_from == @monument.dating_to %>
-							<%= @monument.dating_from %>
-							<%= 'n. Chr.' if @monument.dating_from > 0 %>
-							<%= 'v. Chr.' if @monument.dating_from < 0 %>
-						<% elsif @monument.dating_from && @monument.dating_to %>
-							<%= @monument.dating_from %>
-							<%= 'n. Chr.' if @monument.dating_from > 0 %>
-							<%= 'v. Chr.' if @monument.dating_from < 0 %>
-							-
-							<%= @monument.dating_to %>
-							<%= 'n. Chr.' if @monument.dating_to > 0 %>
-							<%= 'v. Chr.' if @monument.dating_to < 0 %>
-						<% elsif @monument.dating_from %>
-							nach 
-							<%= @monument.dating_from %>
-							<%= 'n. Chr.' if @monument.dating_from > 0 %>
-							<%= 'v. Chr.' if @monument.dating_from < 0 %>
-						<% elsif @monument.dating_to %>
-							vor
-							<%= @monument.dating_to %>
-							<%= 'n. Chr.' if @monument.dating_to > 0 %>
-							<%= 'v. Chr.' if @monument.dating_to < 0 %>
-						<% end %>
+						<%= @monument.dating_years %>
 					</dd>
 				<% end  %>
 				<% if @monument.dating_comment %>

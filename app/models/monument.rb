@@ -18,4 +18,32 @@ class Monument < ActiveRecord::Base
   scope :conserved_in, ->(place) { 
     where("conservation_place_id in (WITH RECURSIVE descendant_places AS (SELECT places.id FROM places WHERE id = ? UNION SELECT places.id FROM places JOIN descendant_places ON places.parent_id=descendant_places.id) SELECT id FROM descendant_places)", place).order(:id)
   }
+  
+  def dating_years
+    dating_years = ""
+		if dating_from == dating_to
+			dating_years += dating_from.abs.to_s
+			dating_years += ' n. Chr.' if dating_from > 0
+			dating_years += ' v. Chr.' if dating_from < 0
+		elsif dating_from && dating_to
+			dating_years += dating_from.abs.to_s
+			dating_years += ' n. Chr.' if dating_from > 0
+			dating_years += ' v. Chr.' if dating_from < 0
+			dating_years += " - "
+			dating_years += dating_to.abs.to_s
+			dating_years += ' n. Chr.' if dating_to > 0
+			dating_years += ' v. Chr.' if dating_to < 0
+		elsif dating_from
+			dating_years += "nach "
+			dating_years += dating_from.abs.to_s
+			dating_years += ' n. Chr.' if dating_from > 0
+			dating_years += ' v. Chr.' if dating_from < 0
+		elsif dating_to
+			dating_years += "vor "
+			dating_years += dating_to.abs.to_s
+			dating_years += ' n. Chr.' if dating_to > 0
+			dating_years += ' v. Chr.' if dating_to < 0
+		end
+    return dating_years
+  end
 end

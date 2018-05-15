@@ -71,7 +71,16 @@
 				<% end %>
 				<% if @query && @query.dating %>
 					<p class="detail">
-						Datierung: <%= monument.dating_phase %>
+						<%
+						dating_info = []
+						if monument.dating_phase 
+							dating_info += [monument.dating_phase]
+						end
+						if monument.dating_from || monument.dating_to 
+							dating_info += [monument.dating_years]
+						end
+						%>
+						Datierung: <%= dating_info.join('; ') %>
 					</p>
 				<% end %>
 				<% if @query && literature_excerpt = @query.literature_excerpt(monument) %>
