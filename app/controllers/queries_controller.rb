@@ -20,6 +20,16 @@ class QueriesController < ApplicationController
   def create
     p = params.require(:query).permit(Query.allowed_search_parameters)
     p.delete_if {|k,v| v.blank?}
+    if p[:dating_from]
+      bc = /\d\W*[vb]/i =~ p[:dating_from] # BC, vor, v. chr. ....
+      p[:dating_from] = p[:dating_from].to_i
+      p[:dating_from] = -p[:dating_from].abs if bc
+    end
+    if p[:dating_to]
+      bc = /\d\W*[vb]/i =~ p[:dating_to] # BC, vor, v. chr. ....
+      p[:dating_to] = p[:dating_to].to_i
+      p[:dating_to] = -p[:dating_to].abs if bc
+    end
     if p[:id_ranges] && p[:id_ranges].match(/^\s*\d+\s*$/) && Monument.exists?(p[:id_ranges])
       redirect_to controller: "monuments", action: "show", id: Monument.find(p[:id_ranges])
     else

@@ -93,11 +93,23 @@ class Query < ActiveRecord::Base
       end
     end
     
+    if dating_from || dating_to
+      matches = matches.joins("left join vocabulary.dating_phases_time_span on monuments.dating_phase = dating_phases_time_span.phase_name")
+    end
+    
+    if dating_from
+      matches = matches.where("coalesce(dating_to, dating_from, phase_to, phase_from) >= ?", dating_from)
+    end
+    
+    if dating_to
+      matches = matches.where("coalesce(dating_from, dating_to, phase_from, phase_to) <= ?", dating_to)
+    end
+    
     return matches
   end
   
   def self.allowed_search_parameters
-    return :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext
+    return :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to
   end
   
   def inscription_excerpt(monument)
@@ -210,5 +222,34 @@ class Query < ActiveRecord::Base
     extract += ERB::Util.html_escape("…") if x < original.length
     extract
   end
+  
+  def dating_years
+    dating_years = ""
+		if dating_from == dating_to
+			dating_years += dating_from.abs.to_s
+			dating_years += ' n. Chr.' if dating_from > 0
+			dating_years += ' v. Chr.' if dating_from < 0
+		elsif dating_from && dating_to
+			dating_years += dating_from.abs.to_s
+			dating_years += ' n. Chr.' if dating_from > 0
+			dating_years += ' v. Chr.' if dating_from < 0
+			dating_years += " - "
+			dating_years += dating_to.abs.to_s
+			dating_years += ' n. Chr.' if dating_to > 0
+			dating_years += ' v. Chr.' if dating_to < 0
+		elsif dating_from
+			dating_years += "nach "
+			dating_years += dating_from.abs.to_s
+			dating_years += ' n. Chr.' if dating_from > 0
+			dating_years += ' v. Chr.' if dating_from < 0
+		elsif dating_to
+			dating_years += "vor "
+			dating_years += dating_to.abs.to_s
+			dating_years += ' n. Chr.' if dating_to > 0
+			dating_years += ' v. Chr.' if dating_to < 0
+		end
+    return dating_years
+  end
+  
   
 end

@@ -20,6 +20,9 @@
 	<% if @query.dating %>
 		<p><strong>Datierung:</strong> <%= @query.dating %></p>
 	<% end %>
+	<% if @query.dating_from || @query.dating_to %>
+		<p><strong>Datierung:</strong> <%= @query.dating_years %></p>
+	<% end %>
 	
 	<% if @query.finding_place_legacy %>
 		<p>

@@ -19,9 +19,14 @@
 		<%= text_field(:query, :inscription) %> 
 	</div>
 	
-	<div class="query-box">
-		<%= label_tag(:finding_place, "Datierung, Phase") %>
-		<%= text_field(:query, :dating) %> 
+	<div class="query-box-slim">
+		<%= label_tag(:finding_place, "Datierung von (Jahr)") %>
+		<%= text_field(:query, :dating_from) %> 
+	</div>
+	
+	<div class="query-box-slim">
+		<%= label_tag(:finding_place, "bis (Jahr)") %>
+		<%= text_field(:query, :dating_to) %> 
 	</div>
 	
 	<div class="query-box" id="findingPlaceBox">

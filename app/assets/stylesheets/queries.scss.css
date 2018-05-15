@@ -79,6 +79,11 @@
 }
 
 @media all and (min-width: 500px) {
+
+	.query-form label {
+		white-space: nowrap;
+	}
+	
 	.query-inside{
 		/*padding: 5px;*/
 		text-align: left;
@@ -94,6 +99,14 @@
 		margin-right: 10px;
 		margin-left: 10px;
 	}
+	.query-box-slim{
+		float: left;
+		width: calc(25% - 20px);
+		box-sizing: border-box;
+		margin-right: 10px;
+		margin-left: 10px;
+	}
+	
 	.query-box-wide {
 		box-sizing: border-box;
 		margin-right: 10px;
@@ -119,6 +132,19 @@
 	.query-form input[type=text]{
 		font-size: 20px;
 		height: 40px;
+	}
+	.query-box + .query-box-slim {
+		margin-left: 0px;
+	}
+	.query-box-slim{
+		float: left;
+		width: calc(50% - 10px);
+		box-sizing: border-box;
+		margin-left: 20px;
+//		margin-left: 10px;
+	}
+	.query-box {
+		clear: left;
 	}
 }
 

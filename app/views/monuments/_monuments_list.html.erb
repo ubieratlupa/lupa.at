@@ -69,7 +69,7 @@
 						Inschrift: <%= @query.inscription_excerpt(monument) %>
 					</p>
 				<% end %>
-				<% if @query && @query.dating %>
+				<% if @query && (@query.dating || @query.dating_from || @query.dating_to)%>
 					<p class="detail">
 						<%
 						dating_info = []
