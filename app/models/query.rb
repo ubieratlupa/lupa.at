@@ -7,13 +7,13 @@ class Query < ActiveRecord::Base
     matches = Monument.all
     
     if keywords
-      for keyword in keywords.split(/\W+/)
+      for keyword in keywords.split(/\s+/)
         matches = matches.where("concat_ws(' ', title, comment, catalog_text, object_type, monument_type, iconography, inscription_type) ILIKE ?", "%#{keyword}%")
       end
     end
     
     if fulltext
-      for word in fulltext.split(/\W+/)
+      for word in fulltext.split(/\s+/)
         matches = matches.where("concat_ws(' ', title, catalog_text, comment, object_type, monument_type, finding_place_comment, finding_comment, conservation_place_comment, conservation_comment, conservation_state, museum_inventory_number, iconography, inscription_type, regexp_replace(regexp_replace(concat_ws(' ',inscription, inscription_name_donor, inscription_function, inscription_formula),'[][()?!{}/\\s-]','','g'), '<([^=>]+)(=[^>]+)?>', '\\1', 'g'), inscription_comment, inscription_variants, inscription_translation, inscription_name_donor, inscription_function, inscription_formula, dating_phase, dating_comment, literature, literature_online, material, material_comment, material_local_name, material_provenance) ILIKE :word", {word: "%#{word}%"})
       end
     end
@@ -43,13 +43,13 @@ class Query < ActiveRecord::Base
     end
     
     if literature
-      for term in literature.split(/\W+/)
+      for term in literature.split(/\s+/)
         matches = matches.where("concat_ws(' ',literature,literature_online) ~* ('\\m0*' || regexp_quote(?) || '\\M')", term)
       end
     end
     
     if museum
-      for term in museum.split(/\W+/)
+      for term in museum.split(/\s+/)
         matches = matches.joins(museum: :place).where("concat_ws(' ', museums.name, places.name, museum_inventory_number) ILIKE ?", "%#{term}%")
       end
     end
@@ -82,13 +82,13 @@ class Query < ActiveRecord::Base
     end
     
     if photo
-      for term in photo.split(/\W+/)
+      for term in photo.split(/\s+/)
         matches = matches.where("id in (select distinct monument_id from photos left join vocabulary.copyrights on copyrights.id = copyright_id left join vocabulary.authors on authors.id = author_id where concat_ws(' ',copyright, copyright_detail, authors.first_name, authors.last_name, authors.institution) ilike ?)", "%#{term}%")
       end
     end
     
     if dating
-      for term in dating.split(/\W+/)
+      for term in dating.split(/\s+/)
         matches = matches.where("concat_ws(' ',dating_phase, dating_comment) ILIKE ?", "%#{term}%")
       end
     end
@@ -178,7 +178,7 @@ class Query < ActiveRecord::Base
     return nil unless original
     downcase = original.downcase
     offsets = []
-    search.downcase.split(/\W+/).each_with_index do |term, i|
+    search.downcase.split(/\s+/).each_with_index do |term, i|
       regex = Regexp.escape(term)
       regex = '\\b0*' + regex + '\\b' if match_word
       i = 0
