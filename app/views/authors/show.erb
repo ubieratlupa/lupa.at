@@ -4,11 +4,17 @@
 	</h1>
 	<% if @author.institution %>
 		<p> 
-			Institution: <%= @author.institution %>
+			<%= @author.institution %>
 		</p>
 	<% end %>
 	<p><%= @author.comment %></p>
-	<p><%= @photos.total_count %> Fotografien</p>
+	<% if @photos.total_count == 1 %>
+		<p> 
+			1 Steindenkmal
+		</p>
+	<% else %>
+		<p>Fotos von <%= @photos.total_count %> Steindenkmälern</p>
+	<% end %>
 	<%= paginate @photos %>
 	
 	<div class='photo-cards'>

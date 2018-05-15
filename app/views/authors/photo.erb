@@ -12,13 +12,13 @@
 		<tr>
 			<th>Name</th>
 			<th>Institution</th>
-			<th>Fotos</th>
+			<th>Denkmäler</th>
 		</tr>
 		<% for author in @authors %>
 			<tr>
 				<td><%= link_to [author.last_name, author.first_name].reject(&:blank?).join(', '), author %></td>
 				<td><%= author.institution %></td>
-				<td style="text-align: right"><%= author.photo_count %></td>
+				<td style="text-align: right"><%= author.monument_count %></td>
 			</tr>
 		<% end %>
 	</table>

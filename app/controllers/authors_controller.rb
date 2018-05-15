@@ -2,12 +2,15 @@ class AuthorsController < ApplicationController
 
   def show
     @author = Author.find(params[:id])
-    @photos = Photo.where(author_id: params[:id]).where('monument_id is not null').order(:monument_id => :desc).page(params[:page]).per(48)
+    @photos = 
+      Photo.where('id in (select min(id) as id from photos where author_id = ? group by monument_id)', params[:id])
+        .order(:monument_id => :desc)
+        .page(params[:page]).per(48)
   end
   
   def photo
     @authors = Author.find_by_sql("
-      select authors.*, count(1) as photo_count
+      select authors.*, count(distinct monument_id) as monument_count
       from vocabulary.authors 
       join photos on authors.id = photos.author_id
       where authors.visible
