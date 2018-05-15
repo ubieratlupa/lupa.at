@@ -113,13 +113,16 @@ class Query < ActiveRecord::Base
   end
   
   def inscription_excerpt(monument)
-    return nil unless inscription
+    terms = []
+    terms += inscription.split(/\s+/) if inscription
+    terms += fulltext.split(/\s+/) if fulltext
+    return nil unless terms.count > 0
     original = monument.inscription
     downcase = original.downcase
     offsets = []
-    inscription.downcase.split(/\s+/).each_with_index do |term, i|
+    terms.each_with_index do |term, i|
       regex = ""
-      term.split("").each_with_index do |c ,i|
+      term.downcase.split("").each_with_index do |c ,i|
         regex += "(\\<|(=[^\\>]+)?\\>|[\\]\\[()?!{}/\\s-])*" if i > 0
         regex += Regexp.escape(c)
       end
@@ -142,7 +145,7 @@ class Query < ActiveRecord::Base
     end
     offsets.each_with_index { |m, i| puts "#{i}: #{m}" }
     limit = 150
-    len = (limit - inscription.length) / (offsets.count * 2)
+    len = (limit) / (offsets.count * 2)
     len = 8 unless len > 8
     extract = "".html_safe
     x = 0
@@ -166,20 +169,26 @@ class Query < ActiveRecord::Base
   end
   
   def literature_excerpt(monument)
-    simple_excerpt(monument.literature, literature, :match_word)
+    terms = []
+    terms += literature.split(/\s+/) if literature
+    terms += fulltext.split(/\s+/) if fulltext
+    simple_excerpt(monument.literature, terms, :match_word)
   end
   
   def iconography_excerpt(monument)
-    simple_excerpt(monument.iconography, keywords)
+    terms = []
+    terms += keywords.split(/\s+/) if literature
+    terms += fulltext.split(/\s+/) if fulltext
+    simple_excerpt(monument.iconography, terms)
   end
   
-  def simple_excerpt(original, search, match_word = false)
-    return nil unless search
+  def simple_excerpt(original, search_terms, match_word = false)
+    return nil unless search_terms.count > 0
     return nil unless original
     downcase = original.downcase
     offsets = []
-    search.downcase.split(/\s+/).each_with_index do |term, i|
-      regex = Regexp.escape(term)
+    search_terms.each_with_index do |term, i|
+      regex = Regexp.escape(term.downcase)
       regex = '\\b0*' + regex + '\\b' if match_word
       i = 0
       while match = downcase.match(regex, i)
@@ -200,7 +209,7 @@ class Query < ActiveRecord::Base
     end
     offsets.each_with_index { |m, i| puts "#{i}: #{m}" }
     limit = 150
-    len = (limit - search.length) / (offsets.count * 2)
+    len = (limit) / (offsets.count * 2)
     len = 8 unless len > 8
     extract = "".html_safe
     x = 0

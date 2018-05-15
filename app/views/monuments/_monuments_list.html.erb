@@ -64,9 +64,9 @@
 						Ikonografie: <%= iconography_excerpt %>
 					</p>
 				<% end %>
-				<% if @query && @query.inscription && monument.inscription %>
+				<% if @query && inscription_excerpt = @query.inscription_excerpt(monument) %>
 					<p class="detail">
-						Inschrift: <%= @query.inscription_excerpt(monument) %>
+						Inschrift: <%= inscription_excerpt %>
 					</p>
 				<% end %>
 				<% if @query && (@query.dating || @query.dating_from || @query.dating_to)%>
