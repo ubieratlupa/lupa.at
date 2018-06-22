@@ -177,7 +177,8 @@ class Query < ActiveRecord::Base
   
   def iconography_excerpt(monument)
     terms = []
-    terms += keywords.split(/\s+/) if literature
+    terms += literature.split(/\s+/) if literature
+    terms += keywords.split(/\s+/) if keywords
     terms += fulltext.split(/\s+/) if fulltext
     simple_excerpt(monument.iconography, terms)
   end
