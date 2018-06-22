@@ -43,7 +43,7 @@ class Query < ActiveRecord::Base
     end
     
     if literature
-      for term in literature.split(/\s+/)
+      for term in literature.split(/[\s,;\.]+/)
         matches = matches.where("concat_ws(' ',literature,literature_online) ~* ('\\m0*' || regexp_quote(?) || '\\M')", term)
       end
     end
@@ -171,7 +171,7 @@ class Query < ActiveRecord::Base
   
   def literature_excerpt(monument)
     terms = []
-    terms += literature.split(/\s+/) if literature
+    terms += literature.split(/[\s,;\.]+/) if literature
     terms += fulltext.split(/\s+/) if fulltext
     simple_excerpt(monument.literature, terms, :match_word)
   end
