@@ -118,6 +118,7 @@ class Query < ActiveRecord::Base
     terms += fulltext.split(/\s+/) if fulltext
     return nil unless terms.count > 0
     original = monument.inscription
+    return nil unless original
     downcase = original.downcase
     offsets = []
     terms.each_with_index do |term, i|
