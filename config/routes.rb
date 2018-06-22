@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 
   resources :museums
   resources :places
+  resources :regional_infos
   resources :queries do
     get 'qr', :on => :member
     get 'completions/:field', :on => :collection, :action => 'completions'

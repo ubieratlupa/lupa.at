@@ -1,0 +1,10 @@
+<div class="museum page">
+	<h1><%= @regional_info.name %></h1>
+	<p><%= @regional_info.text %></p>
+	<% @regional_info.photos.each_with_index do | photo, idx | %>
+		<p><img src="http://lupa.at/img/<%= photo.filename %>"></p>
+	<% end %>
+	<%= paginate @monuments_conserved %>
+	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_conserved } %>
+	<%= paginate @monuments_conserved %>
+</div>

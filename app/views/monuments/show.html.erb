@@ -177,6 +177,12 @@
 					<%= @monument.museum_inventory_number %>
 				</dd>
 			<% end  %>
+			<% if @monument.regional_info %>
+				<dt>Information und Bilder zum Verwahrort</dt>
+				<dd>
+					<%= link_to @monument.regional_info.name, @monument.regional_info %>
+				</dd>
+			<% end  %>
 		</dl>
 	</div>
 		
