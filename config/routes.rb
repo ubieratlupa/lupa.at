@@ -14,8 +14,6 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#show', defaults: { id: 'lupa' }
   get 'about/:id', to: 'pages#show', as: :page
   
-  # get 'museums/:id' => 'museums#show'
-
   resources :museums
   resources :places
   resources :regional_infos
