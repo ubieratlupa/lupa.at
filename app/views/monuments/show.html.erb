@@ -95,6 +95,12 @@
 
 	<div class="section">
 		<h3>Fundort</h3>
+		<% if @monument.finding_place && @monument.finding_place.lat && @monument.finding_place.long %>
+			<div class="minimap">
+				<img class=marker src="<%= asset_path "marker@2x.png" %>">
+				<img width=200 height=150 src="https://api.mapbox.com/styles/v1/jabakobob/citeaxn1u00ac2hrzfnjg8398/static/<%= @monument.finding_place.long %>,<%= @monument.finding_place.lat %>,6,0,0/250x188@2x?access_token=pk.eyJ1IjoiamFiYWtvYm9iIiwiYSI6ImNpZ200bTA5ZTAwZDd3OWt0anFqM2wwaGMifQ.Og5ScP-C8AV3I7JHDR0zHQ">
+			</div>
+		<% end %>
 		<dl>
 			<% if @monument.finding_place || @monument.finding_place_comment %>
 				<dt>Fundort</dt>
@@ -130,6 +136,12 @@
 		
 	<div class="section">
 		<h3>Verwahrort</h3>
+		<% if @monument.conservation_place && @monument.conservation_place.lat && @monument.conservation_place.long %>
+			<div class="minimap">
+				<img class=marker src="<%= asset_path "marker-blue@2x.png" %>">
+				<img width=200 height=150 src="https://api.mapbox.com/styles/v1/jabakobob/citeaxn1u00ac2hrzfnjg8398/static/<%= @monument.conservation_place.long %>,<%= @monument.conservation_place.lat %>,6,0,0/250x188@2x?access_token=pk.eyJ1IjoiamFiYWtvYm9iIiwiYSI6ImNpZ200bTA5ZTAwZDd3OWt0anFqM2wwaGMifQ.Og5ScP-C8AV3I7JHDR0zHQ">
+			</div>
+		<% end %>
 		<dl>
 			<% if @monument.conservation_place || @monument.conservation_place_comment %>
 				<dt>Verwahrort</dt>

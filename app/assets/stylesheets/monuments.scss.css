@@ -143,4 +143,24 @@ hr {
 	color: #fff;
 	background-color: #aaa;
 	border-radius: 2px;
+	clear: both;
+}
+
+.minimap {
+	float: right;
+	margin: 0 0 8px;
+	position: relative;
+	border: 1px solid #999;
+}
+
+.minimap img {
+	display: block;
+}
+
+.minimap .marker {
+	position: absolute;
+	left: 96px;
+	top: 71px;
+	width: 9px;
+	height: 9px;
 }
