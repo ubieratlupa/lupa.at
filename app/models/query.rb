@@ -184,7 +184,14 @@ class Query < ActiveRecord::Base
     simple_excerpt(monument.iconography, terms)
   end
   
-  def simple_excerpt(original, search_terms, match_word = false)
+  def title_highlight(monument)
+    terms = []
+    terms += keywords.split(/\s+/) if keywords
+    terms += fulltext.split(/\s+/) if fulltext
+    simple_excerpt(monument.title, terms, false, 1000) || ERB::Util.html_escape(monument.title)
+  end
+  
+  def simple_excerpt(original, search_terms, match_word = false, limit = 150)
     return nil unless search_terms.count > 0
     return nil unless original
     downcase = original.downcase
