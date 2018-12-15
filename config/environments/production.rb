@@ -83,4 +83,7 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+  
+  #https://stackoverflow.com/questions/51466887/missing-secret-key-base-for-production-environment
+  config.read_encrypted_secrets = true
 end
