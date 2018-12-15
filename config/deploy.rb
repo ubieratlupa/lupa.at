@@ -33,7 +33,7 @@ task :remote_environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  invoke :'rvm:use', 'ruby-2.3.1@lupa-at'
+  invoke :'rvm:use', 'ruby-2.5.3@lupa-at'
 end
 
 # Put any custom commands you need to run at setup
@@ -60,7 +60,7 @@ task :deploy do
     on :launch do
       in_path(fetch(:current_path)) do
         # this command kills puma. systemd will restart it automatically
-        command %{/home/jakob/.rvm/wrappers/ruby-2.3.1@lupa-at/bundle exec pumactl --pidfile /var/www/lupa.at/shared/tmp/pids/puma.pid halt}
+        command %{/home/jakob/.rvm/wrappers/ruby-2.5.3@lupa-at/bundle exec pumactl --pidfile /var/www/lupa.at/shared/tmp/pids/puma.pid halt}
       end
     end
   end
