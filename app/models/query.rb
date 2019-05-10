@@ -98,11 +98,11 @@ class Query < ActiveRecord::Base
     end
     
     if dating_from
-      matches = matches.where("coalesce(dating_to, dating_from, phase_to, phase_from) >= ?", dating_from)
+      matches = matches.where("coalesce(dating_from, phase_from) >= ?", dating_from)
     end
     
     if dating_to
-      matches = matches.where("coalesce(dating_from, dating_to, phase_from, phase_to) <= ?", dating_to)
+      matches = matches.where("coalesce(dating_to, phase_to) <= ?", dating_to)
     end
     
     return matches
