@@ -71,12 +71,6 @@
 	<% end %>
 	
 	<dl>
-		<% if @monument.comment %>
-			<dt>Kommentar</dt>
-			<dd>
-				<%= @monument.comment %>
-			</dd>
-		<% end %>
 		<% if @monument.parent_monument %>
 			<dt>Teil von</dt>
 			<dd>
@@ -286,6 +280,12 @@
 					<%= @monument.inscription_paleography %>
 				</dd>
 			<% end  %>
+			<% if @monument.comment %>
+				<dt>Kommentar</dt>
+				<dd>
+					<%= @monument.comment %>
+				</dd>
+			<% end %>
 		</dl>
 	</div>
 		
