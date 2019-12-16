@@ -8,7 +8,6 @@
 		<p>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
 		<p id='photo-caption'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
 	</div>
-	
 </div>
 
 
@@ -65,8 +64,8 @@
 	
 	
 	function updatePhoto() {
-		document.getElementById('photo-caption').innerHTML = all_photos[curr_photo_index].caption
-		document.getElementById('photo-number').innerHTML = all_photos[curr_photo_index].number
+		document.getElementById('photo-caption').innerHTML = escape_nl2br(all_photos[curr_photo_index].caption)
+		document.getElementById('photo-number').innerHTML = escape_nl2br(all_photos[curr_photo_index].number)
 		document.getElementById('main-photo').src = all_photos[curr_photo_index].src
 		document.getElementById('prev-photo-link').style.opacity = 0 < curr_photo_index ? 1 : 0;
 		document.getElementById('next-photo-link').style.opacity = curr_photo_index < all_photos.length - 1 ? 1 : 0;
@@ -77,5 +76,15 @@
 	}
 	
 	updatePhoto();
+	
+	function escape_nl2br(unsafe) {
+	    return unsafe
+			.replace(/&/g, "&amp;")
+			.replace(/</g, "&lt;")
+			.replace(/>/g, "&gt;")
+			.replace(/"/g, "&quot;")
+			.replace(/'/g, "&#039;")
+			.replace(/\r?\n/g, "<br>\n")
+	 }
 	
 </script>
