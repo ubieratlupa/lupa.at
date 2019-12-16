@@ -21,11 +21,6 @@ body.photo-box {
 	}
 
 	.photo-box-footer {
-		display: block;
-		position: fixed;
-		bottom: 10px;
-		left: 10px;
-		background: rgba(0,0,0,0.5);
 		padding: 10px 10px;
 		color: #ccc;
 		font-size: 14px;
@@ -45,6 +40,11 @@ body.photo-box {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+		flex-direction: column;
+	}
+
+	.photo-box {
+		margin-bottom: 75px;
 	}
 
 	.photo-box .photo-box-container .main-photo {
@@ -73,6 +73,34 @@ body.photo-box {
 	}
 	.photo-box .nav-buttons a[rel~="next"] {
 		right: 10px;
+	}
+	
+	.photo-box .nav-index-buttons {
+		position: fixed;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		text-align: center;
+		background: rgba(0,0,0,0.8);
+		padding: 6px 0 6px;
+	}
+	
+	.photo-box .nav-index-buttons a {
+		background: rgba(0,0,0,0.8);
+		border: 2px solid transparent;
+		margin: 0 3px;
+		border-radius: 4px;
+		display: inline-block;
+		padding: 7px 11px;
+		color: #ccc;
+		text-decoration: none;
+		font-size: 18px;
+	}
+	
+	.photo-box .nav-index-buttons a.active {
+		color: #ddd;;
+		background: rgba(255,255,255,0.2);
+		border: 2px solid #ddd;
 	}
 	
 }
@@ -122,7 +150,7 @@ body.photo-box {
 		float: right;
 		border-left: 1px solid rgba(255,255,255,0.6);
 	}
-	
+		
 	.photo-box-footer {
 		padding: 10px 10px;
 		color: #ccc;
@@ -137,4 +165,7 @@ body.photo-box {
 		margin-top: 0.5em;
 	}
 	
+	.photo-box .nav-index-buttons {
+		display: none;
+	}
 }

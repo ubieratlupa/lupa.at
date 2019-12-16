@@ -4,18 +4,25 @@
 
 <div class="photo-box-container">
 	<img class="main-photo" id="main-photo" src="<%= @all_photos[@curr_photo_index][:src] %>">
+	<div class="photo-box-footer">
+		<p>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
+		<p id='photo-caption'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
+	</div>
+	
 </div>
 
-<div class="photo-box-footer">
-	<p>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
-	
-	<p id='photo-caption'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
-</div>
 
 <div class="nav-buttons">
 	<a rel="prev" id="prev-photo-link" href="" onclick="goPrev(); return false">vorheriges Bild</a>
 	<a rel="next" id="next-photo-link" href="" onclick="goNext(); return false">nächstes Bild</a>
 </div>
+
+<div class="nav-index-buttons">
+	<% @all_photos.each_with_index do |photo, i| %>
+		<a href="" id='photo-<%=i%>-link' onclick="curr_photo_index = <%=i%>; updatePhoto(); return false"><%=i+1%></a>
+	<% end %>
+</div>
+
 
 <script>
 	document.onkeydown = arrowNavigation;
@@ -64,6 +71,9 @@
 		document.getElementById('prev-photo-link').style.opacity = 0 < curr_photo_index ? 1 : 0;
 		document.getElementById('next-photo-link').style.opacity = curr_photo_index < all_photos.length - 1 ? 1 : 0;
 		history.replaceState({}, '', all_photos[curr_photo_index].url)
+		for (i=0; i<all_photos.length; i++) {
+			document.getElementById('photo-'+i+'-link').className = i==curr_photo_index ? 'active' : '';
+		}
 	}
 	
 	updatePhoto();
