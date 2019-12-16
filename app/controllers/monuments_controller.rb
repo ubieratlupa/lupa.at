@@ -36,8 +36,11 @@ class MonumentsController < ApplicationController
       return
     end
     @monument = Monument.find(params[:id])
-    @photos = @monument.photos.order(:ord, :id).page(params[:page]).per(1)
-    @photo = @photos.first
+    @all_photos = @monument.photos.order(:ord, :id).each_with_index.map do |photo, idx|
+      { src: 'http://lupa.at/img/' + photo.filename, number: photo.filename.sub(/\.jpe?g$/i, ''), caption: photo.caption, url: url_for( controller: 'monuments', action: 'photos', id: @monument.id, page: idx+1) }
+    end
+    @curr_photo_index = params[:page].to_i - 1
+    render layout: 'photo'
   end
   
 end

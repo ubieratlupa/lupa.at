@@ -1,14 +1,71 @@
-<div class="monument page">
-	
-	<h2>
-		<%= link_to_monument @monument %>
-	</h2>
-		
-	<%= paginate @photos, params_on_first_page: true, theme: 'monument_photos', window: 1000 %>
-	<img src="http://lupa.at/img/<%= @photo.filename %>">
-	
-	<p>Bildnummer: <%= @photo.filename.sub(/\.jpe?g$/i, '') %></p>
-	
-	<p><%= nl2br @photo.caption %></p>
-		
+<div class="photo-box-header">
+	<%= link_to_monument @monument %>
 </div>
+
+<div class="photo-box-container">
+	<img class="main-photo" id="main-photo" src="<%= @all_photos[@curr_photo_index][:src] %>">
+</div>
+
+<div class="photo-box-footer">
+	<p>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
+	
+	<p id='photo-caption'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
+</div>
+
+<div class="nav-buttons">
+	<a rel="prev" id="prev-photo-link" href="" onclick="goPrev(); return false">vorheriges Bild</a>
+	<a rel="next" id="next-photo-link" href="" onclick="goNext(); return false">nächstes Bild</a>
+</div>
+
+<script>
+	document.onkeydown = arrowNavigation;
+
+	all_photos = <%== @all_photos.to_json %>
+	curr_photo_index = <%== @curr_photo_index %>
+
+	function arrowNavigation(e) {
+	    e = e || window.event;
+
+	    if (e.keyCode == '38') {
+	        // up arrow
+	    }
+	    else if (e.keyCode == '40') {
+	        // down arrow
+	    }
+	    else if (e.keyCode == '37') {
+			goPrev()
+	    }
+	    else if (e.keyCode == '39') {
+			goNext()
+	    }
+	}
+	
+	function goPrev() {
+		if (0 < curr_photo_index) {
+			curr_photo_index--
+			updatePhoto()
+		}
+		event.stopPropagation()
+	}
+	
+	function goNext() {
+		if (curr_photo_index < all_photos.length - 1 ) {
+			curr_photo_index++
+			updatePhoto()
+		}
+		event.stopPropagation()
+	}
+	
+	
+	function updatePhoto() {
+		document.getElementById('photo-caption').innerHTML = all_photos[curr_photo_index].caption
+		document.getElementById('photo-number').innerHTML = all_photos[curr_photo_index].number
+		document.getElementById('main-photo').src = all_photos[curr_photo_index].src
+		document.getElementById('prev-photo-link').style.opacity = 0 < curr_photo_index ? 1 : 0;
+		document.getElementById('next-photo-link').style.opacity = curr_photo_index < all_photos.length - 1 ? 1 : 0;
+		history.replaceState({}, '', all_photos[curr_photo_index].url)
+	}
+	
+	updatePhoto();
+	
+</script>
