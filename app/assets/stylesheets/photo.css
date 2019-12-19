@@ -49,7 +49,8 @@ body.photo-box {
 	}
 
 	.photo-box .photo-box-container .main-photo {
-
+		max-height: 90vh;
+		max-width: 90vw;
 	}
 	
 	.photo-box .nav-buttons {
@@ -169,4 +170,10 @@ body.photo-box {
 	.photo-box .nav-index-buttons {
 		display: none;
 	}
+	
+	.photo-box .photo-box-container .main-photo {
+		max-height: 90vh;
+		max-width: 90vw;
+	}
+	
 }
