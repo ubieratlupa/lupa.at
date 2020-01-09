@@ -2,6 +2,11 @@ body.photo-box {
 	background-color: #444;
 }
 
+@media all and (min-width: 801px) {
+	.photo-box-header {
+	}
+}
+
 @media all and (min-width: 501px) {
 
 	.photo-box-header {
@@ -9,15 +14,52 @@ body.photo-box {
 		position: fixed;
 		top: 10px;
 		left: 10px;
-		background: rgba(0,0,0,0.5);
-		padding: 10px 20px;
+		background: rgba(0,0,0,0.8);
+		padding: 6px 36px 6px 8px;
 		color: #ccc;
-		font-size: 24px;
 		border-radius: 4px;
+		max-width: 400px;
+		
+	}
+	
+	.photo-box-header p {
+		margin: 0;
 	}
 
-	.photo-box-header a {
+	.photo-box-header p + p {
+		margin-top: 0.5em;
+	}
+	
+	.photo-box-header #photo-caption {
+		font-size: 0.8em;
+	}
+	
+	.hide-details .detail {
+		display: none;
+	}
+	
+	.toggle-detail {
+		position: absolute;
+		top: 0;
+		right: 0;
+		width: 36px;
+		height: 36px;
+		background: image_url('close-icon-photo.png') 50% 50% no-repeat;
+		background-size: 25px 25px;
+		font-size: 0;
+		opacity: 0.85;
+	}
+	
+	.hide-details .toggle-detail {
+		top: 50%;
+		margin-top: -18px;
+		background: image_url('unclose-icon-photo.png') 50% 50% no-repeat;
+		background-size: 25px 25px;
+	}
+	
+	.photo-box-header p a {
 		color: inherit;
+		font-size: 24px;
 	}
 
 	.photo-box-footer {
@@ -113,13 +155,16 @@ body.photo-box {
 }
 
 @media all and (max-width: 500px) {
-	.photo-box-header a {
+	.photo-box-header {
 		display: block;
-		background: rgba(0,0,0,0.5);
-		padding: 20px 20px;
+		padding: 0px 20px;
 		color: #ccc;
+		margin-bottom: 10px;
+	}
+	
+	.photo-box-header p a {
 		font-size: 24px;
-		border-radius: 4px;
+		color: inherit;
 	}
 	
 	.photo-box-container {
@@ -130,32 +175,37 @@ body.photo-box {
 		padding-bottom: 100px;
 	}
 	
+	.toggle-detail {
+ 	   display: none !important;
+	}
+	
 	.photo-box .nav-buttons {
 		position: fixed;
 		left: 0;
 		right: 0;
 		bottom: 0;
 		background: rgba(0,0,0,0.8);
-		border-top: 1px solid rgba(255,255,255,0.6);
 	}
 	
 	.photo-box .nav-buttons a {
-		width: 90px;
-		height: 60px;
-/*		border-radius: 8px;*/
+		width: 50px;
+		height: 40px;
 		text-align: center;
 		color: #aaa;
 		text-decoration: none;
 		padding: 20px;
+		font-size: 0;
 	}
 	
 	.photo-box .nav-buttons a[rel~="prev"] {
 		float: left;
-		border-right: 1px solid rgba(255,255,255,0.6);
+		background: image_url('arrow-left.png') 50% 50% no-repeat;
+		background-size: 40px 40px;
 	}
 	.photo-box .nav-buttons a[rel~="next"] {
 		float: right;
-		border-left: 1px solid rgba(255,255,255,0.6);
+		background: image_url('arrow-right.png') 50% 50% no-repeat;
+		background-size: 40px 40px;
 	}
 		
 	.photo-box-footer {

@@ -1,12 +1,17 @@
 <div class="photo-box-header">
-	<%= link_to_monument @monument %>
+	<p>
+		<%= link_to monument_short_path(@monument) do %>
+			<%=@monument.id%> <span class="detail"><%=@monument.title%></span> 
+		<% end %>
+	</p>
+	<p class='detail'>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
+	<p id='photo-caption' class='detail'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
+	<a href="javascript:togglePhotoDetails()" class="toggle-detail">hide / show detail info</a>
 </div>
 
 <div class="photo-box-container">
 	<img class="main-photo" id="main-photo" src="<%= @all_photos[@curr_photo_index][:src] %>">
 	<div class="photo-box-footer">
-		<p>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
-		<p id='photo-caption'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
 	</div>
 </div>
 
@@ -85,6 +90,14 @@
 			.replace(/"/g, "&quot;")
 			.replace(/'/g, "&#039;")
 			.replace(/\r?\n/g, "<br>\n")
+	 }
+	 
+	 function togglePhotoDetails() {
+		 if (document.body.className.match(/hide-details/)) {
+			 document.body.className = document.body.className.replace(/\s*hide-details/, '')
+		 } else {
+			 document.body.className = document.body.className + ' hide-details';
+		 }
 	 }
 	
 </script>
