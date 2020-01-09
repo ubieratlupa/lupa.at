@@ -57,24 +57,29 @@ body.photo-box {
 	}
 	
 	.photo-box .nav-buttons a {
-		background: rgba(0,0,0,0.8);
 		width: 60px;
-		height: 60px;
+		height: 50px;
 /*		border-radius: 8px;*/
 		text-align: center;
 		color: #aaa;
 		text-decoration: none;
-		padding: 20px;
+		padding: 0 10px;
 		position: fixed;
-		top: 50vh;
+		bottom: 0px;
 		border-radius: 4px;
+		z-index: 2;
+		font-size: 0;
 	}
 	
 	.photo-box .nav-buttons a[rel~="prev"] {
-		left: 10px;
+		left: 0px;
+		background: image_url('/assets/arrow-left.png') 50% 50% no-repeat;
+		background-size: 40px 40px;
 	}
 	.photo-box .nav-buttons a[rel~="next"] {
-		right: 10px;
+		right: 0px;
+		background: image_url('/assets/arrow-right.png') 50% 50% no-repeat;
+		background-size: 40px 40px;
 	}
 	
 	.photo-box .nav-index-buttons {
@@ -84,7 +89,7 @@ body.photo-box {
 		bottom: 0;
 		text-align: center;
 		background: rgba(0,0,0,0.8);
-		padding: 6px 0 6px;
+		padding: 6px 60px 6px;
 	}
 	
 	.photo-box .nav-index-buttons a {
