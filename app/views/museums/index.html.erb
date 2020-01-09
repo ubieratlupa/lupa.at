@@ -14,14 +14,14 @@
 				</td>
 			</tr>
 			<tr>
-				<th>Museum</th>
 				<th>Ort</th>
+				<th>Museum</th>
 				<th>Denkmäler</th>
 			</tr>
 			<% @museums_by_country[country_name].each do |museum| %>
 				<tr>
-					<td><%= link_to museum.name, museum %></td>
 					<td><%= museum.place_name %></td>
+					<td><%= link_to museum.name, museum %></td>
 					<td style="text-align: right"><%= museum.monument_count %></td>
 				</tr>
 			<% end %>
