@@ -12,7 +12,7 @@
 
 <script>
 	L.mapbox.accessToken = 'pk.eyJ1IjoiamFiYWtvYm9iIiwiYSI6ImNpZ200bTA5ZTAwZDd3OWt0anFqM2wwaGMifQ.Og5ScP-C8AV3I7JHDR0zHQ';
-	var map = L.mapbox.map('map').setView([47, 13.975], 7)
+	var map = L.mapbox.map('map')
 	L.mapbox.styleLayer('mapbox://styles/jabakobob/citeaxn1u00ac2hrzfnjg8398').addTo(map);
 	
 	
@@ -36,6 +36,10 @@
 	
 	var visibleMarkers = []
 	var scheduledMarkers = []
+	var mapType = "finding"
+	var lat = 47
+	var lng = 13.975
+	var zoom = 7
 		
 	function showMarkers() {
 		var mid = L.latLng(48.2, 16.4)
@@ -71,6 +75,8 @@
 		document.getElementById("legend-finding").className = "active"
 		document.getElementById("legend-conservation").className = ""
 		document.getElementById("legend-museums").className = ""
+		mapType = "finding"
+		saveMapState()
 	}
 	
 	
@@ -83,6 +89,8 @@
 		document.getElementById("legend-finding").className = ""
 		document.getElementById("legend-conservation").className = "active"
 		document.getElementById("legend-museums").className = ""
+		mapType = "conservation"
+		saveMapState()
 	}
 	
 	function removeMarkers() {
@@ -103,10 +111,47 @@
 		document.getElementById("legend-finding").className = ""
 		document.getElementById("legend-conservation").className = ""
 		document.getElementById("legend-museums").className = "active"
+		mapType = "museums"
+		saveMapState()
 	}
 	
-
-	showFinding();
+	restoreMapState();
 	
 	function clickMarker(evt) { window.location = evt.target.options.url }
+	
+	is_restoring = false
+	map.on("moveend", saveMapState)
+	map.on("zoomend", saveMapState)
+	function saveMapState(evt) {
+		if (!is_restoring) {
+			lat = map.getCenter().lat
+			lng = map.getCenter().lng
+			zoom = map.getZoom()
+			history.replaceState({}, "", "#"+mapType+","+lat.toFixed(4)+","+lng.toFixed(4)+","+zoom);
+		}
+	}
+	
+	function restoreMapState() {
+		is_restoring = true
+		if (document.location.hash) {
+			params = document.location.hash.split(",")
+			if (params.length >= 4) {
+				mapType = params[0]
+				lat = params[1]
+				lng = params[2]
+				zoom = params[3]
+			}
+		}
+		map.setView([lat, lng], zoom)
+		if (mapType=="#conservation") {
+			showConservation()
+		}
+		else if (mapType=="#museums") {
+			showMuseums()
+		}
+		else {
+			showFinding()
+		}
+		is_restoring = false
+	}
 </script>
