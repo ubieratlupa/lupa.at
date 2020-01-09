@@ -21,6 +21,9 @@
 		<a href="<%= url_for :controller => 'museums', :action => 'index' %>"<% if controller.controller_name == 'museums' %> class="active"<% end %>>
 			MUSEEN
 		</a>
+		<a href="<%= url_for :controller => 'collections', :action => 'index' %>"<% if controller.controller_name == 'collections' %> class="active"<% end %>>
+			SAMMLUNGEN
+		</a>
 		<a href="<%= url_for :controller => 'authors', :action => 'photo' %>"<% if controller.controller_name == 'authors' %> class="active"<% end %>>
 			FOTOGRAFEN
 		</a>

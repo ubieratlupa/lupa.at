@@ -4,6 +4,7 @@ class Monument < ActiveRecord::Base
   belongs_to :regional_info, optional: true
   belongs_to :ancient_finding_place, class_name: "AncientPlace", optional: true
   belongs_to :museum, optional: true
+  belongs_to :collection, optional: true
   belongs_to :parent_monument, class_name: "Monument", optional: true
   belongs_to :archaeology_author, class_name: "Author", optional: true
   belongs_to :epigraphy_author, class_name: "Author", optional: true

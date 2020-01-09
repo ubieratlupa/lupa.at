@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   get 'about/:id', to: 'pages#show', as: :page
   
   resources :museums
+  resources :collections
   resources :places
   resources :regional_infos
   resources :queries do

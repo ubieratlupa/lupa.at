@@ -1,0 +1,21 @@
+<div class="collections page">
+	<h1>Sammlungen</h1>
+	<p></p>
+	<table>
+		<tr>
+			<th>Ort</th>
+			<th>Sammlung</th>
+			<th style="text-align: right">Denkmäler</th>
+		</tr>
+		<% @collections.each do |collection| %>
+			<tr>
+				<td><%= collection.place_name %></td>
+				<td><%= link_to collection.title, collection %></td>
+				<td style="text-align: right"><%= collection.monument_count %></td>
+			</tr>
+			
+		<% end %>
+		
+	</table>
+	
+</div>

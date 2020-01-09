@@ -1,0 +1,39 @@
+// Place all the styles related to the Collections controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+
+
+.collections h1 {
+	margin: 1.5em 0 0;
+}
+
+.collections table {
+	border-spacing: 0;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	width: 100%;
+}
+
+.collections th {
+	font-weight: normal;
+	color: #000;
+	text-align: left;
+	padding-bottom: 3px;
+	margin-bottom: 10px;
+}
+
+.collections td, .collections th {
+	font-size: 14px;
+	margin: 0;
+	padding: 12px 3px 0;
+	vertical-align: top;
+}
+
+ .collections th {
+	border-bottom: 1px solid #000; 
+ }
+ 
+.collections td a {
+	color: inherit !important;
+}
