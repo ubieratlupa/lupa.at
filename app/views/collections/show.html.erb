@@ -1,6 +1,15 @@
 <div class="collection page">
 	<h1><%= @collection.title %></h1>
 	<p><%= nl2br @collection.description %></p>
+	<% [@collection.link_1, @collection.link_2, @collection.link_3].compact.each do |link| %>
+		<p>
+			<% if link.match(/https?:\/\//) %>
+				<a href="<%= link %>"><%= link %></a>
+			<% else %>
+				<%= link %>
+			<% end %>
+		</p>
+	<% end %>
 	<p><%= @monuments.total_count %> Steindenkmäler</p>
 	<%= paginate @monuments %>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
