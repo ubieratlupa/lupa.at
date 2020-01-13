@@ -1,11 +1,15 @@
 <div class="photo-box-header">
-	<p>
+	<p class="title">
 		<%= link_to monument_short_path(@monument) do %>
 			<%=@monument.id%> <span class="detail"><%=@monument.title%></span> 
 		<% end %>
 	</p>
 	<p class='detail'>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
 	<p id='photo-caption' class='detail'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
+	<p class='info detail'>
+		Für Bildbestellungen beachten Sie bitte
+		<a href="<%= url_for controller: "pages", action: "show", id: "photos" %>">diese Informationen</a>.
+	</p>
 	<a href="javascript:togglePhotoDetails()" class="toggle-detail">hide / show detail info</a>
 </div>
 

@@ -30,10 +30,10 @@ body.photo-box {
 		margin-top: 0.5em;
 	}
 	
-	.photo-box-header #photo-caption {
+	.photo-box-header #photo-caption, .photo-box-header .info {
 		font-size: 0.8em;
 	}
-	
+
 	.hide-details .detail {
 		display: none;
 	}
@@ -57,8 +57,11 @@ body.photo-box {
 		background-size: 25px 25px;
 	}
 	
-	.photo-box-header p a {
+	.photo-box-header a {
 		color: inherit;
+	}
+	
+	.photo-box-header .title a {
 		font-size: 24px;
 	}
 
@@ -162,9 +165,16 @@ body.photo-box {
 		margin-bottom: 10px;
 	}
 	
-	.photo-box-header p a {
-		font-size: 24px;
+	.photo-box-header #photo-caption, .photo-box-header .info {
+		font-size: 0.8em;
+	}
+	
+	.photo-box-header a {
 		color: inherit;
+	}
+	
+	.photo-box-header .title a {
+		font-size: 24px;
 	}
 	
 	.photo-box-container {
