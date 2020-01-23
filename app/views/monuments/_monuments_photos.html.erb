@@ -1,0 +1,12 @@
+<div class='monument-photos'>
+	<% monuments.each do | monument | %>
+		<div class="monument-photo-wrapper" title="<%= monument.id%> <%= monument.title %>">
+			<a class="monument-photo" href="<%= monument_short_path monument %>">
+				<% if photo = monument.photos.order(:ord).take %>
+					<div style="background-image: url(//lupa.at/img/<%= photo.filename %>);" class=photo></div>
+				<% end %>
+			</a>
+		</div>
+	<% end %>
+	<div style='clear: both;'></div>
+</div>

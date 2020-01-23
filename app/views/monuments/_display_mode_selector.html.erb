@@ -1,0 +1,5 @@
+<nav class="mode-selector">
+	<%= link_to "Liste", request.parameters.merge(:mode => "list", :place => nil, :page => nil), class: mode == "list" ? "mode active" : "mode" %>
+	<%= link_to "Bilder", request.parameters.merge(:mode => "photos", :place => nil, :page => nil), class: mode == "photos" ? "mode active" : "mode"  %>
+	<%= link_to "Karte", request.parameters.merge(:mode => "map", :place => nil, :page => nil), class: mode == "map" ? "mode active" : "mode"  %>
+</nav>

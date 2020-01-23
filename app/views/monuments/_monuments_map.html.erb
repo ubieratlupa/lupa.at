@@ -1,0 +1,111 @@
+<script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+<style>
+</style>
+<div id='map' class='inline'>
+</div>
+
+<script>
+	L.mapbox.accessToken = 'pk.eyJ1IjoiamFiYWtvYm9iIiwiYSI6ImNpZ200bTA5ZTAwZDd3OWt0anFqM2wwaGMifQ.Og5ScP-C8AV3I7JHDR0zHQ';
+	var map = L.mapbox.map('map')
+	L.mapbox.styleLayer('mapbox://styles/jabakobob/citeaxn1u00ac2hrzfnjg8398').addTo(map);
+	
+	
+	var markerIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker@2x.png" %>',
+	    iconSize: [9, 9],
+	});
+	
+	var visibleMarkers = []
+	var scheduledMarkers = []
+	var mapType = "finding"
+	var lat = <%= @mid_lat %>
+	var lng = <%= @mid_long %>
+	var zoom = 5
+		
+	function showMarkers() {
+		var mid = L.latLng(48.2, 16.4)
+		if (!map.getBounds().contains(mid)) {
+			mid = map.getCenter()
+		}
+		scheduledMarkers.sort(function(a,b){
+			return b.getLatLng().distanceTo(mid) - a.getLatLng().distanceTo(mid)
+		})
+		showMarkers2()
+	}
+	
+	var showMarkerTimeout
+	function showMarkers2() {
+		var i = 0;
+		for (i = 0; i<100; i++) {
+			var marker = scheduledMarkers.pop();
+			if (!marker) break;
+			marker.on('click',clickMarker).addTo(map);
+			visibleMarkers.push(marker)
+		}
+		if (scheduledMarkers.length) {
+			showMarkerTimeout = setTimeout(showMarkers2, 5);
+		}
+	}
+	
+	function showFinding() {
+		removeMarkers();
+		<% @places.each do |place| %>
+			scheduledMarkers.push(
+				L.marker(
+					[<%= place.lat %>, <%= place.long %>],
+					{
+						icon: markerIcon,
+						title: "<%= place.name %>",
+						url: "<%== escape_javascript url_for request.parameters.merge(:mode => "place", :place => place) %>"
+					}
+				)
+			)
+		<% end %>
+		showMarkers();
+		mapType = "finding"
+		saveMapState()
+	}
+	
+	function removeMarkers() {
+		clearTimeout(showMarkerTimeout)
+		var marker
+		while (marker = visibleMarkers.pop()) {
+			map.removeLayer(marker)
+		}
+		scheduledMarkers = []
+	}
+	
+	restoreMapState();
+	
+	function clickMarker(evt) { window.location = evt.target.options.url }
+	
+	is_restoring = false
+	map.on("moveend", saveMapState)
+	map.on("zoomend", saveMapState)
+	function saveMapState(evt) {
+		if (!is_restoring) {
+			lat = map.getCenter().lat
+			lng = map.getCenter().lng
+			zoom = map.getZoom()
+			history.replaceState({}, "", "#"+mapType+","+lat.toFixed(4)+","+lng.toFixed(4)+","+zoom);
+		}
+	}
+	
+	function restoreMapState() {
+		is_restoring = true
+		if (document.location.hash) {
+			params = document.location.hash.split(",")
+			if (params.length >= 4) {
+				mapType = params[0]
+				lat = params[1]
+				lng = params[2]
+				zoom = params[3]
+			}
+		}
+		map.setView([lat, lng], zoom)
+		showFinding()
+		is_restoring = false
+	}
+</script>

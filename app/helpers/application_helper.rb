@@ -16,4 +16,8 @@ module ApplicationHelper
     }
     str.gsub(Regexp.union(replacements.keys),replacements).gsub(/\W+/,"_")
   end
+  
+  def pretty_monument_count(count)
+    count == 1 ? "#{count} Steindenkmal" : "#{count} Steindenkmäler"
+  end
 end
