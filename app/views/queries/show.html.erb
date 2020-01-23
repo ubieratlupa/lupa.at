@@ -1,6 +1,17 @@
 <div class="page<%= " two-column" if @query.id == 1 %>">
 	<%= render partial: 'queries/summary', locals: { query: @query, monuments: @monuments } %>
-	<%= paginate @monuments %>
-	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
-	<%= paginate @monuments %>
+	<%= render partial: 'monuments/display_mode_selector', locals: { mode: @display_mode } %>
+	<% if @display_mode == "photos" %>
+		<%= paginate @monuments %>
+		<%= render partial: 'monuments/monuments_photos', locals: { monuments: @monuments } %>
+		<%= paginate @monuments %>
+	<% elsif @display_mode == "map" %>
+		<%= render partial: 'monuments/monuments_map', locals: { monuments: @monuments } %>
+	<% elsif @display_mode == "place" %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+	<% else %>
+		<%= paginate @monuments %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+		<%= paginate @monuments %>
+	<% end %>
 </div>

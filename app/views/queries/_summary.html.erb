@@ -86,7 +86,17 @@
 	<% end %>
 	
 	<% if @monuments %>
-		<p class="query-hits"><%= String(@monuments.total_count) + ' ' + (@monuments.total_count==1 ? 'Denkmal' : 'Denkmäler') %></p>
+		<p class="query-hits">
+			<% if @display_mode == "photos" %>
+				<%= pretty_monument_count(@monuments.total_count) %> mit Bild
+			<% elsif @display_mode == "map" %>
+				<%= pretty_monument_count(@monuments.count) %> mit Fundort-Koordinaten
+			<% elsif @display_mode == "place" %>
+				<%= pretty_monument_count(@monuments.count) %> aus <%= @place.name %>
+			<% else %>
+				<%= pretty_monument_count(@monuments.total_count) %>
+			<% end %>
+		</p>
 	<% end %>
 
 	<div class="flex-break"></div>
