@@ -23,8 +23,13 @@ class CollectionsController < ApplicationController
         @mid_lat += p.lat
         n += 1
       end
-      @mid_long /= n
-      @mid_lat /= n
+      if n > 0
+        @mid_long /= n
+        @mid_lat /= n
+      else
+      	@mid_lat = 47
+      	@mid_long = 13.975
+      end
     elsif @display_mode == "place"
       @monuments = @monuments.where(finding_place: params[:place])
       @place = Place.find(params[:place])
