@@ -1,6 +1,11 @@
 <div class="collections page">
-	<h1>Sammlungen</h1>
-	<p></p>
+	<h1>
+		<%= @page.display_title %>
+	</h1>
+	
+	<p>
+		<%= nl2br @page.display_text %>
+	</p>
 	<table>
 		<tr>
 			<th>Ort</th>
