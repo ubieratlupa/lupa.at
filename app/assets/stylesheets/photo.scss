@@ -2,6 +2,10 @@ body.photo-box {
 	background-color: #444;
 }
 
+.no-permission-required .permission-required, .permission-required .no-permission-required {
+	display: none;
+}
+
 @media all and (min-width: 801px) {
 	.photo-box-header {
 	}

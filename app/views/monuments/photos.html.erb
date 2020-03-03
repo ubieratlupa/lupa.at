@@ -6,9 +6,10 @@
 	</p>
 	<p class='detail'>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
 	<p id='photo-caption' class='detail'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
-	<p class='info detail'>
+	<p id='photo-order-info' class='info detail <% concat 'no-permission-required' unless @all_photos[@curr_photo_index][:publication_permission_required] %>'>
 		Für Bildbestellungen beachten Sie bitte
 		<a href="<%= url_for controller: "pages", action: "show", id: "photos" %>">diese Informationen</a>.
+		<span class='permission-required'>Eine Publikationsgenehmigung des Copyright-Inhabers ist notwendig.</span>
 	</p>
 	<a href="javascript:togglePhotoDetails()" class="toggle-detail">hide / show detail info</a>
 </div>
@@ -78,6 +79,7 @@
 		document.getElementById('main-photo').src = all_photos[curr_photo_index].src
 		document.getElementById('prev-photo-link').style.opacity = 0 < curr_photo_index ? 1 : 0;
 		document.getElementById('next-photo-link').style.opacity = curr_photo_index < all_photos.length - 1 ? 1 : 0;
+		document.getElementById('photo-order-info').className = all_photos[curr_photo_index].publication_permission_required ? 'info detail permission-required' : 'info detail no-permission-required';
 		history.replaceState({}, '', all_photos[curr_photo_index].url)
 		for (i=0; i<all_photos.length; i++) {
 			document.getElementById('photo-'+i+'-link').className = i==curr_photo_index ? 'active' : '';
