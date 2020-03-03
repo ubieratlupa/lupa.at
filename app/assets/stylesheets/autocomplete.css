@@ -32,7 +32,7 @@
 
 @media all and (min-width: 500px){
 
-	#reset_img_finding_place, #reset_img_ancient_finding_place, #reset_img_conservation_place{
+	.reset_img {
 	height: 20px;
 	position: absolute;
 	top: 25px;
@@ -93,7 +93,7 @@
 }
 
 @media all and (max-width: 499px){
-	#reset_img_finding_place, #reset_img_ancient_finding_place, #reset_img_conservation_place{
+	.reset_img {
 		height: 30px;
 		position: absolute;
 		top: 25px;

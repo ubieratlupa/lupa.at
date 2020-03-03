@@ -86,12 +86,32 @@ class QueriesController < ApplicationController
       completions = places.map { |p| { id: p.id, title: p.name, type: p.place_type, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
       render json: completions
     elsif params[:field] == 'ancient_finding_place'
-        places = AncientPlace.where("ancient_places.name ILIKE ?", "%#{params[:term]}%")
-        places = places.order(["ancient_places.name ILIKE ? DESC", "#{params[:term]}"], ["ancient_places.name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(100)
-        places = places.left_outer_joins(:children).select('ancient_places.*, COUNT(children_ancient_places.*) AS child_count').group('ancient_places.id')
-        completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
-        render json: completions
+      places = AncientPlace.where("ancient_places.name ILIKE ?", "%#{params[:term]}%")
+      places = places.order(["ancient_places.name ILIKE ? DESC", "#{params[:term]}"], ["ancient_places.name ILIKE ? DESC", "#{params[:term]}%"], :name).limit(100)
+      places = places.left_outer_joins(:children).select('ancient_places.*, COUNT(children_ancient_places.*) AS child_count').group('ancient_places.id')
+      completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
+      render json: completions
+    elsif params[:field] == 'dating_phase'
+      matching_phases = ActiveRecord::Base.connection.exec_query(
+        ActiveRecord::Base.sanitize_sql([
+          "SELECT phase_name, phase_from, phase_to FROM dating_phases_time_span WHERE phase_name::text ILIKE ? ORDER BY phase_name::text ILIKE ? desc, phase_from nulls first, phase_to",
+          "%#{params[:term]}%",  "#{params[:term]}%"
+        ])
+      )
+      completions = matching_phases.map do |p|
+        if p['phase_from'] && p['phase_to'] 
+          path = format_year(p['phase_from']) + ' bis ' + format_year(p['phase_to'])
+        else
+          path = ""
+        end
+        { 
+           id: p['phase_name'],
+           title: p['phase_name'],
+           path: path
+         }
       end
+      render json: completions
+    end
   end
   
   def suggestions
@@ -117,6 +137,35 @@ class QueriesController < ApplicationController
       places = places.left_outer_joins(:children).distinct.select('ancient_places.*, COUNT(children_ancient_places.*) AS child_count').group('ancient_places.id')
       completions = places.map { |p| { id: p.id, title: p.name, path: p.full_name.sub(/^[^,]*(,\s*|$)/,''), child_count: p.child_count } }
       render json: completions
+    elsif params[:field] == 'dating_phase'
+      matching_phases = ActiveRecord::Base.connection.exec_query(
+        ActiveRecord::Base.sanitize_sql([
+          "SELECT phase_name, phase_from, phase_to FROM dating_phases_time_span ORDER BY phase_from nulls first, phase_to",
+          "%#{params[:term]}%",  "#{params[:term]}%"
+        ])
+      )
+      completions = matching_phases.map do |p|
+        if p['phase_from'] && p['phase_to'] 
+          path = format_year(p['phase_from']) + ' bis ' + format_year(p['phase_to'])
+        else
+          path = ""
+        end
+        { 
+           id: p['phase_name'],
+           title: p['phase_name'],
+           path: path
+         }
+      end
+      render json: completions
     end
+  end
+  
+  def format_year(year)
+    if year < 0
+      year_str = (-year).to_s + ' v. Chr.'
+    else
+      year_str = year.to_s
+    end
+    return year_str
   end
 end

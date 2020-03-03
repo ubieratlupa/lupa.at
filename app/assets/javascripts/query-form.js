@@ -5,7 +5,7 @@ function isElementInViewport (el) {
 
 window.onpagehide = saveFormContents;
 
-var autocomplete_fieldnames = ["finding_place","conservation_place","ancient_finding_place"];
+var autocomplete_fieldnames = ["finding_place","conservation_place","ancient_finding_place", "dating_phase"];
 var formContents;
 
 function saveFormContents(){

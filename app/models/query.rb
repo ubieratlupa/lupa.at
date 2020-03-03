@@ -85,7 +85,7 @@ class Query < ActiveRecord::Base
     if dating
       text_queries << { 
         fields: [
-          "dating_phase",
+          "dating_phase::text",
           "dating_comment",
         ],
         name: 'dating',
