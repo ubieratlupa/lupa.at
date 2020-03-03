@@ -21,6 +21,7 @@ class MonumentsController < ApplicationController
     @new_monuments = @new_monuments.limit(5)
     @new_monuments = @new_monuments
     @index_page = Page.find('index')
+    @query_help_page = Page.find('query-help')
   end
   
   def recent

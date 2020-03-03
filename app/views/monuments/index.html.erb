@@ -5,7 +5,14 @@
 	</p>
 	
 	<%= render partial: 'queries/form', locals: { query: @query } %>
-	<h1>Neuzugänge seit <%= l @new_monuments_date, format: "%B %Y" %></h1>
+	
+	<h2><%= @query_help_page.display_title %></h1>
+	<p>
+		<%= nl2br @query_help_page.display_text %>
+	</p>
+	
+	
+	<h2>Neuzugänge seit <%= l @new_monuments_date, format: "%B %Y" %></h1>
 	<div class="two-column">
 		<%= render partial: 'monuments/monuments_list_with_more', locals: { monuments: @new_monuments } %>
 	</div>
