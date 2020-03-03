@@ -7,7 +7,7 @@ class Query < ActiveRecord::Base
     ids = Rails.cache.fetch("query/#{id}/matching_ids", expires_in: 30.minutes) do
       matching_ids
     end
-    Monument.where("id in (#{ids.join(",")})")
+    Monument.where("id in (#{ids.join(",").presence || "0"})")
   end
 
 
