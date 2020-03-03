@@ -33,6 +33,10 @@
 	color: inherit !important;
 }
 
+.photo-cards {
+	clear: both;
+}
+
 
 @media all and (max-width: 799px) {
 	.photo-cards {
