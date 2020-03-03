@@ -4,4 +4,9 @@
 		Bitte geben Sie Ihre Suchbegriffe ein.
 	</p>
 	<%= render partial: 'queries/form', locals: { query: @query, monuments: @monuments } %>
+
+	<h2><%= @query_help_page.display_title %></h1>
+	<p>
+		<%= nl2br @query_help_page.display_text %>
+	</p>
 </div>

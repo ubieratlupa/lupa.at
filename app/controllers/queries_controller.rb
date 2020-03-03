@@ -40,6 +40,7 @@ class QueriesController < ApplicationController
   
   def edit
     @query = Query.find(params[:id])
+    @query_help_page = Page.find('query-help')
   end
   
   def qr
