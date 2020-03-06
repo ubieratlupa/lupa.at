@@ -43,7 +43,7 @@ class MonumentsController < ApplicationController
         number: photo.filename.sub(/\.jpe?g$/i, ''),
         caption: photo.caption,
         url: url_for( controller: 'monuments', action: 'photos', id: @monument.id, page: idx+1),
-        publication_permission_required: photo.copyright.publication_permission_required
+        publication_permission_required: photo.copyright ? photo.copyright.publication_permission_required : true
       }
     end
     @curr_photo_index = params[:page].to_i - 1
