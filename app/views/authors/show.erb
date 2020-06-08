@@ -7,6 +7,11 @@
 			<%= @author.institution %>
 		</p>
 	<% end %>
+	<% if @author.email %>
+		<p> 
+			Email: <a href="mailto:<%= @author.email %>"><%= @author.email %></a>
+		</p>
+	<% end %>
 	<p><%= @author.comment %></p>
 	<% if @photos.total_count == 1 %>
 		<p> 
