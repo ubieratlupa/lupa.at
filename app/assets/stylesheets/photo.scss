@@ -75,7 +75,7 @@ body.photo-box {
 	}
 	
 	.photo-box-header #photo-caption, .photo-box-header .info {
-		font-size: 0.8em;
+		font-size: 13px;
 	}
 
 	.hide-details .detail {
@@ -101,18 +101,22 @@ body.photo-box {
 		background-size: 25px 25px;
 	}
 	
+	.photo-box-header p {
+		font-size: 13px;
+	}
+	
 	.photo-box-header a {
 		color: inherit;
 	}
 	
 	.photo-box-header .title a {
-		font-size: 24px;
+		font-size: 15px;
 	}
 
 	.photo-box-footer {
 		padding: 10px 10px;
 		color: #ccc;
-		font-size: 14px;
+		font-size: 13px;
 		border-radius: 4px;
 		text-align: center;
 	}
@@ -221,7 +225,7 @@ body.photo-box {
 	}
 	
 	.photo-box-header #photo-caption, .photo-box-header .info {
-		font-size: 0.8em;
+		font-size: 13px;
 	}
 	
 	.photo-box-header a {
@@ -229,7 +233,10 @@ body.photo-box {
 	}
 	
 	.photo-box-header .title a {
-		font-size: 24px;
+		font-size: 15px;
+	}
+	.photo-box-header p {
+		font-size: 13px;
 	}
 	
 	.photo-box-container {
