@@ -20,7 +20,7 @@
 					</p>
 				<% end %>
 				<% if monument.finding_place %>
-					<% if @query && @query.finding_place %>
+					<% if @query %>
 						<p class="detail">
 							Fundort:
 							<% 
@@ -47,7 +47,7 @@
 						<%= monument.ancient_finding_place.full_name %>
 					</p>
 				<% end %>
-				<% if @query && @query.conservation_place && monument.conservation_place %>
+				<% if @query && monument.conservation_place %>
 					<p class="detail">
 						Verwahrort:
 						<% 
