@@ -42,6 +42,7 @@ class MonumentsController < ApplicationController
         src: 'http://lupa.at/img/' + photo.filename,
         number: photo.filename.sub(/\.jpe?g$/i, ''),
         caption: photo.caption,
+        comment: photo.comment || "",
         url: url_for( controller: 'monuments', action: 'photos', id: @monument.id, page: idx+1),
         publication_permission_required: photo.copyright ? photo.copyright.publication_permission_required : true
       }

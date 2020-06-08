@@ -6,6 +6,7 @@
 	</p>
 	<p class='detail'>Bildnummer: <span id='photo-number'><%= @all_photos[@curr_photo_index][:number] %></span></p>
 	<p id='photo-caption' class='detail'><%= nl2br @all_photos[@curr_photo_index][:caption] %></p>
+	<p id='photo-comment' class='detail'><%= nl2br @all_photos[@curr_photo_index][:comment] %></p>
 	<p id='photo-order-info' class='info detail <% concat 'no-permission-required' unless @all_photos[@curr_photo_index][:publication_permission_required] %>'>
 		Für Bildbestellungen beachten Sie bitte
 		<a href="<%= url_for controller: "pages", action: "show", id: "photos" %>">diese Informationen</a>.
@@ -107,6 +108,7 @@
 	
 	function updatePhoto() {
 		document.getElementById('photo-caption').innerHTML = escape_nl2br(all_photos[curr_photo_index].caption)
+		document.getElementById('photo-comment').innerHTML = escape_nl2br(all_photos[curr_photo_index].comment)
 		document.getElementById('photo-number').innerHTML = escape_nl2br(all_photos[curr_photo_index].number)
 		document.getElementById('main-photo').src = all_photos[curr_photo_index].src
 		document.getElementById('prev-photo-link').style.opacity = 0 < curr_photo_index ? 1 : 0;
