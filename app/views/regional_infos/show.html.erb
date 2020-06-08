@@ -1,6 +1,6 @@
 <div class="museum page">
 	<h1><%= @regional_info.name %></h1>
-	<p><%= @regional_info.text %></p>
+	<p><%= nl2br @regional_info.text %></p>
 	<% @regional_info.photos.each_with_index do | photo, idx | %>
 		<p><img src="http://lupa.at/img/<%= photo.filename %>"></p>
 	<% end %>

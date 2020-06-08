@@ -115,7 +115,7 @@
 			<% if @monument.finding_comment %>
 				<dt>Fundumstände</dt>
 				<dd>
-					<%= @monument.finding_comment %>
+					<%= nl2br @monument.finding_comment %>
 				</dd>
 			<% end  %>
 			<% if @monument.ancient_finding_place %>
@@ -159,7 +159,7 @@
 					<%= link_to @monument.museum.name, @monument.museum %>
 				</dd>
 			<% end  %>
-			<% if @monument.conservation_comment %>
+			<% if nl2br @monument.conservation_comment %>
 				<dt>Verwahrumstände</dt>
 				<dd>
 					<%= @monument.conservation_comment %>
@@ -187,7 +187,7 @@
 			<% if @monument.conservation_state %>
 				<dt>Erhaltung</dt>
 				<dd>
-					<%= @monument.conservation_state %>
+					<%= nl2br @monument.conservation_state %>
 				</dd>
 			<% end  %>
 			<% if @monument.width ||  @monument.height || @monument.depth %>
@@ -277,13 +277,13 @@
 			<% if @monument.inscription_paleography %>
 				<dt>Paleographie</dt>
 				<dd>
-					<%= @monument.inscription_paleography %>
+					<%= nl2br @monument.inscription_paleography %>
 				</dd>
 			<% end  %>
 			<% if @monument.comment %>
 				<dt>Kommentar</dt>
 				<dd>
-					<%= @monument.comment %>
+					<%= nl2br @monument.comment %>
 				</dd>
 			<% end %>
 		</dl>
@@ -308,7 +308,7 @@
 				<% if @monument.dating_comment %>
 					<dt>Begründung</dt>
 					<dd>
-						<%= @monument.dating_comment %>
+						<%= nl2br @monument.dating_comment %>
 					</dd>
 				<% end  %>
 			</dl>
