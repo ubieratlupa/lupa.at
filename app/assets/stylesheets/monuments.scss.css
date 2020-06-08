@@ -14,7 +14,7 @@
 		display: block;
 	}
 	.monument .photos img {
-		max-width: 230px;
+		max-width: 240px;
 		max-height: 100vh;
 	}
 }
@@ -35,11 +35,14 @@
 
 .photos a.photo {
 	position: relative;
+	box-shadow: 0 0 0 1px rgba(0,0,0,0.1) inset;
+	background-size: cover;
 }
 
 .photos a.photo img {
 	border: none;
 	display: block;
+	opacity: 0;
 }
 
 .photos a.photo span {
