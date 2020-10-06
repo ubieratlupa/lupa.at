@@ -22,11 +22,11 @@
 			end
 			%>
 			<% @photos.each_with_index do | photo, idx | %>
-				<a href="<%= url_for controller: 'monuments', action: 'photos', id: @monument.id, page: idx+1  %>" class="photo" style="background-image: url(http://lupa.at/img/<%= photo.filename %>)">
+				<a href="<%= url_for controller: 'monuments', action: 'photos', id: @monument.id, page: idx+1  %>" class="photo" style="background-image: url(http://lupa.at/img/<%= url_encode photo.filename %>)">
 					<% if captions.count > 1 %>
 						<span><%= idx + 1 %></span>
 					<% end %>
-					<img src="http://lupa.at/img/<%= photo.filename %>">
+					<img src="http://lupa.at/img/<%= url_encode photo.filename %>">
 				</a>
 			<% end %>
 			<div class='caption'>

@@ -19,7 +19,7 @@
 		<%= @current_page.display_title %>
 	</h2>
 	<% if @current_page.photo %>
-		<img src="http://lupa.at/img/<%= @current_page.photo.filename %>">
+		<img src="http://lupa.at/img/<%= url_encode @current_page.photo.filename %>">
 	<% end %>
 	<p>
 		<%= nl2br @current_page.display_text %>
