@@ -91,3 +91,14 @@ div.page h2 {
 	margin: 2em 0 0.5em;
 	font-size: 1.75em;
 }
+
+@media all and (min-width: 800px) {
+	div.multi-page {
+		display: flex;
+		justify-content: center;
+	}
+	
+	div.multi-page > div.page {
+		margin: 1em 1.5em;
+	}
+}

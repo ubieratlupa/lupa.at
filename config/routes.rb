@@ -7,7 +7,9 @@ Rails.application.routes.draw do
     }
   end
 
-  root 'monuments#index'
+  root 'pages#index'
+  
+  get 'search' => 'monuments#search'
   
   get 'map' => 'places#map'
   

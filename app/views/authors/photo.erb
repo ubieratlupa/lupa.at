@@ -1,25 +1,29 @@
-<div class="page authors">
-	
-	<h1>
-		<%= @page.display_title %>
-	</h1>
-	
-	<p>
-		<%= nl2br @page.display_text %>
-	</p>
-	
-	<table>
-		<tr>
-			<th>Name</th>
-			<th>Institution</th>
-			<th>Denkmäler</th>
-		</tr>
-		<% for author in @authors %>
+<div class="multi-page">
+	<div class="page authors">
+		<h1>
+			<%= @page.display_title %>
+		</h1>
+		<table>
 			<tr>
-				<td><%= link_to [author.last_name, author.first_name].reject(&:blank?).join(', '), author %></td>
-				<td><%= author.institution %></td>
-				<td style="text-align: right"><%= author.monument_count %></td>
+				<th>Name</th>
+				<th>Institution</th>
+				<th>Denkmäler</th>
 			</tr>
-		<% end %>
-	</table>
+			<% for author in @authors %>
+				<tr>
+					<td><%= link_to [author.last_name, author.first_name].reject(&:blank?).join(', '), author %></td>
+					<td><%= author.institution %></td>
+					<td style="text-align: right"><%= author.monument_count %></td>
+				</tr>
+			<% end %>
+		</table>
+	</div>
+	<div class="page authors">
+		<p>
+			&nbsp;
+		</p>
+		<p>
+			<%= nl2br @page.display_text %>
+		</p>
+	</div>
 </div>

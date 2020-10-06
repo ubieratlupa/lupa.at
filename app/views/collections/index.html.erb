@@ -1,26 +1,30 @@
-<div class="collections page">
-	<h1>
-		<%= @page.display_title %>
-	</h1>
-	
-	<p>
-		<%= nl2br @page.display_text %>
-	</p>
-	<table>
-		<tr>
-			<th>Ort</th>
-			<th>Sammlung</th>
-			<th style="text-align: right">Denkmäler</th>
-		</tr>
-		<% @collections.each do |collection| %>
+<div class="multi-page">
+	<div class="collections page">
+		<h1>
+			<%= @page.display_title %>
+		</h1>
+		<table>
 			<tr>
-				<td><%= collection.place_name %></td>
-				<td><%= link_to collection.title, collection %></td>
-				<td style="text-align: right"><%= collection.monument_count %></td>
+				<th>Ort</th>
+				<th>Sammlung</th>
+				<th style="text-align: right">Denkmäler</th>
 			</tr>
+			<% @collections.each do |collection| %>
+				<tr>
+					<td><%= collection.place_name %></td>
+					<td><%= link_to collection.title, collection %></td>
+					<td style="text-align: right"><%= collection.monument_count %></td>
+				</tr>
 			
-		<% end %>
+			<% end %>
 		
-	</table>
+		</table>
 	
+	</div>
+	<div class="collections page">
+		<p>&nbsp;</p>
+		<p>
+			<%= nl2br @page.display_text %>
+		</p>
+	</div>
 </div>

@@ -1,5 +1,23 @@
 class PagesController < ApplicationController
   
+  def index
+    @other_pages = Page.where('category = ?', 'about').order(:ord)
+    @current_page = Page.find('index')
+    
+    @photos = 
+      Photo.where('id in (select min(id) as id from photos where author_id = ? group by monument_id)', params[:id])
+        .order("random()")
+        .page(params[:page]).per(48)
+    
+    
+    @new_monuments_date = Photo.select("date_trunc('month',max(created)) AS created").where("monument_id not in (select id from monuments where not visible)")[0].created
+    @new_monuments = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", @new_monuments_date)
+    @new_monuments_count = @new_monuments.count
+    @new_monuments = @new_monuments.order("id desc")
+    @new_monuments = @new_monuments.limit(5)
+    @new_monuments = @new_monuments
+  end
+  
   def show
     @other_pages = Page.where('category = ?', 'about').order(:ord)
     @current_page = Page.find(params[:id])

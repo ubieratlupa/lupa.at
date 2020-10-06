@@ -24,6 +24,11 @@ class MonumentsController < ApplicationController
     @query_help_page = Page.find('query-help')
   end
   
+  def search
+    @query = Query.find(1)
+    @query_help_page = Page.find('query-help')
+  end
+  
   def recent
     @new_monuments_date = Photo.select("date_trunc('month',max(created)) AS created").where("monument_id not in (select id from monuments where not visible)")[0].created
     @new_monuments = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", @new_monuments_date)

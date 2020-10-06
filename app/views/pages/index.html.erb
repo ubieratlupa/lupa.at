@@ -24,4 +24,13 @@
 	<p>
 		<%= nl2br @current_page.display_text %>
 	</p>
+	
+	<p>
+		<%= link_to "Steindenkmäler suchen", {:controller => 'monuments', :action => 'search'}, class: 'button primary' %>
+	</p>
+	
+	<h2>Neue Bilder seit <%= l @new_monuments_date, format: "%B %Y" %></h1>
+	<div class="two-column">
+		<%= render partial: 'monuments/monuments_list_with_more', locals: { monuments: @new_monuments } %>
+	</div>
 </div>
