@@ -1,9 +1,9 @@
 <div class="page-menu">
 	<div class="page-menu-inner">
 		<% if current_page?(:controller => 'pages', :action => 'index') %>
-			<%= link_to "Start", {controller: "pages", action: "index"}, class: "current" %>
+			<%= link_to "Bildergalerie", {controller: "pages", action: "index"}, class: "current" %>
 		<% else %>
-			<%= link_to "Start", {controller: "pages", action: "index"} %>
+			<%= link_to "Bildergalerie", {controller: "pages", action: "index"} %>
 		<% end %>
 		<% for page in @other_pages do %>
 			<% if page == @current_page %>
@@ -19,17 +19,30 @@
 		<%= @current_page.display_title %>
 	</h2>
 	<% if @current_page.photo %>
-		<img src="http://lupa.at/img/<%= @current_page.photo.filename %>">
+		<img src="http://lupa.at/img/<%= url_encode @current_page.photo.filename %>">
 	<% end %>
+	<div class='photo-cards'>
+		<% @photos.each do | photo | %>
+			<%if photo.monument%>
+				<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
+					<div style="background-image: url(//lupa.at/img/<%= url_encode photo.filename %>);" class=photo></div>
+				</a>
+			<% else %>
+				<% # hidden monument %>
+			<% end %>
+		<% end %>
+		<div style='clear: both;'></div>
+	</div>
+	
 	<p>
 		<%= nl2br @current_page.display_text %>
 	</p>
 	
-	<p>
-		<%= link_to "Steindenkmäler suchen", {:controller => 'monuments', :action => 'search'}, class: 'button primary' %>
+	<p style="text-align: right;">
+		<%= link_to "Steindenkmäler suchen", {:controller => 'monuments', :action => 'search'}, class: 'button'%>
 	</p>
 	
-	<h2>Neue Bilder seit <%= l @new_monuments_date, format: "%B %Y" %></h1>
+	<h3>Neue Bilder seit <%= l @new_monuments_date, format: "%B %Y" %></h3>
 	<div class="two-column">
 		<%= render partial: 'monuments/monuments_list_with_more', locals: { monuments: @new_monuments } %>
 	</div>

@@ -76,7 +76,7 @@ div.page > p {
 	line-height: 22px;
 }
 
-div.page h1, div.page h2 {
+div.page h1, div.page h2, div.page h3 {
 	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
 	font-weight: normal;
 	color: #4e4e4e;
@@ -91,6 +91,12 @@ div.page h2 {
 	margin: 2em 0 0.5em;
 	font-size: 1.75em;
 }
+
+div.page h3 {
+	margin: 0;
+	font-size: 1.25em;
+}
+
 
 @media all and (min-width: 800px) {
 	div.multi-page {

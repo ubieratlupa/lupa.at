@@ -5,9 +5,11 @@ class PagesController < ApplicationController
     @current_page = Page.find('index')
     
     @photos = 
-      Photo.where('id in (select min(id) as id from photos where author_id = ? group by monument_id)', params[:id])
-        .order("random()")
-        .page(params[:page]).per(48)
+      Photo
+        .joins("JOIN (select round(random() * (select max(id) from photos)) as id from generate_series(1,36)) as ids
+on photos.id = ids.id")
+        .joins(:monument)
+        .limit(18)
     
     
     @new_monuments_date = Photo.select("date_trunc('month',max(created)) AS created").where("monument_id not in (select id from monuments where not visible)")[0].created
