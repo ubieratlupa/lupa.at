@@ -12,12 +12,10 @@
 	<div id="lupa-title">
 		<a href="/"><img src="<%= asset_path "ubi-erat-lupa.png" %>" alt="Ubi Erat Lupa"></a>
 		<h1>Ubi Erat Lupa</h1>
-		<h2>Bilddatenbank zu antiken&nbsp;Steindenkmälern</h2>
+		<!-- <h2>Bilddatenbank zu antiken&nbsp;Steindenkmälern</h2> -->
+		<h2>&nbsp;</h2>
 	</div>
 	<div id="lupa-menu">
-		<a href="<%= url_for controller: "pages", action: "index" %>"<% if controller.controller_name == "pages" %> class="active"<% end %>>
-			ÜBER LUPA
-		</a>
 		<a href="<%= url_for :controller => 'monuments', :action => 'search' %>"<% if current_page?(:controller => 'monuments', :action => 'search') %> class="active"<% end %>>
 			STEINDENKMÄLER
 		</a>
@@ -32,6 +30,9 @@
 		</a>
 		<a href="<%= url_for :controller => 'places', :action => 'map' %>"<% if current_page?(:controller => 'places', :action => 'map') %> class="active"<% end %>>
 			KARTEN
+		</a>
+		<a href="<%= url_for controller: "pages", action: "show", id: "lupa" %>"<% if controller.controller_name == "pages" and controller.action_name == "show" %> class="active"<% end %>>
+			ÜBER LUPA
 		</a>
 	</div>
 	<div id=content>

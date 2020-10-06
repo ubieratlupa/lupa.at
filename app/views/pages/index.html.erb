@@ -1,22 +1,9 @@
-<div class="page-menu">
-	<div class="page-menu-inner">
-		<% if current_page?(:controller => 'pages', :action => 'index') %>
-			<%= link_to "Bildergalerie", {controller: "pages", action: "index"}, class: "current" %>
-		<% else %>
-			<%= link_to "Bildergalerie", {controller: "pages", action: "index"} %>
-		<% end %>
-		<% for page in @other_pages do %>
-			<% if page == @current_page %>
-				<%= link_to page.display_title, page, class: "current" %>
-			<% else %>
-				<%= link_to page.display_title, page %>
-			<% end %>
-		<% end %>
-	</div>
-</div>
 <div class="page">
+	<h1>
+		Ubi Erat Lupa
+	</h1>
 	<h2>
-		<%= @current_page.display_title %>
+		Bilddatenbank zu antiken Steindenkmälern
 	</h2>
 	<% if @current_page.photo %>
 		<img src="http://lupa.at/img/<%= url_encode @current_page.photo.filename %>">
@@ -40,6 +27,10 @@
 	
 	<p style="text-align: right;">
 		<%= link_to "Steindenkmäler suchen", {:controller => 'monuments', :action => 'search'}, class: 'button'%>
+		&nbsp;
+		<%= link_to "Bildbestellungen", {:controller => 'pages', :action => 'show', :id => 'photos'}, class: 'button'%>
+		&nbsp;
+		<%= link_to "Kontakt", {:controller => 'pages', :action => 'show', :id => "contact"}, class: 'button'%>
 	</p>
 	
 	<h3>Neue Bilder seit <%= l @new_monuments_date, format: "%B %Y" %></h3>
