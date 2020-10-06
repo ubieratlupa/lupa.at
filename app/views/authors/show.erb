@@ -24,9 +24,13 @@
 	
 	<div class='photo-cards'>
 		<% @photos.each do | photo | %>
-			<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
-				<div style="background-image: url(//lupa.at/img/<%= photo.filename %>);" class=photo></div>
-			</a>
+			<%if photo.monument%>
+				<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
+					<div style="background-image: url(//lupa.at/img/<%= photo.filename %>);" class=photo></div>
+				</a>
+			<% else %>
+				<% # hidden monument %>
+			<% end %>
 		<% end %>
 		<div style='clear: both;'></div>
 	</div>
