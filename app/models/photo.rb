@@ -19,7 +19,11 @@ class Photo < ActiveRecord::Base
     
     photography = []
     if self.author
-      photography.append "#{self.author.first_name} #{self.author.last_name}"
+      if self.author.credit_name
+        photography.append self.author.credit_name
+      else
+        photography.append "#{self.author.first_name} #{self.author.last_name}"
+      end
     end
     if self.year
       photography.append self.year
