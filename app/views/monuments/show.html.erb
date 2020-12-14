@@ -6,13 +6,13 @@
 					&lt; vorheriges
 				</a>
 			<% end %>
-			<% if @monument_index_in_query %>
-				Suchergebnis <%=@monument_index_in_query+1%> von <%=@query_monuments_count%>
-			<% end %>
 			<% if @next_monument_id %>
 				<a class='next' id='next-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @next_monument_id, @query_id %>">
 					nächstes &gt;
 				</a>
+			<% end %>
+			<% if @monument_index_in_query %>
+				Suchergebnis <%=@monument_index_in_query+1%> von <%=@query_monuments_count%>
 			<% end %>
 		</div>
 		<script>
