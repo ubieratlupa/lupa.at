@@ -3,6 +3,7 @@ class PagesController < ApplicationController
   def index
     @other_pages = Page.where('category = ?', 'about').order(:ord)
     @current_page = Page.find('index')
+    @header_page = Page.find('index-header')
     
     @photos = 
       Photo

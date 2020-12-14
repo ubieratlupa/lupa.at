@@ -5,6 +5,9 @@
 	<h2>
 		Bilddatenbank zu antiken Steindenkmälern
 	</h2>
+	<p>
+		<%= nl2br @header_page.display_text %>
+	</p>
 	<% if @current_page.photo %>
 		<img src="http://lupa.at/img/<%= url_encode @current_page.photo.filename %>">
 	<% end %>
