@@ -50,16 +50,20 @@
 	<% end %>
 	
 	<dl class='third'>
-		<dt>Nr</dt>
-		<dd><%= @monument.id %></dd>
-	</dl>
-	
-	<dl class='third'>
 		<dt>Objekt-Typ</dt>
 		<dd>
 			<%= @monument.object_type %>
 		</dd>
 	</dl>
+	
+	<% if @monument.inscription_type %>
+		<dl class='third'>
+			<dt>Inschrift-Typ</dt>
+			<dd>
+				<%= @monument.inscription_type %>
+			</dd>
+		</dl>
+	<% end %>
 	
 	<% if @monument.monument_type %>
 		<dl class='third'>
@@ -242,12 +246,6 @@
 				<dt>Übersetzung</dt>
 				<dd>
 					<%= nl2br @monument.inscription_translation %>
-				</dd>
-			<% end  %>
-			<% if @monument.inscription_type %>
-				<dt>Inschrift-Typ</dt>
-				<dd>
-					<%= @monument.inscription_type %>
 				</dd>
 			<% end  %>
 			<% if @monument.inscription_function %>
