@@ -1,5 +1,43 @@
 <div class="monument page">
-	
+	<% if @query_id %>
+		<div class='query-result-nav'>
+			<% if @prev_monument_id %>
+				<a class='prev' id='prev-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @prev_monument_id, @query_id %>">
+					&lt; vorheriges
+				</a>
+			<% end %>
+			<% if @monument_index_in_query %>
+				Suchergebnis <%=@monument_index_in_query+1%> von <%=@query_monuments_count%>
+			<% end %>
+			<% if @next_monument_id %>
+				<a class='next' id='next-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @next_monument_id, @query_id %>">
+					nächstes &gt;
+				</a>
+			<% end %>
+		</div>
+		<script>
+			document.onkeydown = arrowNavigation;
+
+			function arrowNavigation(e) {
+			    e = e || window.event;
+
+			    if (e.keyCode == '38') {
+			        // up arrow
+			    }
+			    else if (e.keyCode == '40') {
+			        // down arrow
+			    }
+			    else if (e.keyCode == '37') {
+					link = document.getElementById('prev-query-result-link')
+					if (link) window.location.replace(link.href)
+			    }
+			    else if (e.keyCode == '39') {
+					link = document.getElementById('next-query-result-link')
+					if (link) window.location.replace(link.href)
+			    }
+			}
+		</script>
+	<% end %>
 	<h2>
 		<%= @monument.id %>
 		<%= @monument.title %>

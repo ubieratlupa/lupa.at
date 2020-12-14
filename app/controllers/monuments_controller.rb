@@ -1,8 +1,27 @@
 class MonumentsController < ApplicationController
 
   def show
+    m_id = params[:id].to_i
+    q_id = params[:query].to_i
     @monument = Monument.find(params[:id])
     @photos = @monument.photos.order(:ord, :id)
+    if q_id > 0
+      @query_id = q_id
+      ids = Rails.cache.fetch("query/#{q_id}/matching_ids", expires_in: 30.minutes) do
+        Query.find(q_id).matching_ids
+      end
+      midx = ids.index(m_id)
+      if midx
+        @monument_index_in_query = midx
+        @query_monuments_count = ids.length
+        if midx > 0
+          @prev_monument_id = ids[midx-1]
+        end
+        if midx < ids.length - 1
+          @next_monument_id = ids[midx+1]
+        end
+      end
+    end
     @title = @monument.id.to_s + ' ' + @monument.title
   end
   

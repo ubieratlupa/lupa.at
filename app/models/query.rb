@@ -173,7 +173,7 @@ class Query < ActiveRecord::Base
       matches = matches.where("coalesce(dating_to, phase_to) <= ?", dating_to)
     end
    
-    return matches.pluck(:id)
+    return matches.order(:id).pluck(:id)
   end
  
   def self.allowed_search_parameters
