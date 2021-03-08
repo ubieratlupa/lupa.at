@@ -161,13 +161,12 @@ class QueriesController < ApplicationController
       results = ActiveRecord::Base.connection.exec_query(
         <<~'SQLQUERY'
           WITH names AS (
-          	SELECT object_type::text as name, count(1) AS c_obj, 0 AS c_mon FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type
+          	SELECT object_type::text as name, count(1) FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type
             UNION
-            SELECT monument_type::text, 0, count(1) FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
+            SELECT monument_type::text, count(1) FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
           SELECT 
           	regexp_replace(name, '\s*\(\?\)', '') as name,
-          	sum(c_obj) as c_obj,
-          	sum(c_mon) as c_mon
+          	sum(count) as count
           FROM names
           GROUP BY
           	regexp_replace(name, '\s*\(\?\)', '')
@@ -175,18 +174,10 @@ class QueriesController < ApplicationController
         SQLQUERY
       )
       completions = results.map do |p|
-        desc = []
-        if p['c_obj']
-          desc << 'Objekt-Typ: ' + p['c_obj']
-        end
-        if p['c_mon']
-          desc << 'Denkmal-Typ: ' + p['c_mon']
-        end
-        desc = desc.join(" ")
         { 
            id: p['name'],
            title: p['name'],
-           path: desc
+           path: p['count']
          }
       end
       render json: completions
