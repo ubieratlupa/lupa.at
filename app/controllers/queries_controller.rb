@@ -159,27 +159,25 @@ class QueriesController < ApplicationController
       render json: completions
     elsif params[:field] == 'object_type'
       results = ActiveRecord::Base.connection.exec_query(
-        ActiveRecord::Base.sanitize_sql([
-          <<~'SQLQUERY'
-            WITH names AS (
-            	SELECT object_type::text as name, count(1), 'Objekt-Typ' as field FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type UNION SELECT monument_type::text, count(1), 'Denkmal-Typ' FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
-            SELECT 
-            	regexp_replace(name, '\s*\(\?\)', ''),
-            	sum(count) as count,
-            	field
-            FROM names
-            GROUP BY
-            	regexp_replace(name, '\s*\(\?\)', ''),
-            	field
-            ORDER BY 1;
-          SQLQUERY
-        ])
+        <<~'SQLQUERY'
+          WITH names AS (
+          	SELECT object_type::text as name, count(1), 'Objekt-Typ' as field FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type UNION SELECT monument_type::text, count(1), 'Denkmal-Typ' FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
+          SELECT 
+          	regexp_replace(name, '\s*\(\?\)', '') as name,
+          	sum(count) as count,
+          	field
+          FROM names
+          GROUP BY
+          	regexp_replace(name, '\s*\(\?\)', ''),
+          	field
+          ORDER BY 1;
+        SQLQUERY
       )
       completions = results.map do |p|
         { 
-           id: p['object_type'],
-           title: p['object_type'],
-           path: p['count']
+           id: p['name'],
+           title: p['name'],
+           path: p['count'] + ' (' + p['field'] + ')'
          }
       end
       render json: completions
@@ -191,8 +189,8 @@ class QueriesController < ApplicationController
       )
       completions = results.map do |p|
         { 
-           id: p['object_type'],
-           title: p['object_type'],
+           id: p['inscription_type'],
+           title: p['inscription_type'],
            path: p['count']
          }
       end
