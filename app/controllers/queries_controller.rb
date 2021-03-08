@@ -127,15 +127,15 @@ class QueriesController < ApplicationController
           ORDER BY 1;
         SQLQUERY
       )
-      results = results.select do |r|
-        return r['name'].downcase().include? params[:term].downcase()
-      end
-      completions = results.map do |p|
-        { 
-           id: p['name'],
-           title: p['name'],
-           path: p['count']
-         }
+      completions = []
+      results.map do |p|
+        if p['name'].downcase().include? params[:term].downcase()
+          completions << { 
+             id: p['name'],
+             title: p['name'],
+             path: p['count']
+           }
+         end
       end
       render json: completions
     elsif params[:field] == 'inscription_type'
@@ -144,15 +144,15 @@ class QueriesController < ApplicationController
           "SELECT inscription_type, count(1) FROM monuments WHERE inscription_type IS NOT NULL group by inscription_type order by inscription_type"
         ])
       )
-      results = results.select do |r|
-        return r['inscription_type'].downcase().include? params[:term].downcase()
-      end
-      completions = results.map do |p|
-        { 
-           id: p['inscription_type'],
-           title: p['inscription_type'],
-           path: p['count']
-         }
+      completions = []
+      results.map do |p|
+        if p['inscription_type'].downcase().include? params[:term].downcase()
+          completions << { 
+             id: p['inscription_type'],
+             title: p['inscription_type'],
+             path: p['count']
+           }
+         end
       end
       render json: completions
     end
