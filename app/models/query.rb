@@ -170,7 +170,7 @@ class Query < ActiveRecord::Base
     end
     
     if object_type
-      matches = matches.where("object_type::text like ? OR inscription_type::text like ?", '%' + object_type + '%', '%' + object_type + '%')
+      matches = matches.where("object_type::text like ? OR monument_type::text like ?", '%' + object_type + '%', '%' + object_type + '%')
     end
     
     if inscription_type
