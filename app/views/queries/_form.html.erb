@@ -4,18 +4,34 @@
 
 	<div class="query-inside">
 
-	<div class="query-box">
+	<div class="query-box-wide">
 		<%= label_tag(:id_range, "Nr") %>
 		<%= text_field(:query, :id_ranges) %>
 	</div>
-
+	
 	<div class="query-box">
-		<%= label_tag(:keywords, "Titel, Objekt, Ikonographie") %>
+		<%= label_tag(:id_range, "Objekt-Typ") %>
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="object_type" value="<%= query.object_type %>"> 
+		<img src="<%= asset_path "reset.png" %>" class="reset_img" id="reset_img_object_type" alt="reset" <%== "style=\"display:inline\"" if query.object_type %>>
+		<img src="<%= asset_path "menu.png" %>" id="object_type_menu_img" class="menu_img" <%== "style=\"display:none\"" if query.object_type %>>
+		<%= hidden_field(:query, :object_type, id: 'query_object_type_id') %> 
+	</div>
+	
+	<div class="query-box">
+		<%= label_tag(:id_range, "Inschrift-Typ") %>
+		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="inscription_type" value="<%= query.inscription_type %>"> 
+		<img src="<%= asset_path "reset.png" %>" class="reset_img" id="reset_img_inscription_type" alt="reset" <%== "style=\"display:inline\"" if query.inscription_type %>>
+		<img src="<%= asset_path "menu.png" %>" id="inscription_type_menu_img" class="menu_img" <%== "style=\"display:none\"" if query.inscription_type %>>
+		<%= hidden_field(:query, :inscription_type, id: 'query_inscription_type_id') %> 
+	</div>
+	
+	<div class="query-box-wide">
+		<%= label_tag(:keywords, "Titel, Ikonographie") %>
 		<%= text_field(:query, :keywords) %> 
 	</div>
 
 	<div class="query-box-wide">
-		<%= label_tag(:inscription, "Inschrifttext, Typ") %>
+		<%= label_tag(:inscription, "Inschrifttext") %>
 		<%= text_field(:query, :inscription) %> 
 	</div>
 	

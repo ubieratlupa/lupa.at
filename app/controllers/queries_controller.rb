@@ -157,6 +157,20 @@ class QueriesController < ApplicationController
          }
       end
       render json: completions
+    elsif params[:field] == 'object_type'
+      results = ActiveRecord::Base.connection.exec_query(
+        ActiveRecord::Base.sanitize_sql([
+          "SELECT object_type, count(1) FROM monuments group by object_type order by 1"
+        ])
+      )
+      completions = results.map do |p|
+        { 
+           id: p['object_type'],
+           title: p['object_type'],
+           path: p['count']
+         }
+      end
+      render json: completions
     end
   end
   

@@ -168,6 +168,14 @@ class Query < ActiveRecord::Base
     if dating_from
       matches = matches.where("coalesce(dating_from, phase_from) >= ?", dating_from)
     end
+    
+    if object_type
+      matches = matches.where("object_type::text = ? OR inscription_type::text = ?", object_type, object_type)
+    end
+    
+    if inscription_type
+      matches = matches.where("inscription_type = ?", inscription_type)
+    end
    
     if dating_to
       matches = matches.where("coalesce(dating_to, phase_to) <= ?", dating_to)
@@ -177,7 +185,7 @@ class Query < ActiveRecord::Base
   end
  
   def self.allowed_search_parameters
-    return :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to
+    return :object_type, :inscription_type, :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to
   end
  
   def inscription_excerpt(monument)
