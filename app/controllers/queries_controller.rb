@@ -145,7 +145,7 @@ class QueriesController < ApplicationController
         ])
       )
       results = results.select do |r|
-        return r['name'].downcase().include? params[:term].downcase()
+        return r['inscription_type'].downcase().include? params[:term].downcase()
       end
       completions = results.map do |p|
         { 
