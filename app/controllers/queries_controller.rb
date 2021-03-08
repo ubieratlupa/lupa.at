@@ -177,10 +177,10 @@ class QueriesController < ApplicationController
       completions = results.map do |p|
         desc = []
         if p['c_obj']
-          desc += 'Objekt-Typ: ' + p['c_obj']
+          desc << 'Objekt-Typ: ' + p['c_obj']
         end
         if p['c_mon']
-          desc += 'Denkmal-Typ: ' + p['c_mon']
+          desc << 'Denkmal-Typ: ' + p['c_mon']
         end
         desc = desc.join(" ")
         { 
