@@ -127,7 +127,7 @@ class QueriesController < ApplicationController
           ORDER BY 1;
         SQLQUERY
       )
-      results = results.filter do |r|
+      results = results.select do |r|
         return r['name'].downcase().include? params[:term].downcase()
       end
       completions = results.map do |p|
@@ -144,7 +144,7 @@ class QueriesController < ApplicationController
           "SELECT inscription_type, count(1) FROM monuments WHERE inscription_type IS NOT NULL group by inscription_type order by inscription_type"
         ])
       )
-      results = results.filter do |r|
+      results = results.select do |r|
         return r['name'].downcase().include? params[:term].downcase()
       end
       completions = results.map do |p|
