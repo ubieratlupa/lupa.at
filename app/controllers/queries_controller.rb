@@ -111,6 +111,50 @@ class QueriesController < ApplicationController
          }
       end
       render json: completions
+    elsif params[:field] == 'object_type'
+      results = ActiveRecord::Base.connection.exec_query(
+        <<~'SQLQUERY'
+          WITH names AS (
+          	SELECT object_type::text as name, count(1) FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type
+            UNION
+            SELECT monument_type::text, count(1) FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
+          SELECT 
+          	regexp_replace(name, '\s*\(\?\)', '') as name,
+          	sum(count) as count
+          FROM names
+          GROUP BY
+          	regexp_replace(name, '\s*\(\?\)', '')
+          ORDER BY 1;
+        SQLQUERY
+      )
+      results = results.filter do |r|
+        return r['name'].downcase().include? params[:term].downcase()
+      end
+      completions = results.map do |p|
+        { 
+           id: p['name'],
+           title: p['name'],
+           path: p['count']
+         }
+      end
+      render json: completions
+    elsif params[:field] == 'inscription_type'
+      results = ActiveRecord::Base.connection.exec_query(
+        ActiveRecord::Base.sanitize_sql([
+          "SELECT inscription_type, count(1) FROM monuments WHERE inscription_type IS NOT NULL group by inscription_type order by inscription_type"
+        ])
+      )
+      results = results.filter do |r|
+        return r['name'].downcase().include? params[:term].downcase()
+      end
+      completions = results.map do |p|
+        { 
+           id: p['inscription_type'],
+           title: p['inscription_type'],
+           path: p['count']
+         }
+      end
+      render json: completions
     end
   end
   
