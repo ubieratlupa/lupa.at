@@ -16,8 +16,11 @@
 		<h2>&nbsp;</h2>
 	</div>
 	<div id="lupa-menu">
+		<a href="/"<% if current_page?(:controller => 'pages', :action => 'index') %> class="active"<% end %>>
+			STARTSEITE
+		</a>
 		<a href="<%= url_for :controller => 'monuments', :action => 'search' %>"<% if current_page?(:controller => 'monuments', :action => 'search') %> class="active"<% end %>>
-			STEINDENKMÄLER
+			SUCHE
 		</a>
 		<a href="<%= url_for :controller => 'museums', :action => 'index' %>"<% if controller.controller_name == 'museums' %> class="active"<% end %>>
 			MUSEEN
