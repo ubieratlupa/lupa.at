@@ -1,6 +1,6 @@
 module ApplicationHelper
   def nl2br(str)
-    html_escape(str).gsub(/\n/,"<br>\n").gsub(/(https?:\/\/)(\S+)[,;<]?/,"<a href=$1$2>$2</a>").html_safe
+    html_escape(str).gsub(/\n/,"<br>\n").gsub(/(https?:\/\/)([^,;\s]+)/,"<a href=\\1\\2>\\2</a>").html_safe
   end
   
   def unumlaut(str)
