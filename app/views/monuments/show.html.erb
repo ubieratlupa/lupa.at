@@ -122,7 +122,7 @@
 		<% if @monument.child_monuments.present? %>
 			<dt>Zugehörige Teile</dt>
 			<dd>
-				<% for m in @monument.child_monuments %>
+				<% for m in @monument.child_monuments.order(:id) %>
 					<p><%= link_to_monument m %></p>
 				<% end %>
 			</dd>
