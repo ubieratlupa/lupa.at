@@ -160,7 +160,21 @@ class QueriesController < ApplicationController
     elsif params[:field] == 'object_type'
       results = ActiveRecord::Base.connection.exec_query(
         ActiveRecord::Base.sanitize_sql([
-          "SELECT object_type, count(1) FROM monuments group by object_type order by 1"
+          "SELECT object_type, count(1) FROM monuments WHERE object_type IS NOT NULL group by object_type UNION SELECT monument_type, count(1) FROM monuments WHERE monument_type IS NOT NULL group by monument_type order by 1"
+        ])
+      )
+      completions = results.map do |p|
+        { 
+           id: p['object_type'],
+           title: p['object_type'],
+           path: p['count']
+         }
+      end
+      render json: completions
+    elsif params[:field] == 'object_type'
+      results = ActiveRecord::Base.connection.exec_query(
+        ActiveRecord::Base.sanitize_sql([
+          "SELECT inscription_type, count(1) FROM monuments WHERE inscription_type IS NOT NULL group by inscription_type order by inscription_type"
         ])
       )
       completions = results.map do |p|
