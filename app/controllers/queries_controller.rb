@@ -160,7 +160,19 @@ class QueriesController < ApplicationController
     elsif params[:field] == 'object_type'
       results = ActiveRecord::Base.connection.exec_query(
         ActiveRecord::Base.sanitize_sql([
-          "SELECT object_type, count(1) FROM monuments WHERE object_type IS NOT NULL group by object_type UNION SELECT monument_type, count(1) FROM monuments WHERE monument_type IS NOT NULL group by monument_type order by 1"
+          <<~'SQLQUERY'
+            WITH names AS (
+            	SELECT object_type::text as name, count(1), 'Objekt-Typ' as field FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type UNION SELECT monument_type::text, count(1), 'Denkmal-Typ' FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
+            SELECT 
+            	regexp_replace(name, '\s*\(\?\)', ''),
+            	sum(count) as count,
+            	field
+            FROM names
+            GROUP BY
+            	regexp_replace(name, '\s*\(\?\)', ''),
+            	field
+            ORDER BY 1;
+          SQLQUERY
         ])
       )
       completions = results.map do |p|
@@ -171,7 +183,7 @@ class QueriesController < ApplicationController
          }
       end
       render json: completions
-    elsif params[:field] == 'object_type'
+    elsif params[:field] == 'inscription_type'
       results = ActiveRecord::Base.connection.exec_query(
         ActiveRecord::Base.sanitize_sql([
           "SELECT inscription_type, count(1) FROM monuments WHERE inscription_type IS NOT NULL group by inscription_type order by inscription_type"
