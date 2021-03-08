@@ -8,6 +8,14 @@
 	<% if @query.id_ranges %>
 		<p><strong>Nr:</strong> <%= @query.id_ranges %></p>
 	<% end %>
+
+	<% if @query.object_type %>
+		<p><strong>Objekt-Typ, Denkmal-Typ:</strong> <%= @query.object_type %></p>
+	<% end %>
+	
+	<% if @query.inscription_type %>
+		<p><strong>Inschrift-Typ:</strong> <%= @query.inscription_type %></p>
+	<% end %>
 	
 	<% if @query.keywords %>
 		<p><strong>Titel, Objekt, Ikonographie:</strong> <%= @query.keywords %></p>
