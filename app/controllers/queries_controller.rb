@@ -161,7 +161,7 @@ class QueriesController < ApplicationController
       results = ActiveRecord::Base.connection.exec_query(
         <<~'SQLQUERY'
           WITH names AS (
-          	SELECT object_type::text as name, count(1) AS c_obj, 0 AS c_mon as field FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type
+          	SELECT object_type::text as name, count(1) AS c_obj, 0 AS c_mon FROM monuments WHERE object_type IS NOT NULL AND object_type != '(?)' group by object_type
             UNION
             SELECT monument_type::text, 0, count(1) FROM monuments WHERE monument_type IS NOT NULL AND monument_type != '(?)' group by monument_type)
           SELECT 
@@ -170,8 +170,7 @@ class QueriesController < ApplicationController
           	sum(c_mon) as c_mon
           FROM names
           GROUP BY
-          	regexp_replace(name, '\s*\(\?\)', ''),
-          	field
+          	regexp_replace(name, '\s*\(\?\)', '')
           ORDER BY 1;
         SQLQUERY
       )
