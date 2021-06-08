@@ -1,7 +1,6 @@
 <div class="collection page">
 	<h1><%= @publication.title %></h1>
-	<p><%= nl2br @publication.authors %></p>
-	<p><%= nl2br @publication.citation %></p>
+	<p><%= nl2br @publication.authors %>, <%= nl2br @publication.citation %></p>
 	<p><%= nl2br @publication.abstract %></p>
 	<p>
 		<% if @publication.link && @publication.link.match(/https?:\/\//) %>
