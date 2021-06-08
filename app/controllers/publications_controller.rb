@@ -1,7 +1,7 @@
 class PublicationsController < ApplicationController
   
   def index
-    @publications = Publication.find_by_sql("SELECT * FROM publications ORDER BY created DESC")
+    @publications = Publication.find_by_sql("SELECT * FROM publications ORDER BY year DESC, created DESC")
     @page = Page.find('publications-index')
   end
   

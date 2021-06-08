@@ -7,11 +7,13 @@
 			<tr>
 				<th>Autor</th>
 				<th>Titel</th>
+				<th>Jahr</th>
 			</tr>
 			<% @publications.each do |publication| %>
 				<tr>
 					<td><%= publication.authors %></td>
 					<td><%= link_to publication.title, publication %></td>
+					<td><%= publication.year %></td>
 				</tr>
 			
 			<% end %>
