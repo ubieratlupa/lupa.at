@@ -360,6 +360,14 @@
 					<%= nl2br @monument.literature %>
 				</dd>
 			<% end %>
+			<% if @monument.publications.length > 0 %>
+				<dt>Publikationen</dt>
+				<dd>
+					<% for publication in @monument.publications %>
+						<%= publication.authors %>, <%= link_to publication.title, publication %>, <%= publication.citation %>
+					<% end %>
+				</dd>
+			<% end %>
 			<% if @monument.literature_online %>
 				<dt>Online Literatur</dt>
 				<dd>

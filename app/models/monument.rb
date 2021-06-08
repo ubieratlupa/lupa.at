@@ -13,6 +13,8 @@ class Monument < ActiveRecord::Base
   has_many :photos
   has_many :child_monuments, class_name: "Monument", foreign_key: "parent_monument_id"
   
+  has_and_belongs_to_many :publications
+  
   default_scope { where(visible: true) }
   scope :found_in, ->(place) { 
     where("finding_place_id in (WITH RECURSIVE descendant_places AS (SELECT places.id FROM places WHERE id = ? UNION SELECT places.id FROM places JOIN descendant_places ON places.parent_id=descendant_places.id) SELECT id FROM descendant_places)", place).order(:id)
