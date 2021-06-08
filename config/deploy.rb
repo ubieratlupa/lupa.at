@@ -23,6 +23,7 @@ set :branch, 'master'
 
 # They will be linked in the 'deploy:link_shared_paths' step.
 set :shared_dirs, fetch(:shared_dirs, []).push('public/img')
+set :shared_dirs, fetch(:shared_dirs, []).push('public/pdf')
 # set :shared_files, fetch(:shared_files, []).push('config/database.yml', 'config/secrets.yml')
 
 # This task is the environment that is loaded all remote run commands, such as

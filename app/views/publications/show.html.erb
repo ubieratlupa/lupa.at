@@ -1,0 +1,43 @@
+<div class="collection page">
+	<h1><%= @publication.title %></h1>
+	<p><%= nl2br @publication.authors %></p>
+	<p><%= nl2br @publication.citation %></p>
+	<p><%= nl2br @publication.abstract %></p>
+	<p>
+		<% if @publication.link && @publication.link.match(/https?:\/\//) %>
+			<a href="<%= @publication.link %>"><%= @publication.link %></a>
+		<% else %>
+			<%= @publication.link %>
+		<% end %>
+	</p>
+	<p>
+		<% if @publication.pdf_link && @publication.pdf_link.match(/https?:\/\//) %>
+			<a href="<%= @publication.pdf_link %>">PDF Download</a>
+		<% end %>
+	</p>
+	<p>
+		<% if @display_mode == "photos" %>
+			<%= pretty_monument_count(@monuments.total_count) %> mit Bild
+		<% elsif @display_mode == "map" %>
+			<%= pretty_monument_count(@monuments.count) %> mit Fundort-Koordinaten
+		<% elsif @display_mode == "place" %>
+			<%= pretty_monument_count(@monuments.count) %> aus <%= @place.name %>
+		<% else %>
+			<%= pretty_monument_count(@monuments.total_count) %>
+		<% end %>
+	</p>
+	<%= render partial: 'monuments/display_mode_selector', locals: { mode: @display_mode } %>
+	<% if @display_mode == "photos" %>
+		<%= paginate @monuments %>
+		<%= render partial: 'monuments/monuments_photos', locals: { monuments: @monuments } %>
+		<%= paginate @monuments %>
+	<% elsif @display_mode == "map" %>
+		<%= render partial: 'monuments/monuments_map', locals: { monuments: @monuments } %>
+	<% elsif @display_mode == "place" %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+	<% else %>
+		<%= paginate @monuments %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+		<%= paginate @monuments %>
+	<% end %>
+</div>

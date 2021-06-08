@@ -31,6 +31,9 @@
 		<a href="<%= url_for :controller => 'authors', :action => 'photo' %>"<% if controller.controller_name == 'authors' %> class="active"<% end %>>
 			FOTOGRAFEN
 		</a>
+		<a href="<%= url_for :controller => 'publications', :action => 'index' %>"<% if controller.controller_name == 'publications' %> class="active"<% end %>>
+			PUBLIKATIONEN
+		</a>
 		<a href="<%= url_for :controller => 'places', :action => 'map' %>"<% if current_page?(:controller => 'places', :action => 'map') %> class="active"<% end %>>
 			KARTEN
 		</a>

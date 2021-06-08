@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   
   resources :museums
   resources :collections
+  resources :publications
   resources :places
   resources :regional_infos
   resources :queries do
