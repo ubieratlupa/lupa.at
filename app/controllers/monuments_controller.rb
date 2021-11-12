@@ -4,11 +4,11 @@ class MonumentsController < ApplicationController
     m_id = params[:id].to_i
     @monument = Monument.find(params[:id])
     @photos = @monument.photos.order(:ord, :id)
-    find_next_prev()
+    find_next_prev(m_id)
     @title = @monument.id.to_s + ' ' + @monument.title
   end
   
-  def find_next_prev
+  def find_next_prev(m_id)
     q_id = params[:query].to_i
     if q_id > 0
       @source = {query: q_id}
