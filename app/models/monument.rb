@@ -50,4 +50,12 @@ class Monument < ActiveRecord::Base
 		end
     return dating_years
   end
+  
+  def self.recent_monuments_month
+    return Photo.select("date_trunc('month',max(created)) AS created").where("monument_id not in (select id from monuments where not visible)")[0].created
+  end
+  
+  def self.recent_monuments(month)
+    return Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", month).order("id desc")
+  end
 end

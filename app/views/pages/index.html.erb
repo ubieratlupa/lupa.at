@@ -38,6 +38,6 @@
 	
 	<h3>Neue Bilder seit <%= l @new_monuments_date, format: "%B %Y" %></h3>
 	<div class="two-column">
-		<%= render partial: 'monuments/monuments_list_with_more', locals: { monuments: @new_monuments } %>
+		<%= render partial: 'monuments/monuments_list_with_more', locals: { monuments: @new_monuments, source: @new_monuments_source } %>
 	</div>
 </div>
