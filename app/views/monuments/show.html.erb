@@ -16,6 +16,8 @@
 					Suchergebnis
 				<% elsif @source[:recent] %>
 					Neuzugang 
+				<% elsif @source_name %>
+					<%=@source_name%>
 				<% end %>
 				<%=@monument_index_in_query+1%> von <%=@query_monuments_count%>
 			<% end %>

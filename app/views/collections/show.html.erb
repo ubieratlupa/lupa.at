@@ -24,15 +24,15 @@
 	<%= render partial: 'monuments/display_mode_selector', locals: { mode: @display_mode } %>
 	<% if @display_mode == "photos" %>
 		<%= paginate @monuments %>
-		<%= render partial: 'monuments/monuments_photos', locals: { monuments: @monuments } %>
+		<%= render partial: 'monuments/monuments_photos', locals: { monuments: @monuments, source: {collection: @collection} } %>
 		<%= paginate @monuments %>
 	<% elsif @display_mode == "map" %>
-		<%= render partial: 'monuments/monuments_map', locals: { monuments: @monuments } %>
+		<%= render partial: 'monuments/monuments_map', locals: { monuments: @monuments, source: {collection: @collection} } %>
 	<% elsif @display_mode == "place" %>
-		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments, source: {collection: @collection} } %>
 	<% else %>
 		<%= paginate @monuments %>
-		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments } %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments, source: {collection: @collection} } %>
 		<%= paginate @monuments %>
 	<% end %>
 </div>

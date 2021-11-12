@@ -23,6 +23,16 @@ class MonumentsController < ApplicationController
         Monument.recent_monuments(recent_month).pluck(:id)
       end
     end
+    c_id = params[:collection].to_i
+    if c_id > 0
+      @source = {collection: c_id}
+      ids = Rails.cache.fetch("collection/#{c_id}/ids", expires_in: 30.minutes) do
+        Collection.find(c_id).monuments.order(:id).pluck(:id)
+      end
+      @source_name = "Sammlung " + Rails.cache.fetch("collection/#{c_id}/name", expires_in: 30.minutes) do
+        Collection.find(c_id).title
+      end
+    end
     if ids
       midx = ids.index(m_id)
       if midx
