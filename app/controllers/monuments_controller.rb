@@ -16,6 +16,13 @@ class MonumentsController < ApplicationController
         Query.find(q_id).matching_ids
       end
     end
+    recent_month = params[:recent]
+    if recent_month
+      @source = {recent: recent_month}
+      ids = Rails.cache.fetch("recent/#{recent_month}/ids", expires_in: 30.minutes) do
+        get_recent_monuments(recent_month).pluck(:id)
+      end
+    end
     if ids
       midx = ids.index(m_id)
       if midx
@@ -56,9 +63,15 @@ class MonumentsController < ApplicationController
   
   def recent
     @new_monuments_date = Photo.select("date_trunc('month',max(created)) AS created").where("monument_id not in (select id from monuments where not visible)")[0].created
-    @new_monuments = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", @new_monuments_date)
-    @new_monuments = @new_monuments.order("id desc")
+    @new_monuments = get_recent_monuments(@new_monuments_date)
     @new_monuments = @new_monuments.page(params[:page]).per(50)
+    @source = { recent: @new_monuments_date }
+  end
+  
+  def get_recent_monuments(month = nil)
+    mon = Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) = ?)", @new_monuments_date)
+    mon = mon.order("id desc")
+    return mon
   end
   
   def photos
