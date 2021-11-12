@@ -12,7 +12,12 @@
 				</a>
 			<% end %>
 			<% if @monument_index_in_query %>
-				Suchergebnis <%=@monument_index_in_query+1%> von <%=@query_monuments_count%>
+				<% if @source[:query] %>
+					Suchergebnis
+				<% elsif @source[:recent] %>
+					Neuzugang 
+				<% end %>
+				<%=@monument_index_in_query+1%> von <%=@query_monuments_count%>
 			<% end %>
 		</div>
 		<script>
