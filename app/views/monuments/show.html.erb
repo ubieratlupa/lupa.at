@@ -1,13 +1,13 @@
 <div class="monument page">
-	<% if @query_id %>
+	<% if @source %>
 		<div class='query-result-nav'>
 			<% if @prev_monument_id %>
-				<a class='prev' id='prev-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @prev_monument_id, @query_id %>">
+				<a class='prev' id='prev-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @prev_monument_id, @source %>">
 					&lt; vorheriges
 				</a>
 			<% end %>
 			<% if @next_monument_id %>
-				<a class='next' id='next-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @next_monument_id, @query_id %>">
+				<a class='next' id='next-query-result-link' onclick="window.location.replace(this.href); return false;" href="<%= monument_short_path @next_monument_id, @source %>">
 					nächstes &gt;
 				</a>
 			<% end %>

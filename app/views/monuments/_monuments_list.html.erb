@@ -1,8 +1,8 @@
-<% query = nil if not query %>
+<% source = nil if not source %>
 <div class='monument-cards'>
 	<% monuments.each do | monument | %>
 		<div class="monument-card-wrapper">
-			<a class="monument-card" href="<%= monument_short_path monument, query %>">
+			<a class="monument-card" href="<%= monument_short_path monument, source %>">
 				<% if photo = monument.photos.order(:ord).take %>
 					<div style="background-image: url(//lupa.at/img/<%= url_encode photo.filename %>);" class=photo></div>
 				<% end %>
