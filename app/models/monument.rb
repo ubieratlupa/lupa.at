@@ -60,6 +60,6 @@ class Monument < ActiveRecord::Base
   end
   
   def self.recent_monuments(month)
-    return Monument.where("id in (select distinct monument_id from photos where date_trunc('month',created) >= ?)", month).order("id desc")
+    return Monument.where("id in (select distinct monument_id from photos where created >= ?)", month).order("id desc")
   end
 end
