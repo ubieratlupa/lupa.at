@@ -52,7 +52,7 @@ class Monument < ActiveRecord::Base
   end
   
   def self.recent_monuments_month
-    date = ActiveRecord::Base.connection.exec("SELECT MIN(start_date) FROM neuzugänge").getvalue(0,0)
+    date = ActiveRecord::Base.connection.execute("SELECT MIN(start_date) FROM neuzugänge").getvalue(0,0)
     if date
       return date
     end
