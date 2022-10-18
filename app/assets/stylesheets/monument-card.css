@@ -76,36 +76,31 @@ a.monument-card {
 	left: 40px;
 }
 
-.monument-card-wrapper {
+.monument-card-wrapper .monument-card p {
+	padding: 10px 0 0 0;
+	font-size: 12px;
+	margin: 0 10px 0 10px;
+	padding: 4px 0 0 0;
+}
+
+.monument-card-wrapper .monument-card p.id {
+	padding: 10px 0 0 0;
+}
+
+.monument-card-wrapper .monument-card p.detail {
+	color: rgba(0,0,0,0.5);
 	
-	.monument-card {
-		
-		p {
-			padding: 10px 0 0 0;
-			font-size: 12px;
-			margin: 0 10px 0 10px;
-			padding: 4px 0 0 0;
-		}
+}
 
-		p.id {
-			padding: 10px 0 0 0;
-		}
+.monument-card-wrapper .monument-card p.detail b {
+	color: rgba(200,0,0,0.7);
+	font-weight: normal;
+}
 
-		p.detail {
-			color: rgba(0,0,0,0.5);
-			
-			b {
-				color: rgba(200,0,0,0.7);
-				font-weight: normal;
-			}
-		}
-		
-		b {
-			color: rgba(200,0,0,1.0);
-			font-weight: normal;
-		}
-		
-	}
+
+.monument-card-wrapper .monument-card b {
+	color: rgba(200,0,0,1.0);
+	font-weight: normal;
 }
 
 .monument-card a {
