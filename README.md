@@ -1,24 +1,15 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Local Installation Quick Start
 
-Things you may want to cover:
+```zsh
+$ git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+$ echo 'eval "$(~/.rbenv/bin/rbenv init - zsh)"' >> ~/.zshrc
+$ git clone https://github.com/rbenv/ruby-build.git "$(rbenv root)"/plugins/ruby-build
+$ rbenv install 3.1.2
+$ rbenv local 3.1.2
+$ gem install bundler
+$ bundle install
+$ rails s
+```
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
