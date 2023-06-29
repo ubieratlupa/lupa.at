@@ -13,8 +13,8 @@ require 'mina/rvm'    # for rvm support. (https://rvm.io)
 
 set :domain, 'lupa'
 set :deploy_to, '/var/www/lupa.at'
-set :repository, 'git@bitbucket.org:jabakobob/lupa-at.git'
-set :branch, 'master'
+set :repository, 'https://github.com/ubieratlupa/lupa.at.git'
+set :branch, 'main'
 
 # Optional settings:
 #   set :user, 'foobar'          # Username in the server to SSH to.
