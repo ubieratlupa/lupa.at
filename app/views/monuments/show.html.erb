@@ -223,7 +223,7 @@
 			<% if @monument.regional_info %>
 				<dt>Information und Bilder zum Verwahrort</dt>
 				<dd>
-					<img src="<%= asset_path "regionalinfo.png" %>">
+					<img src="<%= asset_path "regionalinfo.png" %>" width=24 height=24 style="vertical-align: middle;">
 					<%= link_to @monument.regional_info.name, @monument.regional_info %>
 				</dd>
 			<% end  %>
