@@ -36,6 +36,8 @@ Rails.application.routes.draw do
   
   get ':id/photos/:page' => 'monuments#photos'
   get ':id/photos/' => 'monuments#photos', defaults: { page: 1 } 
+
+  get ':id/view3D/' => 'monuments#view3D'
   
   resources :monuments do
     get 'qr', :on => :member

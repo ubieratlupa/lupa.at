@@ -97,5 +97,11 @@ class MonumentsController < ApplicationController
     @title = @monument.id.to_s + ' ' + @monument.title + " (Bilder)"
     render layout: 'photo'
   end
-  
+
+  # new action to load 3D model data
+  def view3D
+    @monument = Monument.find(params[:id])
+    @title = @monument.id.to_s + ' ' + @monument.title + " (3D Modell)"
+    render layout: 'view3D'
+  end  
 end

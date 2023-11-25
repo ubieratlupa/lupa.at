@@ -141,6 +141,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_122438) do
     t.boolean "visible", default: false, null: false
     t.text "column52"
     t.bigint "collection_id"
+    t.decimal "finding_lat"
+    t.decimal "finding_long"
+    t.decimal "conservation_lat"
+    t.decimal "conservation_long"
     t.index ["collection_id"], name: "index_monuments_on_collection_id"
     t.index ["conservation_place_id"], name: "monuments_conservation_place_id_idx"
     t.index ["finding_place_id"], name: "monuments_finding_place_id_idx"
@@ -194,8 +198,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_18_122438) do
     t.text "place_type"
     t.text "place_type_en"
     t.integer "parent_id"
-    t.decimal "long"
     t.decimal "lat"
+    t.decimal "long"
     t.text "full_name"
     t.datetime "created", precision: nil
     t.datetime "modified", precision: nil
