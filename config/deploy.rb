@@ -17,7 +17,7 @@ set :repository, 'https://github.com/ubieratlupa/lupa.at.git'
 set :branch, 'main'
 
 # Optional settings:
-#   set :user, 'foobar'          # Username in the server to SSH to.
+set :user, 'rails'          # Username in the server to SSH to.
 #   set :port, '30000'           # SSH port number.
 #   set :forward_agent, true     # SSH forward_agent.
 
@@ -34,7 +34,7 @@ task :remote_environment do
   # invoke :'rbenv:load'
 
   # For those using RVM, use this to load an RVM version@gemset.
-  invoke :'rvm:use', 'ruby-2.5.3@lupa-at'
+  invoke :'rvm:use', 'ruby-2.7.2@lupa-at'
 end
 
 # Put any custom commands you need to run at setup
@@ -61,7 +61,7 @@ task :deploy do
     on :launch do
       in_path(fetch(:current_path)) do
         # this command kills puma. systemd will restart it automatically
-        command %{/home/jakob/.rvm/wrappers/ruby-2.5.3@lupa-at/bundle exec pumactl --pidfile /var/www/lupa.at/shared/tmp/pids/puma.pid halt}
+        command %{/home/rails/.rvm/wrappers/ruby-2.7.2@lupa-at/bundle exec pumactl --pidfile /var/www/lupa.at/shared/tmp/pids/puma.pid halt}
       end
     end
   end
