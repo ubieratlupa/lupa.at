@@ -13,3 +13,114 @@
  *= require_tree .
  *= require_self
  */
+
+body {
+	font-family: Helvetica, sans-serif;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+	overflow-y: scroll;
+}
+  	
+a {
+	color: #266eaf;
+}
+
+a:visited {
+	color: #6b43b7;
+}
+	
+#lupa-title {
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	font-size: 25px;
+	font-weight: 800;
+	background: #fff;
+	color: #000;
+}
+
+#lupa-title img {
+	width: 80px;
+	height: 80px;
+	position: absolute;
+	left: 5px;
+	top: 4px;
+	z-index: 1000;
+	border: 0;
+}
+
+#lupa-title h1 {
+	font-weight: normal;
+	margin: 4px 6px 2px;
+	font-size: 24px;
+	float: left;
+}
+
+#lupa-title h2 {
+	font-family: Helvetica, sans-serif;
+	font-weight: 100;
+	margin: 6px 6px 3px;
+	font-size: 16px;
+	color: #4e4e4e;
+	float: right;
+	text-align: right;
+	line-height: 24px;
+}
+
+@media all and (max-width: 500px) {
+	#lupa-title h2 {
+		display: none;
+	}
+	#lupa-title img {
+		position: absolute;
+		left: 5px;
+		top: 5px;
+	}
+	#lupa-title h1 {
+		display: none;
+	}
+	
+	#lupa-menu {
+		padding-left: 80px;
+	}
+}
+
+@media all and (min-width: 501px) {
+	#lupa-title h1 {
+		display: none;
+	}
+	#lupa-menu {
+		padding-left: 70px;
+	}
+}
+
+#lupa-menu {
+	font-family: Helvetica;
+	font-weight: 100;
+	font-size: 15px;
+	clear: both;
+	text-align: center;
+	background: #eee;
+}
+
+#lupa-menu a {
+	display: inline-block;
+	text-decoration: none;
+	color: #666;
+	height: 19px;
+	padding: 8px 10px;
+	vertical-align: center;
+}
+
+#lupa-menu a.active {
+	color: black;
+	text-decoration: underline;
+}
+
+#content {
+	clear: both;
+	flex-grow: 1;
+	position: relative;
+}

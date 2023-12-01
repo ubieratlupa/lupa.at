@@ -23,26 +23,24 @@
 	padding: 3px 0;
 }
 
-#legend {
-	span {
-		padding: 6px;
-		+ span {
-			padding-left: 6px;
-		}
-		img {
-			margin-right: 5px;
-		}
-		cursor: pointer;
-	}
-	span:first-child {
-		padding-left: 12px;
-	}
-	span:last-child {
-		padding-right: 12px;
-	}
-	span.active {
-		text-decoration: underline;
-	}
+#legend span {
+	padding: 6px;
+	cursor: pointer;
+}
+#legend span + span {
+	padding-left: 6px;
+}
+#legend span img {
+	margin-right: 5px;
+}
+#legend span:first-child {
+	padding-left: 12px;
+}
+#legend span:last-child {
+	padding-right: 12px;
+}
+#legend span.active {
+	text-decoration: underline;
 }
 
 .breadcrumb {
