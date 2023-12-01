@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= @title || 'Ubi Erat Lupa' %></title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>   
+    <!--SPIDERGL-->
+    <script type="text/javascript" src="/3dhop/js/spidergl.js"></script>
+    <!--JQUERY-->
+    <script type="text/javascript" src="/3dhop/js/jquery.js"></script>
+    <!--PRESENTER-->
+    <script type="text/javascript" src="/3dhop/js/presenter.js"></script>
+    <!--3D MODELS LOADING AND RENDERING-->
+    <script type="text/javascript" src="/3dhop/js/nexus.js"></script>
+    <script type="text/javascript" src="/3dhop/js/ply.js"></script>
+    <!--TRACKBALLS-->
+    <script type="text/javascript" src="/3dhop/js/trackball_turntable.js"></script>
+    <script type="text/javascript" src="/3dhop/js/trackball_turntable_pan.js"></script>
+    <script type="text/javascript" src="/3dhop/js/trackball_pantilt.js"></script>
+    <script type="text/javascript" src="/3dhop/js/trackball_sphere.js"></script>
+    <!--UTILITY-->
+    <script type="text/javascript" src="/3dhop/js/init.js"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body style='overflow: hidden' onresize="resizeViewer()">
+	<%= yield %>
+</body>
+</html>

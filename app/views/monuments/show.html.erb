@@ -74,6 +74,11 @@
 					<img src="http://lupa.at/img/<%= url_encode photo.filename %>">
 				</a>
 			<% end %>
+            <% if @model_exists %>
+                <div>
+                    <a href="<%= url_for controller: 'monuments', action: 'view3D', id: @monument.id  %>">View 3D model</a>
+                </div>
+            <% end %>
 			<div class='caption'>
 				<% captions.each_with_index do | caption, index | %>
 					<p>

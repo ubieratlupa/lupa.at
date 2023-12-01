@@ -1,0 +1,24 @@
+#label-3dhop {
+    position: absolute; 
+    bottom: 0; 
+    right: 0; 
+    padding-right: 20px;
+    padding-bottom: 15px;
+}
+
+.view3D-header {
+    display: block;
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    background: rgba(0,0,0,0.8);
+    padding: 6px 36px 6px 8px;
+    color: #ccc;
+    border-radius: 4px;
+    max-width: 300px;
+    max-width: calc(min(300px, 100vw - 170px));
+}
+
+.view3D-header p {
+    margin: 0;
+}

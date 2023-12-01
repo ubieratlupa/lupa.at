@@ -1,0 +1,74 @@
+<div id="3dhop" class="tdhop" onmousedown="if (event.preventDefault) event.preventDefault()" >
+    <div class="view3D-header">
+        <p class="title">
+            <%= link_to monument_short_path(@monument) do %>
+                <%=@monument.id%> <span class="detail"><%=@monument.title%></span> 
+            <% end %>
+        </p>
+    </div>
+    <div id="toolbar">
+        <img id="home"       title="Home"                  src="/3dhop/skins/transparent_dark/home.png"         /><br/> 
+        <img id="zoomin"     title="Zoom In"               src="/3dhop/skins/transparent_dark/zoomin.png"       /><br/>
+        <img id="zoomout"    title="Zoom Out"              src="/3dhop/skins/transparent_dark/zoomout.png"      /><br/>
+        <img id="light_on"   title="Disable Light Control" src="/3dhop/skins/transparent_dark/lightcontrol_on.png" style="position:absolute; visibility:hidden;"/>
+        <img id="light"      title="Enable Light Control"  src="/3dhop/skins/transparent_dark/lightcontrol.png" /><br/>
+        <img id="full_on"    title="Exit Full Screen"      src="/3dhop/skins/transparent_dark/full_on.png"      style="position:absolute; visibility:hidden;"/>
+        <img id="full"       title="Full Screen"           src="/3dhop/skins/transparent_dark/full.png"         />
+    </div>
+    <div id="label-3dhop">
+        <i><a href='https://vcg.isti.cnr.it/3dhop/' target='blank' style='font-size:12t; color:#555; text-decoration:none'>Powered by 3DHOP</a></i>
+    </div>
+    <canvas id="draw-canvas" />
+</div>
+<script type="text/javascript">
+    var presenter = null;
+       
+    function setup3dhop() { 
+        presenter = new Presenter("draw-canvas");
+
+        presenter.setScene({
+            meshes: {
+                "mesh_1" : { url: "<%= '/3dm/' + @model_filename.to_s %>" }
+            },
+            modelInstances : {
+                "model_1" : { mesh : "mesh_1" }
+            },
+            trackball: { 
+                type : TurnTableTrackball,
+                trackOptions : {
+                    startPhi: 20.0,
+                    startTheta: 15.0,
+                    startDistance: 2.0,
+                    minMaxPhi: [-180, 180],
+                    minMaxTheta: [-85.0, 85.0],
+                    minMaxDist: [0.2, 3.5]
+                }
+            }
+        });
+    }
+
+    $(document).ready(function(){
+        init3dhop();
+        setup3dhop();
+        resizeViewer();
+    });
+
+    function resizeViewer() {
+        const num_buttons = 5;
+        moveToolbar(10, (window.innerHeight - num_buttons*60) / 2);
+    }
+
+    function actionsToolbar(action) {
+        if(action=='home')
+            presenter.resetTrackball();
+        else if(action=='zoomin') 
+            presenter.zoomIn();
+        else if(action=='zoomout') 
+            presenter.zoomOut(); 
+        else if(action=='light' || action=='light_on') { 
+            presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); } 
+        else if(action=='full'  || action=='full_on') 
+            fullscreenSwitch(); 
+    }
+
+</script>

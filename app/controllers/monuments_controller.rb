@@ -4,6 +4,8 @@ class MonumentsController < ApplicationController
     m_id = params[:id].to_i
     @monument = Monument.find(params[:id])
     @photos = @monument.photos.order(:ord, :id)
+    @file_path = Rails.root.join('public','3dm', @monument.id.to_s + ".nxz");
+    @model_exists = File.exist?(@file_path)
     find_next_prev(m_id)
     @title = @monument.id.to_s + ' ' + @monument.title
   end
@@ -97,5 +99,12 @@ class MonumentsController < ApplicationController
     @title = @monument.id.to_s + ' ' + @monument.title + " (Bilder)"
     render layout: 'photo'
   end
-  
+
+  # new action to load 3D model data
+  def view3D
+    @monument = Monument.find(params[:id])
+    @model_filename = @monument.id.to_s + ".nxz"
+    @title = @monument.id.to_s + ' ' + @monument.title + " (3D Modell)"
+    render layout: 'view3D'
+  end  
 end
