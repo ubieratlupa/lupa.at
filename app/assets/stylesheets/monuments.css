@@ -167,3 +167,20 @@ hr {
 	width: 9px;
 	height: 9px;
 }
+
+.view3Dbutton {
+    display: block;
+    padding: 6px 20px;
+    text-align: center;
+    text-decoration: none;
+    background-color: #ddd;
+    transition: 0.3s;
+	font-family: Helvetica;
+	font-weight: 100;
+	font-size: 18px;
+    color: black;
+    margin-bottom: 14px;
+}
+.view3Dbutton:hover {
+    background-color: #eee;
+}
