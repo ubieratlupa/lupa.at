@@ -234,7 +234,9 @@ GEM
 
 PLATFORMS
   arm64-darwin-23
+  ruby
   x64-unknown
+  x86_64-linux
 
 DEPENDENCIES
   byebug
