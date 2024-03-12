@@ -75,7 +75,7 @@
 				</a>
 			<% end %>
             <% if @model_exists %>
-                <a class='view3Dbutton' style='color:black' href="<%= url_for controller: 'monuments', action: 'view3D', id: @monument.id  %>">View in 3D</a>
+                <a class='view3Dbutton' style='color:black' href="<%= url_for controller: 'monuments', action: 'view3D', id: @monument.id  %>">3D-Ansicht</a>
             <% end %>
 			<div class='caption'>
 				<% captions.each_with_index do | caption, index | %>

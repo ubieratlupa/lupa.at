@@ -10,6 +10,8 @@
         <img id="home"       title="Home"                  src="/3dhop/skins/transparent_dark/home.png"         /><br/> 
         <img id="zoomin"     title="Zoom In"               src="/3dhop/skins/transparent_dark/zoomin.png"       /><br/>
         <img id="zoomout"    title="Zoom Out"              src="/3dhop/skins/transparent_dark/zoomout.png"      /><br/>
+        <img id="texture_on" title="Disable Texture"       src="/3dhop/skins/transparent_dark/texture_on.png" style="position:absolute; visibility:hidden;"/>
+        <img id="texture"    title="Enable Texture"        src="/3dhop/skins/transparent_dark/texture.png" /><br/>
         <img id="light_on"   title="Disable Light Control" src="/3dhop/skins/transparent_dark/lightcontrol_on.png" style="position:absolute; visibility:hidden;"/>
         <img id="light"      title="Enable Light Control"  src="/3dhop/skins/transparent_dark/lightcontrol.png" /><br/>
         <img id="measure_on" title="Disable Measure Tool"  src="/3dhop/skins/transparent_dark/measure_on.png"   style="position:absolute; visibility:hidden;"/>
@@ -25,7 +27,9 @@
 </div>
 <script type="text/javascript">
     var presenter = null;
-       
+    var activate_texture = false;   // texture coloring should be dactivated by default
+    const solid_model_color = [0.95, 0.9, 0.9];
+
     function setup3dhop() { 
         presenter = new Presenter("draw-canvas");
 
@@ -34,7 +38,11 @@
                 "mesh_1" : { url: "<%= '/3dm/' + @model_filename.to_s %>" }
             },
             modelInstances : {
-                "model_1" : { mesh : "mesh_1" }
+                "model_1" : { 
+                    mesh : "mesh_1",
+                    useSolidColor : true,
+                    color : solid_model_color
+                }
             },
             trackball: { 
                 type : TurnTableTrackball,
@@ -59,7 +67,7 @@
     });
 
     function resizeViewer() {
-        const num_buttons = 5;
+        const num_buttons = 6;
         moveToolbar(10, (window.innerHeight - num_buttons*60) / 2);
     }
 
@@ -70,6 +78,13 @@
             presenter.zoomIn();
         else if(action=='zoomout') 
             presenter.zoomOut(); 
+        else if(action=='texture' || action=='texture_on') { 
+            activate_texture = !activate_texture;
+            presenter.setInstanceSolidColorByName('model_1', !activate_texture, true, solid_model_color); 
+            // switch button
+            jQuery('#texture').css("visibility", activate_texture ? "hidden" : "visible");
+            jQuery('#texture_on').css("visibility", activate_texture ? "visible" : "hidden");
+         }
         else if(action=='light' || action=='light_on') { 
             presenter.enableLightTrackball(!presenter.isLightTrackballEnabled()); lightSwitch(); } 
         else if(action=='full'  || action=='full_on') 
