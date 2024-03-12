@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 7'
+gem 'rails', '~> 7.1.2'
 gem 'mina', :require => false
 gem 'pg'
 gem 'puma'
