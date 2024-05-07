@@ -1,0 +1,18 @@
+# /etc/systemd/system/puma-lupa.service
+
+[Unit]
+Description=Puma application server fur the lupa.at website
+Wants=postgresql.service
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/lupa.at/current
+Environment=RAILS_ENV=production SECRET_KEY_BASE=f2f9eeeac7b26088e13b23fb332e66d568a6f6daeda6ded1e2220462502d6f0eed3bb654f7ddd9a794ac236d2b1c4e1abc7b77b90466b7fe5b129210ba548d38
+PIDFile=/var/www/lupa.at/shared/tmp/pids/puma.pid
+User=rails
+ExecStart=/home/rails/.rvm/wrappers/ruby-2.7.8@lupa-at/bundle exec puma --bind unix:///var/www/lupa.at/shared/tmp/sockets/puma.sock --pidfile /var/www/lupa.at/shared/tmp/pids/puma.pid
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

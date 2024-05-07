@@ -1,0 +1,14 @@
+# /etc/systemd/system/watch-img.service
+
+Description=Observe /var/www/lupa.at/shared/img and insert any new files into the photos table
+
+[Service]
+Type=simple
+WorkingDirectory=/var/www/lupa.at/shared
+PIDFile=/var/www/lupa.at/shared/tmp/pids/watch_img.pid
+User=jakob
+Restart=always
+ExecStart=/var/www/lupa.at/shared/watch_img.sh
+
+[Install]
+WantedBy=multi-user.target
