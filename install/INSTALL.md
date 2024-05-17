@@ -14,5 +14,7 @@ apt install libyaml-dev
 
 bundle install
 
+chown -R :www-data /var/www
+chmod g+s /var/www
 
-
+adduser --system --shell /usr/sbin/nologin -g www-data rails
