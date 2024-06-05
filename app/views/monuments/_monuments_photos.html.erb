@@ -4,7 +4,7 @@
 		<div class="monument-photo-wrapper" title="<%= monument.id%> <%= monument.title %>">
 			<a class="monument-photo" href="<%= monument_short_path monument, source %>">
 				<% if photo = monument.photos.order(:ord).take %>
-					<div style="background-image: url(//lupa.at/img/<%= url_encode photo.filename %>);" class=photo></div>
+					<div style="background-image: url(/thumbnail/small/<%= url_encode photo.filename %>);" class=photo></div>
 				<% end %>
 			</a>
 		</div>

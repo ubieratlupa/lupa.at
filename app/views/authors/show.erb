@@ -26,7 +26,7 @@
 		<% @photos.each do | photo | %>
 			<%if photo.monument%>
 				<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
-					<div style="background-image: url(//lupa.at/img/<%= url_encode photo.filename %>);" class=photo></div>
+					<div style="background-image: url(/thumbnail/small/<%= url_encode photo.filename %>);" class=photo></div>
 				</a>
 			<% else %>
 				<% # hidden monument %>

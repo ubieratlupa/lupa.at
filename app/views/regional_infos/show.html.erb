@@ -2,7 +2,7 @@
 	<h1><%= @regional_info.name %></h1>
 	<p><%= nl2br @regional_info.text %></p>
 	<% @regional_info.photos.each_with_index do | photo, idx | %>
-		<p><img src="http://lupa.at/img/<%= url_encode photo.filename %>"></p>
+		<p><img src="/img/<%= url_encode photo.filename %>"></p>
 	<% end %>
 	<%= paginate @monuments_conserved %>
 	<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments_conserved } %>

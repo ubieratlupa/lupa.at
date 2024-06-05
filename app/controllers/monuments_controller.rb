@@ -87,7 +87,7 @@ class MonumentsController < ApplicationController
     @monument = Monument.find(params[:id])
     @all_photos = @monument.photos.order(:ord, :id).each_with_index.map do |photo, idx|
       { 
-        src: 'http://lupa.at/img/' + ERB::Util.url_encode(photo.filename),
+        src: '/img/' + ERB::Util.url_encode(photo.filename),
         number: photo.filename.sub(/\.jpe?g$/i, ''),
         caption: photo.caption,
         comment: photo.comment || "",
