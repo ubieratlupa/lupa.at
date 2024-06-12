@@ -8,7 +8,7 @@ module MonumentHelper
   end
   
   def canonical_url_for_monument(monument)
-    "http://lupa.at/#{monument.id}"
+    "https://lupa.at/#{monument.id}"
   end
     
   def link_to_place(place)
