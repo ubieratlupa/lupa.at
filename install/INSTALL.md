@@ -2,12 +2,15 @@ Installing Lupa on Ubuntu 24.04 LTS
 -----------------------------------
 
 
-apt install ruby-full
-apt install nginx
+vapt install nginx
+apt install libnginx-mod-http-image-filter
+
 apt install python3-certbot-nginx
+certbot certonly --manual --preferred-challenges dns -d lupa.at -d www.lupa.at -d vitus.lupa.at
 
 apt install postgresql
 
+apt install ruby-full
 apt install ubuntu-dev-tools
 apt install libpq-dev
 apt install libyaml-dev
