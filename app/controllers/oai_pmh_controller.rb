@@ -66,6 +66,7 @@ class OaiPmhProvider < OAI::Provider::Base
     repository_url 'https://lupa.at/oai'
     admin_email 'paul.bayer@lupa.at'
     record_prefix 'oai:lupa'
+    sample_id '456'
     source_model OaiFilteredActiveRecordWrapper.new(Monument, timestamp_field: 'modified', identifier_field: 'id')   
 
     @formats.delete("oai_dc")   # remove support for oai_dc
