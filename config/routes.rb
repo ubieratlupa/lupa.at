@@ -16,6 +16,9 @@ Rails.application.routes.draw do
   get 'about', to: 'pages#show', defaults: { id: 'lupa' }
   get 'about/:id', to: 'pages#show', as: :page
   
+  get 'oai', to: 'oai_pmh#index', via: [:get, :post]
+  
+
   resources :museums
   resources :collections
   resources :publications

@@ -9,6 +9,10 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem 'rqrcode'
 gem "sprockets-rails"
+gem 'rexml'
+gem 'oai'
+gem 'builder'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
