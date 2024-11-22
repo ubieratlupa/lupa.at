@@ -77,7 +77,7 @@ class Monument < ActiveRecord::Base
     # get exportable photos and 3d model
     exportable_photos = photos.where(copyright_id: [1, 11, 91])
     file_path_3dm = Rails.root.join("public", "3dm", id.to_s + ".nxz")
-    model3d_url = lupa_root_url + "/3dm/" + id.to_s + ".nxz"
+    model3d_viewer_url = monument_url + "/view3D/" 
     has_3d_model = File.exist?(file_path_3dm)
 
     
@@ -114,10 +114,9 @@ class Monument < ActiveRecord::Base
         xml.tag!("edm:type", has_3d_model ? "3D" : "IMAGE")         # (1..1) Medienkategorie des digitalen Objekts (Einzig mögliche Werte: IMAGE, TEXT, VIDEO, AUDIO, 3D)
         # at least one of the following 4 fields has to be provided!
         #xml.tag!("dc:subject", "...")                   # (0..n) Thema, das das Kulturgut darstellt oder behandelt
-        xml.tag!("dc:subject", "Archaeological artifact", "rdf:resource" => "http://www.wikidata.org/entity/Q220659")
-        xml.tag!("dc:subject", "Roman antiquities", "rdf:resource" => "http://id.loc.gov/authorities/subjects/sh85115119")
-        xml.tag!("dc:subject", "Stones (worked rock)", "rdf:resource" => "http://vocab.getty.edu/aat/300011176")
-        xml.tag!("dc:subject", "Stone carving", "rdf:resource" => "http://id.loc.gov/authorities/subjects/sh85128775")
+        xml.tag!("dc:subject", "rdf:resource" => "http://www.wikidata.org/entity/Q220659")
+        xml.tag!("dc:subject", "rdf:resource" => "https://www.wikidata.org/wiki/Q1747689")
+        xml.tag!("dc:subject", "rdf:resource" => "https://vocab.getty.edu/aat/300011717")
         xml.tag!("dc:type", object_type)            # (0..n) Begriff zur Beschreibung der spezifischen Art des Objekts (Angabe durch kontrolliertes Vokabular https://wissen.kulturpool.at/books/kontrollierte-vokabulare/page/einstieg-kontrollierte-vokabulare)
         #xml.tag!("dcterms:spatial", "...")         # (0..n) Räumliches Thema des Objekts
         # (0..n) Zeitliches Thema des Objekts
@@ -162,14 +161,14 @@ class Monument < ActiveRecord::Base
                 xml.tag!("dc:creator", authorStr)         # (0..n) Zur Erschaffung des digitalen Objekts beitragende Person (z. B. Fotograf:in)
             end
             xml.tag!("dc:rights", photo.copyright.copyright)  # (0..n) Name der Person oder Organisation, welche über die Rechte verfügt
-            xml.tag!("edm:rights", photo.copyright.copyright) # (0..1) Informationen zu Copyright und Nutzungsrechten (nur falls abweichend zum Nutzungsrecht im Aggregationsobjekt)
+            # xml.tag!("edm:rights", "http://creativecommons.org/licenses/by-nc/4.0/")   # (0..1) Informationen zu Copyright und Nutzungsrechten (nur falls abweichend zum Nutzungsrecht im Aggregationsobjekt)
             # (0..n) Größe oder Dauer der Ressource (z. B. 4000 × 3000 px)
             xml.tag!("dcterms:extent", photo.width.to_s + " x " + photo.height.to_s + " px") if photo.width && photo.height
         end
       end
       # export 3d models
       if has_3d_model
-        xml.tag!("edm:WebResource", "rdf:about" => model3d_url) do
+        xml.tag!("edm:WebResource", "rdf:about" => model3d_viewer_url) do
             # recommended fields
             xml.tag!("dc:type", "3D")           # (0..n) Medientyp des digitalen Objekts (z. B. Video)
             xml.tag!("dc:creator", "Paul Victor Bayer")     # (0..n) Zur Erschaffung des digitalen Objekts beitragende Person (z. B. Fotograf:in)
@@ -178,7 +177,7 @@ class Monument < ActiveRecord::Base
         end
       end
       #----------------------------------------------------------------------
-      xml.tag!("ore:Aggreation", "rdf:about" => aggregation) do
+      xml.tag!("ore:Aggregation", "rdf:about" => aggregation) do
       # REQUIRED fields for EDM
         xml.tag!("edm:aggregatedCHO", "rdf:resource" => providedCHO)  # (1..1) Verbindung zur Kulturgut-Klasse über eine URI oder einen lokalen Identifikator, siehe https://europeana.atlassian.net/wiki/spaces/EF/pages/2106294284/edm+ProvidedCHO
         xml.tag!("edm:dataProvider", "Ubi Erat Lupa")   # (1..1) Name der Institution, die die Daten für den Kulturpool zur Verfügung stellt
@@ -187,7 +186,7 @@ class Monument < ActiveRecord::Base
         if exportable_photos.exists?
             xml.tag!("edm:isShownBy", "rdf:resource" => lupa_root_url + "/img/" + exportable_photos.first.filename) 
         elsif has_3d_model
-            xml.tag!("edm:isShownBy", "rdf:resource" => model3d_url) 
+            xml.tag!("edm:isShownBy", "rdf:resource" => model3d_viewer_url) 
         #else
             # This should not happen since we only export if there are photos or a 3d model!
         end        
