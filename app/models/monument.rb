@@ -72,7 +72,7 @@ class Monument < ActiveRecord::Base
     lupa_root_url = "https://lupa.at"
     monument_url = lupa_root_url + "/" + id.to_s
     providedCHO = monument_url + "#ProvidedCHO"
-    aggregation = monument_url + "#Aggreagation"
+    aggregation = monument_url + "#Aggregation"
     
     # get exportable photos and 3d model
     exportable_photos = photos.where(copyright_id: [1, 11, 91])
@@ -183,16 +183,25 @@ class Monument < ActiveRecord::Base
         xml.tag!("edm:dataProvider", "Ubi Erat Lupa")   # (1..1) Name der Institution, die die Daten für den Kulturpool zur Verfügung stellt
         xml.tag!("edm:isShownAt", "rdf:resource" => monument_url)      # (0..1) Webadresse zum digitalen Objekt in vollem Kontext (Angabe als URL zur Seite mit Metadaten und Medienansicht)
         # (0..1) Webadresse zum digitalen Objekt, Link zur Mediendatei (z. B. URL zur Bilddatei). Nur ein Wert möglich, weitere Werte in Ansichten («edm:hasView») eintragen.
-        if exportable_photos.exists?
-            xml.tag!("edm:isShownBy", "rdf:resource" => lupa_root_url + "/img/" + exportable_photos.first.filename) 
-        elsif has_3d_model
+        # edm:isShownBy should show the primary digital representation, i.e., the 3D model if given, otherwise a photo [Kulturpool]
+        if has_3d_model
             xml.tag!("edm:isShownBy", "rdf:resource" => model3d_viewer_url) 
+        elsif exportable_photos.exists?
+            xml.tag!("edm:isShownBy", "rdf:resource" => lupa_root_url + "/img/" + exportable_photos.first.filename) 
         #else
             # This should not happen since we only export if there are photos or a 3d model!
         end        
-        xml.tag!("edm:rights", "rdf:resource" => "http://creativecommons.org/licenses/by-nc/4.0/")         # (1..1) (Copyright und Nutzungsrechte) des digitalen Objekts, Angabe als URI
-      # recommended fields
-        #xml.tag!("edm:hasView", "...")        # (0..n) Weitere Ressourcenadressen zum digitalen Objekt, etwa weitere Ansichten (z. B. Seitenansicht, Detailansicht)
+        # xml.tag!("edm:hasView", "...")        # (0..n) Weitere Ressourcenadressen zum digitalen Objekt, etwa weitere Ansichten (z. B. Seitenansicht, Detailansicht)
+        # Every WebResource above should be linked in the aggregation by an edm:hasView  [Kulturpool]
+        # since this is not required for the resource linked in isShownBy, which is always the 3D model if given, we only need to link the photos here
+        exportable_photos.each do |photo|
+            xml.tag!("edm:hasView", "rdf:resource" => lupa_root_url + "/img/" + photo.filename)
+        end
+        # edm:object should be one of the pictures that should be used as thumbnail [Kulturpool]
+        if exportable_photos.exists?
+            xml.tag!("edm:object", "rdf:resource" => lupa_root_url + "/img/" + exportable_photos.first.filename) 
+        end
+        xml.tag!("edm:rights", "rdf:resource" => "http://creativecommons.org/licenses/by-nc/4.0/")         # (1..1) (Copyright und Nutzungsrechte) des digitalen Objekts, Angabe als URI        
       end
     end
 
