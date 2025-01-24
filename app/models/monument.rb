@@ -161,7 +161,7 @@ class Monument < ActiveRecord::Base
                 xml.tag!("dc:creator", authorStr)         # (0..n) Zur Erschaffung des digitalen Objekts beitragende Person (z. B. Fotograf:in)
             end
             xml.tag!("dc:rights", photo.copyright.copyright)  # (0..n) Name der Person oder Organisation, welche über die Rechte verfügt
-            xml.tag!("edm:rights", photo.copyright.copyright)   # (0..1) Informationen zu Copyright und Nutzungsrechten (nur falls abweichend zum Nutzungsrecht im Aggregationsobjekt)
+            # xml.tag!("edm:rights", "rdf:resource" => "http://creativecommons.org/licenses/by-nc/4.0/")     # (0..1) Informationen zu Copyright und Nutzungsrechten (nur falls abweichend zum Nutzungsrecht im Aggregationsobjekt)
             # (0..n) Größe oder Dauer der Ressource (z. B. 4000 × 3000 px)
             xml.tag!("dcterms:extent", photo.width.to_s + " x " + photo.height.to_s + " px") if photo.width && photo.height
         end
@@ -173,7 +173,7 @@ class Monument < ActiveRecord::Base
             xml.tag!("dc:type", "3D")           # (0..n) Medientyp des digitalen Objekts (z. B. Video)
             xml.tag!("dc:creator", "Paul Victor Bayer")     # (0..n) Zur Erschaffung des digitalen Objekts beitragende Person (z. B. Fotograf:in)
             xml.tag!("dc:rights", "Ubi Erat Lupa")          # (0..n) Name der Person oder Organisation, welche über die Rechte verfügt
-            xml.tag!("edm:rights", "rdf:resource" => "http://creativecommons.org/licenses/by-nc/4.0/")          # (0..1) Informationen zu Copyright und Nutzungsrechten (nur falls abweichend zum Nutzungsrecht im Aggregationsobjekt)
+            # xml.tag!("edm:rights", "rdf:resource" => "http://creativecommons.org/licenses/by-nc/4.0/")          # (0..1) Informationen zu Copyright und Nutzungsrechten (nur falls abweichend zum Nutzungsrecht im Aggregationsobjekt)
         end
       end
       #----------------------------------------------------------------------
