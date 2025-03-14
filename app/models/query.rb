@@ -3,9 +3,18 @@ class Query < ActiveRecord::Base
   belongs_to :conservation_place, class_name: "Place", optional: true
   belongs_to :ancient_finding_place, class_name: "AncientPlace", optional: true
 
+  attr_accessor :has_3d_model   # virtual attribute of this query to filter by 3d model existence
+
   def matches
     ids = Rails.cache.fetch("query/#{id}/matching_ids", expires_in: 30.minutes) do
       matching_ids
+    end
+    if has_3d_model
+        # get list of all monument ids for which a 3d model exists
+        model_ids = Dir.glob(Rails.root.join("public/3dm/*.nxz"))
+                        .map { |path| File.basename(path, ".nxz").to_i }
+
+        ids &= model_ids  # intersect the query result id set with these model id set
     end
     Monument.where("id in (#{ids.join(",").presence || "0"})")
   end
@@ -185,7 +194,7 @@ class Query < ActiveRecord::Base
   end
  
   def self.allowed_search_parameters
-    return :object_type, :inscription_type, :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to
+    return :object_type, :inscription_type, :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to, :has_3d_model
   end
  
   def inscription_excerpt(monument)

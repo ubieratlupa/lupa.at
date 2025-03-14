@@ -4,6 +4,7 @@ class QueriesController < ApplicationController
 
   def show
     @query = Query.find(params[:id])
+    @query.has_3d_model = params[:has_3d_model] == "1"  # manually retrieve the has_3d_model flag from URL params
     @monuments = @query.matches.order(:id)
     
     @display_mode = params[:mode] || "list"
@@ -62,7 +63,8 @@ class QueriesController < ApplicationController
       p[:dating_to] = p[:dating_to].to_i
       p[:dating_to] = -p[:dating_to].abs if bc
     end
-    if p[:id_ranges] && p[:id_ranges].match(/^\s*\d+\s*$/) && Monument.exists?(p[:id_ranges])
+    if p[:id_ranges] && p[:id_ranges].match(/^\s*\d+\s*$/) && Monument.exists?(p[:id_ranges]) && 
+        (p[:has_3d_model] == "0" || File.exist?(Rails.root.join("public", "3dm", "#{p[:id_ranges]}.nxz")))   # deactivate this line if monuments of provided single ids should be diretly shown, even if the has_3d_model flag is checked although there is no 3d model
       redirect_to controller: "monuments", action: "show", id: Monument.find(p[:id_ranges])
     else
       begin
@@ -74,7 +76,8 @@ class QueriesController < ApplicationController
         # that should be small enough
         @query = Query.create(p)
       end
-      redirect_to @query
+      # manually pass on the has_3d_model flag over redirect via an URL param
+      redirect_to query_path(@query, has_3d_model: p[:has_3d_model])
     end
   end
   

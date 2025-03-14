@@ -5,12 +5,12 @@
 	<div class="query-inside">
 
 	<div class="query-box">
-		<%= label_tag(:id_range, "Nr") %>
+		<%= label_tag(:id_ranges, "Nr") %>
 		<%= text_field(:query, :id_ranges) %>
 	</div>
 
-	<div style="clear:both"></div>
-	
+    <div style="clear:both"></div>
+		
 	<div class="query-box">
 		<%= label_tag(:id_range, "Objekt-Typ, Denkmal-Typ") %>
 		<input autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" type="text" id="object_type" value="<%= query.object_type %>"> 
@@ -82,11 +82,18 @@
 		<!--<input type="submit" style="display: none"> -->
 	</div>
 	
-	<div class="query-box">
-		<%= label_tag(:museum, "Museum, Inventarnummer") %>
+	<div class="query-box-slim">
+		<%= label_tag(:museum, "Museum, Inventar-Nr.") %>
 		<%= text_field(:query, :museum) %> 
 	</div>
-	
+
+    <div class="query-box-slim">
+        <%= label_tag(:has_3d_model, "3D Modell") %>
+        <div class="check-box-slim">
+            <%= check_box(:query, :has_3d_model) %>
+        </div>
+    </div>
+
 	<div class="query-box-wide">
 		<%= label_tag(:literature, "Literatur, Online Literatur") %>
 		<%= text_field(:query, :literature) %> 
