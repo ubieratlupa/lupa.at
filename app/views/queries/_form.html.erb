@@ -89,12 +89,10 @@
 
     <div class="query-box-slim">
         <%= label_tag(:has_3d_model, "3D Modell") %>
-        <div class="check-box-slim">
-            <%= check_box(:query, :has_3d_model) %>
-        </div>
+        <%= check_box(:query, :has_3d_model) %>
     </div>
 
-	<div class="query-box-wide">
+    <div class="query-box-wide">
 		<%= label_tag(:literature, "Literatur, Online Literatur") %>
 		<%= text_field(:query, :literature) %> 
 	</div>
@@ -104,7 +102,6 @@
 		<%= text_field(:query, :fulltext) %>
 	</div>
 	
-
 	<div class="clearfloat"></div>
 
 	</div>
