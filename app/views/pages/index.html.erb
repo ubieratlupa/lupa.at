@@ -20,6 +20,9 @@
 		<span id="legend-conservation" onclick="showConservation()"><img src="<%= asset_path "marker-blue.png" %>">Verwahrorte</span>
 		<span id="legend-museums" onclick="showMuseums()"><img src="<%= asset_path "marker-museum.png" %>">Museen</span>
 	</div>
+	<div id='action-buttons'>
+		<span id="action-buttons-enlarge" onclick="enlargeMap()">Große Karte</span>
+	</div>
 </div>
 
 <script>
@@ -165,6 +168,13 @@
 			showFinding()
 		}
 		is_restoring = false
+	}
+	
+	function enlargeMap(evt) {
+		lat = map.getCenter().lat
+		lng = map.getCenter().lng
+		zoom = map.getZoom()
+		location.href = "/map#"+mapType+","+lat.toFixed(4)+","+lng.toFixed(4)+","+zoom
 	}
 </script>
 	
