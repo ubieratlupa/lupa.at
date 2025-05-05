@@ -37,14 +37,16 @@ class WebhooksController < ApplicationController
           VALUES ($1, $2, $3, $4, $5, $6)
         SQL
 
-        ActiveRecord::Base.connection.exec_params(sql, [
-          event_id,
-          bucket_name,
-          object_name,
-          event_type,
-          timestamp,
-          event.to_json
-        ])
+        binds = [
+          ActiveRecord::Relation::QueryAttribute.new("event_id", event_id, ActiveRecord::Type::String.new),
+          ActiveRecord::Relation::QueryAttribute.new("bucket_name", bucket_name, ActiveRecord::Type::String.new),
+          ActiveRecord::Relation::QueryAttribute.new("object_name", object_name, ActiveRecord::Type::String.new),
+          ActiveRecord::Relation::QueryAttribute.new("event_type", event_type, ActiveRecord::Type::String.new),
+          ActiveRecord::Relation::QueryAttribute.new("timestamp", timestamp, ActiveRecord::Type::DateTime.new),
+          ActiveRecord::Relation::QueryAttribute.new("payload", event.to_json, ActiveRecord::Type::Json.new)
+        ]
+
+        ActiveRecord::Base.connection.exec_insert(sql, "SQL", binds)
       end
     end
 
