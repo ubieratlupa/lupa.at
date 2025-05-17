@@ -88,7 +88,7 @@ body.photo-box {
 		right: 0;
 		width: 36px;
 		height: 36px;
-		background: image_url('close-icon-photo.png') 50% 50% no-repeat;
+		background: image-url('close-icon-photo.png') 50% 50% no-repeat;
 		background-size: 25px 25px;
 		font-size: 0;
 		opacity: 0.85;
@@ -97,7 +97,7 @@ body.photo-box {
 	.hide-details .toggle-detail {
 		top: 50%;
 		margin-top: -18px;
-		background: image_url('unclose-icon-photo.png') 50% 50% no-repeat;
+		background: image-url('unclose-icon-photo.png') 50% 50% no-repeat;
 		background-size: 25px 25px;
 	}
 	
@@ -271,12 +271,12 @@ body.photo-box {
 	
 	.photo-box .nav-buttons a[rel~="prev"] {
 		float: left;
-		background: image_url('arrow-left.png') 50% 50% no-repeat;
+		background: image-url('arrow-left.png') 50% 50% no-repeat;
 		background-size: 40px 40px;
 	}
 	.photo-box .nav-buttons a[rel~="next"] {
 		float: right;
-		background: image_url('arrow-right.png') 50% 50% no-repeat;
+		background: image-url('arrow-right.png') 50% 50% no-repeat;
 		background-size: 40px 40px;
 	}
 		

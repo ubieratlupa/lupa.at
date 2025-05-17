@@ -12,6 +12,7 @@ gem "sprockets-rails"
 gem 'rexml'
 gem 'oai'
 gem 'builder'
+gem 'sassc-rails'
 
 
 group :development, :test do

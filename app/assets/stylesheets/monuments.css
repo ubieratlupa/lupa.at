@@ -105,6 +105,10 @@ dt {
 	font-weight: 100;
 }
 
+p.footnote {
+    font-size: 14px;
+}
+
 .monument dd p {
 	margin: 0;
 }

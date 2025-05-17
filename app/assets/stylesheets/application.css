@@ -26,11 +26,13 @@ body {
 }
   	
 a {
-	color: #266eaf;
+	/*color: #266eaf;*/
+    color: inherit;
 }
 
 a:visited {
-	color: #6b43b7;
+	/*color: #6b43b7;*/
+    color: inherit;
 }
 	
 #lupa-title {
