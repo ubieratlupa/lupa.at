@@ -8,27 +8,178 @@
 	<p>
 		<%= nl2br @header_page.display_text %>
 	</p>
-	<% if @current_page.photo %>
-		<img src="/img/<%= url_encode @current_page.photo.filename %>">
-	<% end %>
-	<div class='photo-cards'>
-		<% @photos.each do | photo | %>
-			<%if photo.monument%>
-				<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
-					<div style="background-image: url(/thumbnail/small/<%= url_encode photo.filename %>);" class=photo></div>
-				</a>
-			<% else %>
-				<% # hidden monument %>
-			<% end %>
-		<% end %>
-		<div style='clear: both;'></div>
+	
+	
+<script src='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.js'></script>
+<link href='https://api.mapbox.com/mapbox.js/v3.2.0/mapbox.css' rel='stylesheet' />
+<style>
+</style>
+<div id='map' class="inline">
+	<div id='legend'>
+		<span id="legend-finding" onclick="showFinding()"><img src="<%= asset_path "marker.png" %>">Fundorte</span>
+		<span id="legend-conservation" onclick="showConservation()"><img src="<%= asset_path "marker-blue.png" %>">Verwahrorte</span>
+		<span id="legend-museums" onclick="showMuseums()"><img src="<%= asset_path "marker-museum.png" %>">Museen</span>
 	</div>
+	<div id='action-buttons'>
+		<span id="action-buttons-enlarge" onclick="enlargeMap()">Große Karte</span>
+	</div>
+</div>
+
+<script>
+	L.mapbox.accessToken = 'pk.eyJ1IjoiamFiYWtvYm9iIiwiYSI6ImNpZ200bTA5ZTAwZDd3OWt0anFqM2wwaGMifQ.Og5ScP-C8AV3I7JHDR0zHQ';
+	var map = L.mapbox.map('map')
+	L.mapbox.styleLayer('mapbox://styles/jabakobob/citeaxn1u00ac2hrzfnjg8398').addTo(map);
 	
-	<p>
-		<%= nl2br @current_page.display_text %>
-	</p>
 	
-	<p style="text-align: right;">
+	var markerIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker@2x.png" %>',
+	    iconSize: [9, 9],
+	});
+	
+	var markerBlueIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker-blue.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker-blue@2x.png" %>',
+	    iconSize: [9, 9],
+	});
+
+	var markerMuseumIcon = L.icon({
+	    iconUrl: '<%= asset_path "marker-museum.png" %>',
+	    iconRetinaUrl: '<%= asset_path "marker-museum@2x.png" %>',
+	    iconSize: [13, 13],
+	});
+	
+	var visibleMarkers = []
+	var scheduledMarkers = []
+	var mapType = "finding"
+	var lat = 47
+	var lng = 13.975
+	var zoom = 7
+		
+	function showMarkers() {
+		var mid = L.latLng(48.2, 16.4)
+		if (!map.getBounds().contains(mid)) {
+			mid = map.getCenter()
+		}
+		scheduledMarkers.sort(function(a,b){
+			return b.getLatLng().distanceTo(mid) - a.getLatLng().distanceTo(mid)
+		})
+		showMarkers2()
+	}
+	
+	var showMarkerTimeout
+	function showMarkers2() {
+		var i = 0;
+		for (i = 0; i<100; i++) {
+			var marker = scheduledMarkers.pop();
+			if (!marker) break;
+			marker.on('click',clickMarker).addTo(map);
+			visibleMarkers.push(marker)
+		}
+		if (scheduledMarkers.length) {
+			showMarkerTimeout = setTimeout(showMarkers2, 5);
+		}
+	}
+	
+	function showFinding() {
+		removeMarkers();
+		<% @places.each do |place| %>
+			scheduledMarkers.push(L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_finding", id: place %>"}))
+		<% end %>
+		showMarkers();
+		document.getElementById("legend-finding").className = "active"
+		document.getElementById("legend-conservation").className = ""
+		document.getElementById("legend-museums").className = ""
+		mapType = "finding"
+		saveMapState()
+	}
+	
+	
+	function showConservation() {
+		removeMarkers();
+		<% @conservation_places.each do |place| %>
+			scheduledMarkers.push(L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerBlueIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_conservation", id: place %>"}));
+		<% end %>
+		showMarkers();
+		document.getElementById("legend-finding").className = ""
+		document.getElementById("legend-conservation").className = "active"
+		document.getElementById("legend-museums").className = ""
+		mapType = "conservation"
+		saveMapState()
+	}
+	
+	function removeMarkers() {
+		clearTimeout(showMarkerTimeout)
+		var marker
+		while (marker = visibleMarkers.pop()) {
+			map.removeLayer(marker)
+		}
+		scheduledMarkers = []
+	}
+	
+	function showMuseums() {
+		removeMarkers();
+		<% @museum_places.each do |place| %>
+			scheduledMarkers.push(L.marker([<%= place.lat %>,<%= place.long %>], {icon: markerMuseumIcon, title: "<%= place.name %>", url: "<%= url_for controller: "places", action: "show_museums", id: place %>"}));
+		<% end %>
+		showMarkers();
+		document.getElementById("legend-finding").className = ""
+		document.getElementById("legend-conservation").className = ""
+		document.getElementById("legend-museums").className = "active"
+		mapType = "museums"
+		saveMapState()
+	}
+	
+	restoreMapState();
+	
+	function clickMarker(evt) { window.location = evt.target.options.url }
+	
+	is_restoring = false
+	map.on("moveend", saveMapState)
+	map.on("zoomend", saveMapState)
+	function saveMapState(evt) {
+		if (!is_restoring) {
+			lat = map.getCenter().lat
+			lng = map.getCenter().lng
+			zoom = map.getZoom()
+			history.replaceState({}, "", "#"+mapType+","+lat.toFixed(4)+","+lng.toFixed(4)+","+zoom);
+		}
+	}
+	
+	function restoreMapState() {
+		is_restoring = true
+		if (document.location.hash) {
+			params = document.location.hash.split(",")
+			if (params.length >= 4) {
+				mapType = params[0]
+				lat = params[1]
+				lng = params[2]
+				zoom = params[3]
+			}
+		}
+		map.setView([lat, lng], zoom)
+		if (mapType=="#conservation") {
+			showConservation()
+		}
+		else if (mapType=="#museums") {
+			showMuseums()
+		}
+		else {
+			showFinding()
+		}
+		is_restoring = false
+	}
+	
+	function enlargeMap(evt) {
+		lat = map.getCenter().lat
+		lng = map.getCenter().lng
+		zoom = map.getZoom()
+		location.href = "/map#"+mapType+","+lat.toFixed(4)+","+lng.toFixed(4)+","+zoom
+	}
+</script>
+	
+	
+	<p style="text-align: center;margin-top:2.5em;margin-bottom: 2.5em;">
 		<%= link_to "Steindenkmäler suchen", {:controller => 'monuments', :action => 'search'}, class: 'button'%>
 		&nbsp;
 		<%= link_to "Bilder bestellen", {:controller => 'pages', :action => 'show', :id => 'photos'}, class: 'button'%>

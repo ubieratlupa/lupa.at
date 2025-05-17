@@ -51,4 +51,6 @@ Rails.application.routes.draw do
     get 'photo', :on => :collection
   end
   
+  post '/webhooks/backblaze', to: 'webhooks#process_backblaze_notification'
+  
 end

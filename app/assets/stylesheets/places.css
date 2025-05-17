@@ -43,6 +43,38 @@
 	text-decoration: underline;
 }
 
+#action-buttons {
+	position: absolute;
+	bottom: 10px;
+	left: 10px;
+	z-index: 10000;
+	background: white;
+	border: 1px solid rgba(0,0,0,0.4);
+	border-radius: 4px;
+	padding: 3px 0;
+}
+
+#action-buttons span {
+	padding: 6px;
+	cursor: pointer;
+}
+#action-buttons span + span {
+	padding-left: 6px;
+}
+#action-buttons span img {
+	margin-right: 5px;
+}
+#action-buttons span:first-child {
+	padding-left: 12px;
+}
+#action-buttons span:last-child {
+	padding-right: 12px;
+}
+#action-buttons span.active {
+	text-decoration: underline;
+}
+
+
 .breadcrumb {
 	font-size: 11px;
 	font-weight: normal;
