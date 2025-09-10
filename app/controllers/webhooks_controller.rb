@@ -30,7 +30,7 @@ class WebhooksController < ApplicationController
         event_type = event['eventType']
         timestamp = Time.at(event['eventTimestamp'] / 1000.0)
 
-        sql = ActiveRecord::Base.send(:sanitize_sql_array, [
+        sql = ActiveRecord::Base.sanitize_sql([
           "INSERT INTO automation.backblaze_notifications (event_id, bucket_name, object_name, event_type, timestamp, payload) VALUES (?, ?, ?, ?, ?, ?)",
           event_id,
           bucket_name,
