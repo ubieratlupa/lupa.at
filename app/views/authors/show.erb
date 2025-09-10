@@ -25,7 +25,7 @@
 	<div class='photo-cards'>
 		<% @photos.each do | photo | %>
 			<%if photo.monument%>
-				<a class="photo-card" href="<%= monument_short_path photo.monument %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
+				<a class="photo-card" href="<%= monument_short_path photo.monument, {author: @author} %>" title="<%= photo.monument.id %> <%= photo.monument.title %>">
 					<div style="background-image: url(/thumbnail/small/<%= url_encode photo.filename %>);" class=photo></div>
 				</a>
 			<% else %>

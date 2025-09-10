@@ -35,6 +35,17 @@ class MonumentsController < ApplicationController
         Collection.find(c_id).title
       end
     end
+    a_id = params[:author].to_i
+    if a_id > 0
+      @source = {author: a_id}
+      ids = Rails.cache.fetch("author/#{a_id}/ids", expires_in: 30.minutes) do
+        Monument.where("id in (select monument_id from photos where author_id = ?)", a_id).order(:id => :desc).pluck(:id)
+      end
+      @source_name = Rails.cache.fetch("author/#{a_id}/name", expires_in: 30.minutes) do
+        a = Author.find(a_id)
+        a.first_name + " " + a.last_name
+      end
+    end
     if ids
       midx = ids.index(m_id)
       if midx
