@@ -1,42 +1,38 @@
-<div class="multi-page">
-	<div class="collection page">
-		<h1><%= @collection.title %></h1>
+<div class="collection page">
+	<h1><%= @collection.title %></h1>
+	<p><%= nl2br @collection.description %></p>
+	<% [@collection.link_1, @collection.link_2, @collection.link_3].compact.each do |link| %>
 		<p>
-			<% if @display_mode == "photos" %>
-				<%= pretty_monument_count(@monuments.total_count) %> mit Bild
-			<% elsif @display_mode == "map" %>
-				<%= pretty_monument_count(@monuments.count) %> mit Fundort-Koordinaten
-			<% elsif @display_mode == "place" %>
-				<%= pretty_monument_count(@monuments.count) %> aus <%= @place.name %>
+			<% if link.match(/https?:\/\//) %>
+				<a href="<%= link %>"><%= link %></a>
 			<% else %>
-				<%= pretty_monument_count(@monuments.total_count) %>
+				<%= link %>
 			<% end %>
 		</p>
-		<%= render partial: 'monuments/display_mode_selector', locals: { mode: @display_mode } %>
+	<% end %>
+	<p>
 		<% if @display_mode == "photos" %>
-			<%= paginate @monuments %>
-			<%= render partial: 'monuments/monuments_photos', locals: { monuments: @monuments, source: {collection: @collection} } %>
-			<%= paginate @monuments %>
+			<%= pretty_monument_count(@monuments.total_count) %> mit Bild
 		<% elsif @display_mode == "map" %>
-			<%= render partial: 'monuments/monuments_map', locals: { monuments: @monuments, source: {collection: @collection} } %>
+			<%= pretty_monument_count(@monuments.count) %> mit Fundort-Koordinaten
 		<% elsif @display_mode == "place" %>
-			<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments, source: {collection: @collection} } %>
+			<%= pretty_monument_count(@monuments.count) %> aus <%= @place.name %>
 		<% else %>
-			<%= paginate @monuments %>
-			<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments, source: {collection: @collection} } %>
-			<%= paginate @monuments %>
+			<%= pretty_monument_count(@monuments.total_count) %>
 		<% end %>
-	</div>
-	<div class="collection page">
-		<p><%= nl2br @collection.description %></p>
-		<% [@collection.link_1, @collection.link_2, @collection.link_3].compact.each do |link| %>
-			<p>
-				<% if link.match(/https?:\/\//) %>
-					<a href="<%= link %>"><%= link %></a>
-				<% else %>
-					<%= link %>
-				<% end %>
-			</p>
-		<% end %>
-	</div>
+	</p>
+	<%= render partial: 'monuments/display_mode_selector', locals: { mode: @display_mode } %>
+	<% if @display_mode == "photos" %>
+		<%= paginate @monuments %>
+		<%= render partial: 'monuments/monuments_photos', locals: { monuments: @monuments, source: {collection: @collection} } %>
+		<%= paginate @monuments %>
+	<% elsif @display_mode == "map" %>
+		<%= render partial: 'monuments/monuments_map', locals: { monuments: @monuments, source: {collection: @collection} } %>
+	<% elsif @display_mode == "place" %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments, source: {collection: @collection} } %>
+	<% else %>
+		<%= paginate @monuments %>
+		<%= render partial: 'monuments/monuments_list', locals: { monuments: @monuments, source: {collection: @collection} } %>
+		<%= paginate @monuments %>
+	<% end %>
 </div>
