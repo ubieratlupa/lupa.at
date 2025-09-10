@@ -1,7 +1,7 @@
 class CollectionsController < ApplicationController
   
   def index
-    @collections = Collection.find_by_sql("SELECT * FROM web_queries.collections_index ORDER BY place_name")
+    @collections = Collection.find_by_sql("SELECT * FROM web_queries.collections_index ORDER BY title")
     @page = Page.find('collections-index')
   end
   
