@@ -3,6 +3,8 @@ class Photo < ActiveRecord::Base
   belongs_to :author, optional: true
   belongs_to :monument, optional: true
   
+  default_scope { where(visible: true) }
+  
   def caption
     copyrights = []
     if self.copyright
