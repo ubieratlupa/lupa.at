@@ -41,6 +41,14 @@ class WebhooksController < ApplicationController
         ])
 
         ActiveRecord::Base.connection.execute(sql)
+        
+        if bucket_name == "lupa-jpg" and event_type.start_with? "b2:ObjectCreated"
+          if basename = object_name[/([^\/]+)\.\w+$/,1]
+            if photo = Photo.find_by(basename: basename)
+              photo.update(filename_for_download:"backblaze:#{bucket_name}/#{object_name}")
+            end
+          end
+        end
       end
     end
 
