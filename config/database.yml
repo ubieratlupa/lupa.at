@@ -9,7 +9,7 @@ default: &default
   encoding: unicode
   pool: 5
   timeout: 5000
-  schema_search_path: public, vocabulary
+  schema_search_path: public, vocabulary, x_rails_internal
 
 development:
   <<: *default
