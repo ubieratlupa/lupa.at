@@ -25,15 +25,38 @@ class BackblazeB2Service
     end
   end
   
+  def self.bucketId(bucketName)
+    Rails.cache.fetch("BackblazeB2Service.BucketID.#{bucketName}", expires_in: 12.hours) do
+      auth = self.authorisation
+      uri = URI::HTTPS.build(
+        host: ENV.fetch("B2_HOST"),
+        path: "/b2api/v4/b2_list_buckets"
+      )
+      arguments = {
+        accountId: auth.fetch("accountId"),
+        bucketName: bucketName
+      }
+      headers = {
+        Authorisation: auth.fetch('authorizationToken')
+      }
+      response = Net::HTTP.post(uri, arguments.to_json, headers)
+      body = JSON.parse(response.body)
+      unless response.is_a?(Net::HTTPSuccess)
+        Rails.logger.error("Backblaze Error Code #{body['code']}: #{body['message']}")
+        raise "HTTP #{response.code}" 
+      end
+      body["buckets"].first["bucketId"]
+    end
+  end
   
-  def self.download_url(bucket, path)
+  def self.download_url(bucketName, path)
     auth = self.authorisation
     uri = URI::HTTPS.build(
       host: ENV.fetch("B2_HOST"),
       path: "/b2api/v4/b2_get_download_authorization"
     )
     arguments = {
-      bucketName: bucket,
+      bucketId: self.bucketId(bucketName),
       fileNamePrefix: path,
       validDurationInSeconds: 3600
     }
@@ -48,6 +71,6 @@ class BackblazeB2Service
     end
     download_token = body.fetch("authorizationToken")
     base_url = auth['apiInfo']['storageApi']['downloadUrl']
-    "#{base_url}/file/#{bucket}/#{path}?Authorisation=#{download_token}"
+    "#{base_url}/file/#{bucketName}/#{path}?Authorisation=#{download_token}"
   end
 end
