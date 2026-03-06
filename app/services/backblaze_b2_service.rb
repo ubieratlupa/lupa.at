@@ -33,7 +33,7 @@ class BackblazeB2Service
       path: "/b2api/v4/b2_get_download_authorization"
     )
     arguments = {
-      bucketId: bucket,
+      bucketName: bucket,
       fileNamePrefix: path,
       validDurationInSeconds: 3600
     }
