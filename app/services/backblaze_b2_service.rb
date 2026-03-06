@@ -16,8 +16,12 @@ class BackblazeB2Service
         ENV.fetch("B2_PASSWORD")
       )
       response = http.request(request)
-      raise "HTTP #{response.code} #{JSON.parse(response.body).fetch('code')}" unless response.is_a?(Net::HTTPSuccess)
-      JSON.parse(response.body)
+      body = JSON.parse(response.body)
+      unless response.is_a?(Net::HTTPSuccess)
+        Rails.logger.error("Backblaze Error Code #{body['code']}: #{body['message']}")
+        raise "HTTP #{response.code}" 
+      end
+      body
     end
   end
   
@@ -34,11 +38,15 @@ class BackblazeB2Service
       validDurationInSeconds: 3600
     }
     headers = {
-      Authorisation: auth['authorizationToken']
+      Authorisation: auth.fetch('authorizationToken')
     }
     response = Net::HTTP.post(uri, arguments.to_json, headers)
-    raise "Backblaze HTTP #{response.code} #{JSON.parse(response.body).fetch('code')}" unless response.is_a?(Net::HTTPSuccess)
-    download_token = JSON.parse(response.body).fetch("authorizationToken")
+    body = JSON.parse(response.body)
+    unless response.is_a?(Net::HTTPSuccess)
+      Rails.logger.error("Backblaze Error Code #{body['code']}: #{body['message']}")
+      raise "HTTP #{response.code}" 
+    end
+    download_token = body.fetch("authorizationToken")
     base_url = auth['apiInfo']['storageApi']['downloadUrl']
     "#{base_url}/file/#{bucket}/#{path}?Authorisation=#{download_token}"
   end
