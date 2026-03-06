@@ -30,6 +30,7 @@ Rails.application.routes.draw do
     get 'suggestions/:field', :on => :collection, :action => 'suggestions'
   end
 
+  get 'download/:auth_code/:filename.:ext' => 'photos#download'
 
   get 'places/:id/finding' => 'places#show_finding'
   get 'places/:id/conservation' => 'places#show_conservation'
