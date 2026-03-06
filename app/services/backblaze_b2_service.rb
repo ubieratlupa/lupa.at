@@ -37,7 +37,7 @@ class BackblazeB2Service
         bucketName: bucketName
       }
       headers = {
-        Authorisation: auth.fetch('authorizationToken')
+        Authorization: auth.fetch('authorizationToken')
       }
       response = Net::HTTP.post(uri, arguments.to_json, headers)
       body = JSON.parse(response.body)
@@ -61,7 +61,7 @@ class BackblazeB2Service
       validDurationInSeconds: 3600
     }
     headers = {
-      Authorisation: auth.fetch('authorizationToken')
+      Authorization: auth.fetch('authorizationToken')
     }
     response = Net::HTTP.post(uri, arguments.to_json, headers)
     body = JSON.parse(response.body)
@@ -71,6 +71,6 @@ class BackblazeB2Service
     end
     download_token = body.fetch("authorizationToken")
     base_url = auth['apiInfo']['storageApi']['downloadUrl']
-    "#{base_url}/file/#{bucketName}/#{path}?Authorisation=#{download_token}"
+    "#{base_url}/file/#{bucketName}/#{path}?Authorization=#{download_token}"
   end
 end
