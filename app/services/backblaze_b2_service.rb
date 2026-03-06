@@ -16,7 +16,7 @@ class BackblazeB2Service
         ENV.fetch("B2_PASSWORD")
       )
       response = http.request(request)
-      raise "HTTP #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+      raise "HTTP #{response.code} #{JSON.parse(response.body).fetch('code')}" unless response.is_a?(Net::HTTPSuccess)
       JSON.parse(response.body)
     end
   end
@@ -37,7 +37,7 @@ class BackblazeB2Service
       Authorisation: auth['authorizationToken']
     }
     response = Net::HTTP.post(uri, arguments.to_json, headers)
-    raise "HTTP #{response.code}" unless response.is_a?(Net::HTTPSuccess)
+    raise "Backblaze HTTP #{response.code} #{JSON.parse(response.body).fetch('code')}" unless response.is_a?(Net::HTTPSuccess)
     download_token = JSON.parse(response.body).fetch("authorizationToken")
     base_url = auth['apiInfo']['storageApi']['downloadUrl']
     "#{base_url}/file/#{bucket}/#{path}?Authorisation=#{download_token}"
