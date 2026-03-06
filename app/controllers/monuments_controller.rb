@@ -43,7 +43,7 @@ class MonumentsController < ApplicationController
       end
       @source_name = Rails.cache.fetch("author/#{a_id}/name", expires_in: 30.minutes) do
         a = Author.find(a_id)
-        a.first_name + " " + a.last_name
+        "#{a.first_name} #{a.last_name}"
       end
     end
     if ids
