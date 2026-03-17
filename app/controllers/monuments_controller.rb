@@ -103,7 +103,8 @@ class MonumentsController < ApplicationController
         caption: photo.caption,
         comment: photo.comment || "",
         url: url_for( controller: 'monuments', action: 'photos', id: @monument.id, page: idx+1),
-        publication_permission_required: photo.copyright ? photo.copyright.publication_permission_required : true
+        publication_permission_required: photo.copyright ? photo.copyright.publication_permission_required : true,
+        download_link: photo.download_link if photo.show_download_link
       }
     end
     @curr_photo_index = params[:page].to_i - 1
