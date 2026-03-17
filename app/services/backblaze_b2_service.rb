@@ -58,7 +58,8 @@ class BackblazeB2Service
     arguments = {
       bucketId: self.bucketId(bucketName),
       fileNamePrefix: path,
-      validDurationInSeconds: 3600
+      validDurationInSeconds: 3600,
+      b2ContentDisposition: "attachment"
     }
     headers = {
       Authorization: auth.fetch('authorizationToken')
@@ -71,6 +72,6 @@ class BackblazeB2Service
     end
     download_token = body.fetch("authorizationToken")
     base_url = auth['apiInfo']['storageApi']['downloadUrl']
-    "#{base_url}/file/#{bucketName}/#{path}?Authorization=#{download_token}"
+    "#{base_url}/file/#{bucketName}/#{path}?Authorization=#{download_token}&b2ContentDisposition=attachment"
   end
 end
