@@ -12,7 +12,7 @@
 		<a href="<%= url_for controller: "pages", action: "show", id: "photos" %>">diese Informationen</a>.
 		<span class='permission-required'>Eine Publikationsgenehmigung des Copyright-Inhabers ist notwendig.</span>
 	</p>
-	<a id="photo-download-link" href="<%= @all_photos[@curr_photo_index][:download_link] %>" style="<% concat 'display:none;' unless @all_photos[@curr_photo_index][:download_link] %>">Download</a>
+	<a id="photo-download-link" class='detail download-link' href="<%= @all_photos[@curr_photo_index][:download_link] %>" style="<% concat 'display:none;' unless @all_photos[@curr_photo_index][:download_link] %>">Download</a>
 	<a href="javascript:togglePhotoDetails()" class="toggle-detail">hide / show detail info</a>
 </div>
 
