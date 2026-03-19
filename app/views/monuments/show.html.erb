@@ -56,7 +56,10 @@
 			captions = []
 			photo_numbers = []
 			@photos.each_with_index do | photo, photo_index |
-				caption = photo.caption
+				caption = nl2br photo.caption
+				if photo.show_download_link and photo.download_link
+					caption = caption + ' ' + link_to("Download", photo.download_link)
+				end
 				caption_index = captions.index caption
 				if caption_index
 					photo_numbers[caption_index].push photo_index+1
@@ -83,7 +86,7 @@
 						<% if captions.count > 1 %>
 							<%= raw photo_numbers[index].map{|a| '<span>'+h(a)+'</span>'}.join(' ')%>
 						<% end %>
-						<%= nl2br caption %>
+						<%= caption %>
 					</p>
 				<% end %>
 				<p>
