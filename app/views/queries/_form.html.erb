@@ -97,6 +97,20 @@
 		<%= text_field(:query, :fulltext) %>
 	</div>
 	
+	<div class="query-box-wide">
+		<div class="radios">
+			<%= radio_button(:query, :media_type, "") %>
+			<%= label(:query_media_type, "", "Alle Denkmäler suchen") %>
+			<%= radio_button(:query, :media_type, "photo") %>
+			<%= label(:query_media_type, :photo, "Denkmäler mit Bildern suchen") %>
+			<%= radio_button(:query, :media_type, "downloadable-photo") %>
+			<%= label(:query_media_type, "downloadable-photo", "Denkmäler mit sofort downloadbaren Bildern suchen") %>
+			<%= radio_button(:query, :media_type, "3d-model") %>
+			<%= label(:query_media_type, "3d-model", "Denkmäler mit 3D Modellen suchen") %>
+		</div>
+	</div>
+	
+	
 	<div class="clearfloat"></div>
 
 	</div>

@@ -181,11 +181,25 @@ class Query < ActiveRecord::Base
       matches = matches.where("coalesce(dating_to, phase_to) <= ?", dating_to)
     end
    
+    if media_type == "3d-model"
+        model_ids = Dir.glob(Rails.root.join("public/3dm/*.nxz")).map { |path| File.basename(path, ".nxz").to_i }
+        matches = matches.where("id in (#{model_ids.join(",").presence || "0"})")
+    end
+       
+    if media_type == "photo"
+      matches = matches.where("id in (select distinct monument_id from photos where visible)", photo)
+    end
+    
+    if media_type == "downloadable-photo"
+      matches = matches.where("id in (select distinct monument_id from photos where show_download_link and download_link is not null and visible)", photo)
+    end
+    
+   
     return matches.order(:id).pluck(:id)
   end
  
   def self.allowed_search_parameters
-    return :object_type, :inscription_type, :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to
+    return :object_type, :inscription_type, :keywords, :inscription, :id_ranges, :museum, :finding_place_id, :conservation_place_id, :literature, :ancient_finding_place_id, :photo, :dating, :fulltext, :dating_from, :dating_to, :media_type
   end
  
   def inscription_excerpt(monument)

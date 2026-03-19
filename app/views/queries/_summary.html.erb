@@ -92,6 +92,20 @@
 	<% if @query.fulltext %>
 		<p><strong>Volltext:</strong> <%= @query.fulltext %></p>
 	<% end %>
+		
+  <% if @query.media_type == "3d-model" %>
+		<p>Nur Denkmäler mit 3D Modell werden angezeigt</p>
+  <% end %>
+     
+  <% if @query.media_type == "photo" %>
+		<p>Nur Denkmäler mit Photos werden angezeigt</p>
+  <% end %>
+  
+  <% if @query.media_type == "downloadable-photo" %>
+		<p>Nur Denkmäler mit genehmigungsfrei downloadbaren Photos werden angezeigt</p>
+  <% end %>
+	
+	
 	
 	<% if @monuments %>
 		<p class="query-hits">

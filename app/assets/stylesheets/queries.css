@@ -50,7 +50,7 @@
 	margin-top: 50px;
 }
 
-.query-form label {
+.query-form label:first-child {
 	flex-grow: 0;
 	display: block;
 	margin: 0 0 5px 0;
@@ -76,6 +76,20 @@
 	border-radius: 2px;
 	background-color: #f9f9f9;
 	box-sizing: border-box;
+}
+
+.query-form input[type=radio] {
+  float: left;
+  clear: left;
+  margin-top: 10px;
+	font-size: 13px;
+}
+
+.query-form input[type=radio] + label {
+  float: left;
+
+  margin-top: 10px;
+	font-size: 13px;
 }
 
 @media all and (min-width: 500px) {
@@ -114,11 +128,6 @@
 		clear: left;
 	}
 	
-
-	.clearfloat{
-		clear: left;
-	}
-
 	.query-box {
 	}
 
@@ -179,4 +188,8 @@
 	font-size: 11px;
 	color: #aaa;
 	margin: 0;
+}
+
+.clearfloat{
+	clear: left;
 }
