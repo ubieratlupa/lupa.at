@@ -46,7 +46,12 @@ class WebhooksController < ApplicationController
           if basename = object_name[/([^\/]+)\.\w+$/,1]
             if photo = Photo.find_by(basename: basename)
               photo.update(filename_for_download:"backblaze:#{bucket_name}/#{object_name}")
+            else
+              monument_id = basename[/^(\d+)/,1]
+              ord = basename[/^\d+\D+(\d+)/,1]
+              photo = Photo.create(filename: basename+'.jpg', filename_for_download:"backblaze:#{bucket_name}/#{object_name}", monument_id: monument_id, ord: ord)
             end
+            ImageResizeJob.perform_later(photo.id)
           end
         end
       end
