@@ -39,7 +39,7 @@ class Photo < ActiveRecord::Base
   end
   
   def download_url
-    components = photo.filename_for_download.match(/\Abackblaze:([^\/]+)\/(.+)\z/)
+    components = self.filename_for_download.match(/\Abackblaze:([^\/]+)\/(.+)\z/)
     bucket = components[1]
     path = components[2]
     BackblazeB2Service.download_url(bucket, path)
