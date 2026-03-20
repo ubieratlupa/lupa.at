@@ -19,6 +19,10 @@ class ImageResizeJob < ApplicationJob
       raise "Image Resize failed for #{photo.basename}"
     end
     
+    width = `gm identify -format '%w' /var/www/upload/img/#{Shellwords.escape(filename)}`.to_i
+    height = `gm identify -format '%h' /var/www/upload/img/#{Shellwords.escape(filename)}`.to_i
+    photo.update(width: width, height: height)
+    
   end
   
 end
