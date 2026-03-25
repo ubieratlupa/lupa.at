@@ -7,7 +7,7 @@ class ImageResizeJob < ApplicationJob
     photo = Photo.find(photo_id)
     
     download_url = photo.download_url
-    filename = photo.filename
+    filename = photo.basename + '.jpg'
     
     stdout, stderr, status = Open3.capture3("curl -L #{Shellwords.escape(download_url)} | gm convert -size 2000x2000 - -background white -flatten -resize '2000x2000>' +profile '*' /var/www/upload/img/#{Shellwords.escape(filename)}")
 
@@ -21,7 +21,7 @@ class ImageResizeJob < ApplicationJob
     
     width = `gm identify -format '%w' /var/www/upload/img/#{Shellwords.escape(filename)}`.to_i
     height = `gm identify -format '%h' /var/www/upload/img/#{Shellwords.escape(filename)}`.to_i
-    photo.update(width: width, height: height)
+    photo.update(width: width, height: height, filename: filename)
     
   end
   
