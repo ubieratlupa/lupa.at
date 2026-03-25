@@ -4,7 +4,7 @@ require 'shellwords'
 class ImageResizeJob < ApplicationJob
     
   def perform(photo_id)
-    photo = Photo.find(photo_id)
+    photo = Photo.unscoped.find(photo_id)
     
     download_url = photo.download_url
     filename = photo.basename + '.jpg'
