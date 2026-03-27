@@ -9,7 +9,7 @@ class ImageResizeJob < ApplicationJob
     download_url = photo.download_url
     filename = photo.basename + '.jpg'
     
-    convert_command = "curl --no-progress-meter -L #{Shellwords.escape(download_url)} | gm convert -size 2000x2000 - -background white -flatten -resize '2000x2000>' +profile '*' /var/www/upload/img/#{Shellwords.escape(filename)}"
+    convert_command = "curl --no-progress-meter -L #{Shellwords.escape(download_url)} | gm convert - -background white -flatten -resize '2000x2000>' +profile '*' /var/www/upload/img/#{Shellwords.escape(filename)}"
     stdout, stderr, status = Open3.capture3(convert_command)
 
     Rails.logger.info "Image Resize Command Output: #{stdout}" unless stdout.empty?
