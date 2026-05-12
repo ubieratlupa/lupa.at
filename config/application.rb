@@ -10,6 +10,8 @@ module LupaAt
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.0
+    
+    config.active_support.cache_format_version = 7.0
 
     # Configuration for the application, engines, and railties goes here.
     #
