@@ -72,6 +72,7 @@ class BackblazeB2Service
     end
     download_token = body.fetch("authorizationToken")
     base_url = auth['apiInfo']['storageApi']['downloadUrl']
-    "#{base_url}/file/#{bucketName}/#{path}?Authorization=#{download_token}&b2ContentDisposition=attachment"
+    encoded_path = path.split('/').map{URI.encode_uri_component(_1)}.join('/')
+    "#{base_url}/file/#{bucketName}/#{encoded_path}?Authorization=#{download_token}&b2ContentDisposition=attachment"
   end
 end
