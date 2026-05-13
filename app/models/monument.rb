@@ -75,7 +75,7 @@ class Monument < ActiveRecord::Base
     aggregation = monument_url + "#Aggregation"
     
     # get exportable photos (in order) and 3d model
-    exportable_photos = photos.where(copyright_id: [1, 11, 91]).order(:ord, :id)
+    exportable_photos = photos.where(copyright_id: [1, 11, 91]).order(:ord, :filename)
     file_path_3dm = Rails.root.join("public", "3dm", id.to_s + ".nxz")
     model3d_viewer_url = monument_url + "/view3D/" 
     has_3d_model = File.exist?(file_path_3dm)

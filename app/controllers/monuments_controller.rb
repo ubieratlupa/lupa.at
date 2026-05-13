@@ -3,7 +3,7 @@ class MonumentsController < ApplicationController
   def show
     m_id = params[:id].to_i
     @monument = Monument.find(params[:id])
-    @photos = @monument.photos.order(:ord, :id)
+    @photos = @monument.photos.order(:ord, :filename)
     @file_path = Rails.root.join('public','3dm', @monument.id.to_s + ".nxz");
     @model_exists = File.exist?(@file_path)
     find_next_prev(m_id)
@@ -96,7 +96,7 @@ class MonumentsController < ApplicationController
       return
     end
     @monument = Monument.find(params[:id])
-    @all_photos = @monument.photos.order(:ord, :id).each_with_index.map do |photo, idx|
+    @all_photos = @monument.photos.order(:ord, :filename).each_with_index.map do |photo, idx|
       { 
         src: '/img/' + ERB::Util.url_encode(photo.filename),
         number: photo.filename.sub(/\.jpe?g$/i, ''),
