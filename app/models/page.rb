@@ -1,11 +1,14 @@
+require 'redcarpet'
+
 class Page < ActiveRecord::Base
   belongs_to :photo, optional: true
   
-  def display_text
+  def display_html
     display_text = text || ''
     display_text.gsub! "NUMBER_OF_PHOTOS", Photo.all.size.to_s if display_text.match("NUMBER_OF_PHOTOS")
     display_text.gsub! "NUMBER_OF_MONUMENTS", Monument.all.size.to_s if display_text.match("NUMBER_OF_MONUMENTS")
-    display_text
+    markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML, autolink: true, tables: true)
+    markdown.render(display_text).html_safe
   end
   
   def display_title

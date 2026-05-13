@@ -17,6 +17,6 @@
 		<img src="/img/<%= url_encode @current_page.photo.filename %>">
 	<% end %>
 	<p>
-		<%= nl2br @current_page.display_text %>
+		<%= @current_page.display_html %>
 	</p>
 </div>
