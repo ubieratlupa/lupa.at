@@ -208,4 +208,13 @@ class Monument < ActiveRecord::Base
     # Return the generated XML as a string
     xml.target!
   end
+  
+  def download_path_3dm
+    ActiveRecord::Base.connection.select_value(
+      ActiveRecord::Base.sanitize_sql_array([
+        "select path from automation.backblaze_files where bucket_name = 'lupa-3d' and basename=? and extension='zip'",
+        id.to_s
+      ])
+    )
+  end
 end

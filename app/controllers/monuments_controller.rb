@@ -119,4 +119,13 @@ class MonumentsController < ApplicationController
     @title = @monument.id.to_s + ' ' + @monument.title + " (3D Modell)"
     render layout: 'view3D'
   end  
+  
+  def download3D
+    monument = Monument.find(params[:id])
+    components = monument.download_path_3dm.match(/\Abackblaze:([^\/]+)\/(.+)\z/)
+    bucket = components[1]
+    path = components[2]
+    download_url = BackblazeB2Service.download_url(bucket, path)
+    redirect_to download_url
+  end  
 end

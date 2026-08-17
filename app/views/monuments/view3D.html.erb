@@ -5,6 +5,9 @@
                 <%=@monument.id%> <span class="detail"><%=@monument.title%></span> 
             <% end %>
         </p>
+						<% if @monument.download_path_3dm %>
+							<%= link_to "Download", {:controller => 'monuments', :action => 'download3D', :id => @monument.id}, class: 'detail download-link'%>
+						<% end %>
     </div>
     <div id="toolbar">
         <img id="home"       title="Home"                  src="/3dhop/skins/transparent_dark/home.png"         /><br/> 
